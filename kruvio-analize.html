@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Darbuotojų krūvio analizės langas – Gyvūnų klonavimo sistema</title>
+    <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/navigacija.js" defer></script>
+</head>
+<body>
+    <nav class="meniu" id="meniu"></nav>
+    <main style="--posistemes-spalva: var(--ugne)">
+        <div class="antraste">
+            <span class="posisteme">Darbuotojų valdymas</span>
+            <h1>Darbuotojų krūvio analizės langas</h1>
+        </div>
+        <div id="pranesimas"></div>
+        <div class="kortele">
+            <p>Sistema įvertins laboratorijos specialistams priskirtus aktyvius klonavimus, jų kiekį, trukmę ir etatą.</p>
+            <div class="mygtukai">
+                <button class="mygtukas" data-eiti="kruvio-analize.html" data-pranesimas="Darbo krūvio suvestinė suformuota.">Atlikti analizę</button>
+                <a class="mygtukas antrinis" href="darbuotojai.html">Grįžti</a>
+            </div>
+        </div>
+        <div class="kortele">
+            <div class="lenteles-virsus">
+                <strong>Darbo krūvio suvestinė</strong>
+                <div class="mygtukai">
+
+                </div>
+            </div>
+            <div class="slinktis">
+                <table>
+                    <thead><tr><th>Darbuotojas</th><th>Aktyvūs klonavimai</th><th>Bendra trukmė (d.)</th><th>Etatas</th><th>Darbo krūvis (%)</th><th>Užimtumo lygis</th></tr></thead>
+                    <tbody><tr><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="legenda">
+            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
+            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
+            <span style="--c: var(--pijus)">Pijus Buknys</span>
+            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
+            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
+        </div>
+    </footer>
+</body>
+</html>

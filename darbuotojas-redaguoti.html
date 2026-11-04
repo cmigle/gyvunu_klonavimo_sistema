@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Darbuotojo redagavimo langas – Gyvūnų klonavimo sistema</title>
+    <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/navigacija.js" defer></script>
+</head>
+<body>
+    <nav class="meniu" id="meniu"></nav>
+    <main style="--posistemes-spalva: var(--ugne)">
+        <div class="antraste">
+            <span class="posisteme">Darbuotojų valdymas</span>
+            <h1>Darbuotojo redagavimo langas</h1>
+        </div>
+        <div id="pranesimas"></div>
+        <form class="kortele" data-tikslas="darbuotojas.html" data-pranesimas="Darbuotojo duomenys atnaujinti." novalidate>
+            <div class="tinklelis">
+                <div class="laukas">
+                    <label for="vardas">Vardas</label>
+                    <input id="vardas" name="vardas" type="text" required>
+                </div>
+                <div class="laukas">
+                    <label for="pavarde">Pavardė</label>
+                    <input id="pavarde" name="pavarde" type="text" required>
+                </div>
+                <div class="laukas">
+                    <label for="telefono_numeris">Telefono numeris</label>
+                    <input id="telefono_numeris" name="telefono_numeris" type="tel" required>
+                </div>
+                <div class="laukas">
+                    <label for="el_pastas">El. paštas</label>
+                    <input id="el_pastas" name="el_pastas" type="email" required>
+                </div>
+                <div class="laukas">
+                    <label for="etatas">Etatas</label>
+                    <input id="etatas" name="etatas" type="number" required step="0.25" min="0.25" max="1">
+                </div>
+                <div class="laukas">
+                    <label for="role">Rolė</label>
+                    <select id="role" name="role" required>
+                        <option value="">– pasirinkite –</option>
+                        <option value="Laboratorijos specialistas">Laboratorijos specialistas</option>
+                        <option value="Administratorius">Administratorius</option>
+                    </select>
+                </div>
+                <div class="laukas">
+                    <label for="licencijos_numeris">Licencijos numeris</label>
+                    <input id="licencijos_numeris" name="licencijos_numeris" type="text">
+                </div>
+            </div>
+            <div class="mygtukai">
+                <button type="submit" class="mygtukas">Išsaugoti</button>
+            <a class="mygtukas antrinis" href="darbuotojas.html">Atšaukti</a>
+            </div>
+        </form>
+    </main>
+    <footer>
+        <div class="legenda">
+            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
+            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
+            <span style="--c: var(--pijus)">Pijus Buknys</span>
+            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
+            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
+        </div>
+    </footer>
+</body>
+</html>
