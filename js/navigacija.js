@@ -117,19 +117,24 @@ function paruostiIstrynima() {
             <button class="mygtukas antrinis" id="istrinti-ne">Atšaukti</button>
         </div>`;
     document.body.appendChild(langas);
-    let tikslas = "", pranesimas = "";
+    let tikslas = "", pranesimas = "", atsijungti = false;
 
     document.querySelectorAll("[data-istrinti]").forEach(mygtukas => {
         mygtukas.addEventListener("click", e => {
             e.preventDefault();
             tikslas = mygtukas.dataset.istrinti;
             pranesimas = mygtukas.dataset.pranesimas || "Įrašas ištrintas.";
+            atsijungti = mygtukas.dataset.atsijungti !== undefined;
             langas.querySelector("#istrinti-tekstas").textContent =
                 `Ar tikrai norite ištrinti ${mygtukas.dataset.objektas || "šį įrašą"}? Šio veiksmo atšaukti negalima.`;
             langas.showModal();
         });
     });
-    langas.querySelector("#istrinti-taip").onclick = () => eiti(tikslas, pranesimas);
+    langas.querySelector("#istrinti-taip").onclick = () => {
+        // Ištrynus savo paskyrą naudotojas atjungiamas
+        if (atsijungti) nustatytiRole("");
+        eiti(tikslas, pranesimas);
+    };
     langas.querySelector("#istrinti-ne").onclick = () => langas.close();
 }
 
