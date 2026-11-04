@@ -18,6 +18,8 @@
 }
 
 * { box-sizing: border-box; }
+/* Kitaip .plyteles { display: grid } nustelbia hidden atributą */
+[hidden] { display: none !important; }
 
 body {
     margin: 0;
