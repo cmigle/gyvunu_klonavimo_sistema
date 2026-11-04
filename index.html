@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pradinis langas – Gyvūnų klonavimo sistema</title>
+    <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/navigacija.js" defer></script>
+</head>
+<body>
+    <nav class="meniu" id="meniu"></nav>
+    <main style="--posistemes-spalva: var(--sistema)">
+        <div class="antraste">
+            <span class="posisteme">Gyvūnų klonavimo sistema</span>
+            <h1>Pradinis langas</h1>
+        </div>
+        <div id="pranesimas"></div>
+        <div class="kortele" data-rolei="svecias">
+            <p>Sveiki atvykę į gyvūnų klonavimo sistemą. Norėdami tęsti, prisijunkite arba užsiregistruokite.</p>
+            <div class="mygtukai">
+                <a class="mygtukas" href="prisijungimas.html">Prisijungti</a>
+                <a class="mygtukas antrinis" href="registracija.html">Registruotis</a>
+            </div>
+        </div>
+
+        <div class="plyteles" data-rolei="klientas">
+            <a class="plytele" style="--spalva: var(--migle)" href="profilis.html"><strong>Mano profilis</strong><span>Kliento duomenys ir istorijos patikrinimas</span></a>
+            <a class="plytele" style="--spalva: var(--migle)" href="augintiniai.html"><strong>Mano augintiniai</strong><span>Augintinių ir jų dokumentų valdymas</span></a>
+            <a class="plytele" style="--spalva: var(--vytaute)" href="uzsakymai.html"><strong>Užsakymai</strong><span>Klonavimo užsakymų kūrimas ir patvirtinimas</span></a>
+        </div>
+
+        <div class="plyteles" data-rolei="specialistas">
+            <a class="plytele" style="--spalva: var(--vytaute)" href="uzsakymai.html"><strong>Užsakymai</strong><span>Užsakymų ir dokumentų peržiūra</span></a>
+            <a class="plytele" style="--spalva: var(--evelina)" href="dnr.html"><strong>DNR pavyzdžiai</strong><span>Pavyzdžių registravimas, rezultatai, tinkamumas</span></a>
+            <a class="plytele" style="--spalva: var(--pijus)" href="inkubatoriai.html"><strong>Inkubatoriai</strong><span>Inkubatorių valdymas ir priskyrimas</span></a>
+        </div>
+
+        <div class="plyteles" data-rolei="administratorius">
+            <a class="plytele" style="--spalva: var(--ugne)" href="darbuotojai.html"><strong>Darbuotojai</strong><span>Darbuotojų profilių valdymas</span></a>
+            <a class="plytele" style="--spalva: var(--ugne)" href="kruvio-analize.html"><strong>Krūvio analizė</strong><span>Darbuotojų darbo krūvio suvestinė</span></a>
+        </div>
+    </main>
+    <footer>
+        <div class="legenda">
+            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
+            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
+            <span style="--c: var(--pijus)">Pijus Buknys</span>
+            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
+            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
+        </div>
+    </footer>
+</body>
+</html>
