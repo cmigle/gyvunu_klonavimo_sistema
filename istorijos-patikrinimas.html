@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kliento istorijos patikrinimo langas – Gyvūnų klonavimo sistema</title>
+    <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/navigacija.js" defer></script>
+</head>
+<body>
+    <nav class="meniu" id="meniu"></nav>
+    <main style="--posistemes-spalva: var(--migle)">
+        <div class="antraste">
+            <span class="posisteme">Kliento ir augintinio valdymas</span>
+            <h1>Kliento istorijos patikrinimo langas</h1>
+        </div>
+        <div id="pranesimas"></div>
+        <p class="kortele">Jūsų teistumo istorija bus patikrinta per CourtListener API. Įveskite asmens duomenis.</p>
+        <form class="kortele" data-tikslas="istorijos-rezultatas.html" data-pranesimas="" novalidate>
+            <div class="tinklelis">
+                <div class="laukas">
+                    <label for="vardas">Vardas</label>
+                    <input id="vardas" name="vardas" type="text" required>
+                </div>
+                <div class="laukas">
+                    <label for="pavarde">Pavardė</label>
+                    <input id="pavarde" name="pavarde" type="text" required>
+                </div>
+                <div class="laukas">
+                    <label for="asmens_kodas">Asmens kodas</label>
+                    <input id="asmens_kodas" name="asmens_kodas" type="text" required pattern="[0-9]{11}" title="11 skaitmenų">
+                </div>
+                <div class="laukas">
+                    <label for="gimimo_data">Gimimo data</label>
+                    <input id="gimimo_data" name="gimimo_data" type="date" required>
+                </div>
+            </div>
+            <div class="mygtukai">
+                <button type="submit" class="mygtukas">Tikrinti</button>
+            <a class="mygtukas antrinis" href="profilis.html">Atšaukti</a>
+            </div>
+        </form>
+    </main>
+    <footer>
+        <div class="legenda">
+            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
+            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
+            <span style="--c: var(--pijus)">Pijus Buknys</span>
+            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
+            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
+        </div>
+    </footer>
+</body>
+</html>
