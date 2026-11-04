@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dokumento redagavimo langas – Gyvūnų klonavimo sistema</title>
+    <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/navigacija.js" defer></script>
+</head>
+<body>
+    <nav class="meniu" id="meniu"></nav>
+    <main style="--posistemes-spalva: var(--migle)">
+        <div class="antraste">
+            <span class="posisteme">Kliento ir augintinio valdymas</span>
+            <h1>Dokumento redagavimo langas</h1>
+        </div>
+        <div id="pranesimas"></div>
+        <form class="kortele" data-tikslas="dokumentas.html" data-pranesimas="Dokumentas atnaujintas." novalidate>
+            <div class="tinklelis">
+                <div class="laukas">
+                    <label for="pavadinimas">Pavadinimas</label>
+                    <input id="pavadinimas" name="pavadinimas" type="text" required>
+                </div>
+                <div class="laukas">
+                    <label for="dokumento_tipas">Dokumento tipas</label>
+                    <select id="dokumento_tipas" name="dokumento_tipas" required>
+                        <option value="">– pasirinkite –</option>
+                        <option value="Kilmės sertifikatas">Kilmės sertifikatas</option>
+                        <option value="Sutartis">Sutartis</option>
+                        <option value="Veterinarinis pasas">Veterinarinis pasas</option>
+                        <option value="Kita">Kita</option>
+                    </select>
+                </div>
+                <div class="laukas">
+                    <label for="galiojimo_data">Galiojimo data</label>
+                    <input id="galiojimo_data" name="galiojimo_data" type="date" required>
+                </div>
+                <div class="laukas">
+                    <label for="failas">Naujas failas (neprivaloma)</label>
+                    <input id="failas" name="failas" type="file" accept=".pdf,.jpg,.jpeg,.png">
+                </div>
+            </div>
+            <div class="mygtukai">
+                <button type="submit" class="mygtukas">Išsaugoti</button>
+            <a class="mygtukas antrinis" href="dokumentas.html">Atšaukti</a>
+            </div>
+        </form>
+    </main>
+    <footer>
+        <div class="legenda">
+            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
+            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
+            <span style="--c: var(--pijus)">Pijus Buknys</span>
+            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
+            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
+        </div>
+    </footer>
+</body>
+</html>
