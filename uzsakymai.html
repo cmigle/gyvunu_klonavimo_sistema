@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Užsakymų sąrašo langas – Gyvūnų klonavimo sistema</title>
+    <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/navigacija.js" defer></script>
+</head>
+<body>
+    <nav class="meniu" id="meniu"></nav>
+    <main style="--posistemes-spalva: var(--vytaute)">
+        <div class="antraste">
+            <span class="posisteme">Užsakymo valdymas</span>
+            <h1>Užsakymų sąrašo langas</h1>
+        </div>
+        <div id="pranesimas"></div>
+        <div class="kortele">
+            <div class="lenteles-virsus">
+                <span></span>
+                <div class="mygtukai">
+                <a class="mygtukas" href="uzsakymas-kurti.html">+ Sukurti užsakymą</a>
+                <a class="mygtukas antrinis" href="index.html">Į pradinį langą</a>
+                </div>
+            </div>
+            <div class="slinktis">
+                <table>
+                    <thead><tr><th>Nr.</th><th>Augintinis</th><th>Kaina</th><th>Sukūrimo data</th><th>Būsena</th><th>Patvirtinimo data</th><th>Veiksmai</th></tr></thead>
+                    <tbody><tr><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td class="veiksmai"><a class="mygtukas mazas antrinis" href="uzsakymas.html">Peržiūrėti</a> <a class="mygtukas mazas antrinis" href="uzsakymas-redaguoti.html">Redaguoti</a> <a class="mygtukas mazas antrinis" href="uzsakymo-patvirtinimas.html">Patvirtinti</a> <button class="mygtukas pavojingas mazas" data-istrinti="uzsakymai.html" data-objektas="šį užsakymą" data-pranesimas="Užsakymas ištrintas.">Ištrinti</button></td></tr></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="legenda">
+            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
+            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
+            <span style="--c: var(--pijus)">Pijus Buknys</span>
+            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
+            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
+        </div>
+    </footer>
+</body>
+</html>
