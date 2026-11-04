@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DNR pavyzdžio peržiūros langas – Gyvūnų klonavimo sistema</title>
+    <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/navigacija.js" defer></script>
+</head>
+<body>
+    <nav class="meniu" id="meniu"></nav>
+    <main style="--posistemes-spalva: var(--evelina)">
+        <div class="antraste">
+            <span class="posisteme">DNR pavyzdžio valdymas</span>
+            <h1>DNR pavyzdžio peržiūros langas</h1>
+        </div>
+        <div id="pranesimas"></div>
+        <div class="kortele">
+        <dl class="duomenys">
+            <dt>Pavyzdžio ID</dt><dd>–</dd>
+            <dt>Augintinis</dt><dd>–</dd>
+            <dt>Paėmimo data</dt><dd>–</dd>
+            <dt>Saugojimo temperatūra</dt><dd>–</dd>
+            <dt>DNR koncentracija (ng/µl)</dt><dd>–</dd>
+            <dt>Tirpalo tūris (ml)</dt><dd>–</dd>
+            <dt>Baltymų tarša (A260/280)</dt><dd>–</dd>
+            <dt>DIN vertė</dt><dd>–</dd>
+            <dt>Ląstelių gyvybingumas (%)</dt><dd>–</dd>
+            <dt>Tinkamumas</dt><dd>–</dd>
+        </dl>
+        </div>
+        <div class="mygtukai">
+            <a class="mygtukas" href="dnr-redaguoti.html">Redaguoti</a>
+            <a class="mygtukas antrinis" href="dnr-rezultatai.html">Įvesti rezultatus</a>
+            <a class="mygtukas antrinis" href="dnr-tinkamumas.html">Nustatyti tinkamumą</a>
+            <a class="mygtukas antrinis" href="dnr.html">Grįžti į sąrašą</a>
+            <button class="mygtukas pavojingas" data-istrinti="dnr.html" data-objektas="šį DNR pavyzdį" data-pranesimas="DNR pavyzdys ištrintas.">Ištrinti</button>
+        </div>
+    </main>
+    <footer>
+        <div class="legenda">
+            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
+            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
+            <span style="--c: var(--pijus)">Pijus Buknys</span>
+            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
+            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
+        </div>
+    </footer>
+</body>
+</html>
