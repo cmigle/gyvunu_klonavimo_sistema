@@ -11,26 +11,26 @@ const ROLES = {
 // Meniu punktai kiekvienai rolei
 const MENIU = {
     svecias: [
-        ["index.html", "Pradinis"],
+        ["index.html", "Pradžia"],
         ["prisijungimas.html", "Prisijungti"],
         ["registracija.html", "Registruotis"]
     ],
     klientas: [
-        ["index.html", "Pradinis"],
+        ["index.html", "Pagrindinis"],
         ["profilis.html", "Mano profilis"],
         ["augintiniai.html", "Mano augintiniai"],
         ["uzsakymai.html", "Užsakymai"],
         ["atsijungimas.html", "Atsijungti"]
     ],
     specialistas: [
-        ["index.html", "Pradinis"],
+        ["index.html", "Pagrindinis"],
         ["uzsakymai.html", "Užsakymai"],
         ["dnr.html", "DNR pavyzdžiai"],
         ["inkubatoriai.html", "Inkubatoriai"],
         ["atsijungimas.html", "Atsijungti"]
     ],
     administratorius: [
-        ["index.html", "Pradinis"],
+        ["index.html", "Pagrindinis"],
         ["darbuotojai.html", "Darbuotojai"],
         ["kruvio-analize.html", "Krūvio analizė"],
         ["atsijungimas.html", "Atsijungti"]
@@ -39,7 +39,7 @@ const MENIU = {
 
 // Langų hierarchija: puslapis -> [trumpas pavadinimas, tėvinis langas]
 const LANGAI = {
-    "index.html": ["Pradinis"],
+    "index.html": ["Pradžia"],
     "prisijungimas.html": ["Prisijungimas", "index.html"],
     "registracija.html": ["Registracija", "index.html"],
     "atsijungimas.html": ["Atsijungimas", "index.html"],
@@ -151,15 +151,25 @@ function pieštiMeniu() {
 // Naršymo kelias virš lango antraštės
 function pieštiKelia() {
     const main = document.querySelector("main");
-    const grandine = kelias(dabartinisPuslapis(), gautiRole());
+    const role = gautiRole();
+    const grandine = kelias(dabartinisPuslapis(), role);
     if (!main || grandine.length < 2) return;
+    // Prisijungusiam pradinis langas vadinamas „Pagrindinis“, kaip ir meniu
+    const pavadinimas = p => p === "index.html" && role ? "Pagrindinis" : LANGAI[p][0];
     const nav = document.createElement("nav");
     nav.className = "kelias";
     nav.setAttribute("aria-label", "Naršymo kelias");
     nav.innerHTML = grandine.map((p, i) => i === grandine.length - 1
-        ? `<span aria-current="page">${LANGAI[p][0]}</span>`
-        : `<a href="${p}">${LANGAI[p][0]}</a>`).join('<span aria-hidden="true"> › </span>');
+        ? `<span aria-current="page">${pavadinimas(p)}</span>`
+        : `<a href="${p}">${pavadinimas(p)}</a>`).join('<span aria-hidden="true"> › </span>');
     main.prepend(nav);
+}
+
+// Svečiui – „Pradžios langas“, prisijungusiam – „Pagrindinis langas“
+function pavadintiPradiniLanga() {
+    const pavadinimas = gautiRole() ? "Pagrindinis langas" : "Pradžios langas";
+    document.querySelectorAll("[data-pradinis]").forEach(el => { el.textContent = pavadinimas; });
+    if (dabartinisPuslapis() === "index.html") document.title = `${pavadinimas} – Gyvūnų klonavimo sistema`;
 }
 
 function rodytiPranesima() {
@@ -262,6 +272,7 @@ function rodytiPlyteles() {
 document.addEventListener("DOMContentLoaded", () => {
     pieštiMeniu();
     pieštiKelia();
+    pavadintiPradiniLanga();
     rodytiPranesima();
     paruostiFormas();
     paruostiIstrynima();
