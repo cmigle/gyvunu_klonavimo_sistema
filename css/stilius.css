@@ -1,0 +1,186 @@
+/* Gyvūnų klonavimo sistema – GUI prototipas */
+:root {
+    --fonas: #f4f5f7;
+    --kortele: #ffffff;
+    --tekstas: #1f2933;
+    --blankus: #616e7c;
+    --kontrastas: #2f3e4e;
+    --linija: #d9dde3;
+    --klaida: #b42318;
+    --sekme: #1e7a3c;
+    /* Komandos spalvinė legenda */
+    --vytaute: #ccffcc;
+    --evelina: #ffcccc;
+    --pijus: #ccccff;
+    --ugne: #99ccff;
+    --migle: #ffff99;
+    --sistema: #ffcc99;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--fonas);
+    color: var(--tekstas);
+    font-size: 15px;
+}
+
+/* Viršutinis meniu */
+.meniu {
+    background: var(--kontrastas);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 16px;
+    flex-wrap: wrap;
+}
+.meniu .logotipas {
+    color: #fff;
+    font-weight: bold;
+    margin-right: 16px;
+    padding: 14px 0;
+    text-decoration: none;
+}
+.meniu a.punktas {
+    color: #dfe3e8;
+    text-decoration: none;
+    padding: 14px 10px;
+}
+.meniu a.punktas:hover { background: rgba(255, 255, 255, .12); color: #fff; }
+.meniu .role {
+    margin-left: auto;
+    color: #b9c1cb;
+    font-size: 13px;
+}
+
+main {
+    max-width: 1000px;
+    margin: 24px auto;
+    padding: 0 16px;
+}
+
+/* Lango antraštė su posistemės spalva */
+.antraste {
+    background: var(--kortele);
+    border-left: 10px solid var(--posistemes-spalva, var(--sistema));
+    padding: 14px 18px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .06);
+}
+.antraste h1 { margin: 4px 0 0; font-size: 22px; }
+.antraste .posisteme {
+    display: inline-block;
+    font-size: 12px;
+    background: var(--posistemes-spalva, var(--sistema));
+    padding: 2px 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, .15);
+}
+
+.kortele {
+    background: var(--kortele);
+    padding: 18px;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .06);
+    margin-bottom: 16px;
+}
+
+/* Pranešimai */
+.pranesimas {
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    background: #e7f6ec;
+    color: var(--sekme);
+    border: 1px solid #b7e1c3;
+}
+.pranesimas.klaida { background: #fdecea; color: var(--klaida); border-color: #f5c2bd; }
+
+/* Formos */
+form .laukas { margin-bottom: 14px; }
+form label { display: block; font-weight: bold; margin-bottom: 4px; font-size: 14px; }
+form input, form select, form textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--linija);
+    border-radius: 4px;
+    font: inherit;
+    background: #fff;
+}
+form input[type=checkbox] { width: auto; margin-right: 6px; }
+form .laukas.zymimasis label { display: flex; align-items: center; font-weight: normal; }
+.tinklelis { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0 18px; }
+
+/* Mygtukai */
+.mygtukai { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.mygtukas, button {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 4px;
+    border: 1px solid var(--kontrastas);
+    background: var(--kontrastas);
+    color: #fff;
+    text-decoration: none;
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+}
+.mygtukas.antrinis { background: #fff; color: var(--kontrastas); }
+.mygtukas.pavojingas { background: var(--klaida); border-color: var(--klaida); color: #fff; }
+.mygtukas.mazas { padding: 4px 8px; font-size: 13px; }
+
+/* Lentelės */
+table { width: 100%; border-collapse: collapse; background: #fff; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--linija); font-size: 14px; }
+th { background: #eef1f4; }
+td.veiksmai { white-space: nowrap; }
+td.veiksmai .mygtukas { margin-right: 4px; }
+.lenteles-virsus { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 8px; flex-wrap: wrap; }
+.slinktis { overflow-x: auto; }
+
+/* Peržiūros langai */
+dl.duomenys { display: grid; grid-template-columns: 220px 1fr; gap: 8px 16px; margin: 0; }
+dl.duomenys dt { font-weight: bold; color: var(--blankus); }
+dl.duomenys dd { margin: 0; }
+
+/* Pradinio lango plytelės */
+.plyteles { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+.plytele {
+    display: block;
+    background: #fff;
+    border-top: 6px solid var(--spalva);
+    padding: 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--tekstas);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .08);
+}
+.plytele:hover { box-shadow: 0 2px 8px rgba(0, 0, 0, .15); }
+.plytele strong { display: block; margin-bottom: 4px; }
+.plytele span { color: var(--blankus); font-size: 13px; }
+
+/* Ištrynimo patvirtinimo langas */
+dialog { border: none; border-radius: 6px; padding: 22px; max-width: 420px; box-shadow: 0 8px 30px rgba(0, 0, 0, .3); }
+dialog::backdrop { background: rgba(0, 0, 0, .4); }
+dialog h2 { margin-top: 0; font-size: 18px; }
+
+/* Legenda */
+footer { max-width: 1000px; margin: 30px auto; padding: 0 16px; font-size: 12px; color: var(--blankus); }
+.legenda { display: flex; gap: 14px; flex-wrap: wrap; }
+.legenda span::before {
+    content: "";
+    display: inline-block;
+    width: 12px; height: 12px;
+    margin-right: 5px;
+    vertical-align: -1px;
+    border: 1px solid rgba(0, 0, 0, .3);
+    background: var(--c);
+}
+
+@media (max-width: 600px) {
+    dl.duomenys { grid-template-columns: 1fr; }
+    dl.duomenys dd { margin-bottom: 8px; }
+}
