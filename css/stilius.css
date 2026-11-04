@@ -57,6 +57,15 @@ body {
     color: #b9c1cb;
     font-size: 13px;
 }
+.meniu .role select {
+    margin-left: 4px;
+    padding: 3px 6px;
+    border: 1px solid #5a6b7d;
+    border-radius: 4px;
+    background: var(--kontrastas);
+    color: #fff;
+    font: inherit;
+}
 
 main {
     max-width: 1000px;

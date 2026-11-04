@@ -101,7 +101,10 @@ function kelias(puslapis, role) {
 }
 
 function gautiRole() {
-    try { return localStorage.getItem("role") || ""; } catch (e) { return ""; }
+    try {
+        const role = localStorage.getItem("role");
+        return ROLES[role] ? role : "";
+    } catch (e) { return ""; }
 }
 
 function nustatytiRole(role) {
@@ -134,7 +137,14 @@ function pieštiMeniu() {
     };
     nav.innerHTML = '<a class="logotipas" href="index.html">Gyvūnų klonavimo sistema</a>' +
         punktai.map(punktas).join("") +
-        `<span class="role">${role ? ROLES[role] : "Svečias"}</span>`;
+        '<label class="role" title="Tik prototipe: rolės perjungimas be prisijungimo">Rolė <select>' +
+        ["", ...Object.keys(ROLES)].map(r =>
+            `<option value="${r}"${r === role ? " selected" : ""}>${ROLES[r] || "Svečias"}</option>`).join("") +
+        "</select></label>";
+    nav.querySelector(".role select").addEventListener("change", e => {
+        nustatytiRole(e.target.value);
+        location.reload();
+    });
 }
 
 // Naršymo kelias virš lango antraštės
