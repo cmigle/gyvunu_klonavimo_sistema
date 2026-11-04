@@ -74,6 +74,8 @@ function rodytiPranesima() {
     if (!tekstas) return;
     vieta.innerHTML = `<div class="pranesimas${p.get("klaida") ? " klaida" : ""}"></div>`;
     vieta.firstChild.textContent = tekstas;
+    // Pašalinamas iš adreso, kad atnaujinus ar grįžus atgal nesikartotų
+    history.replaceState(null, "", location.pathname);
 }
 
 function klaida(tekstas) {
