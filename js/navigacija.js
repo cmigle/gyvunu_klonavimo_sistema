@@ -80,7 +80,8 @@ const LANGAI = {
     "darbuotojas-redaguoti.html": ["Redagavimas", "darbuotojas.html"],
     "darbuotojo-tyrimai.html": ["Tyrimai", "darbuotojas.html"],
     "tyrimas.html": ["Tyrimas", "darbuotojo-tyrimai.html"],
-    "kruvio-analize.html": ["Krūvio analizė", "index.html"]
+    "kruvio-analize.html": ["Krūvio analizė", "index.html"],
+    "langai.html": ["Visi langai", "index.html"]
 };
 
 function dabartinisPuslapis() {
@@ -126,7 +127,7 @@ function pieštiMeniu() {
     const nav = document.getElementById("meniu");
     if (!nav) return;
     const role = gautiRole();
-    const punktai = MENIU[role] || MENIU["svecias"];
+    const punktai = [...(MENIU[role] || MENIU["svecias"]), ["langai.html", "Visi langai"]];
     // Pažymimas meniu punktas, kurio skyriuje yra dabartinis langas
     const puslapis = dabartinisPuslapis();
     const aktyvus = puslapis === "index.html" ? puslapis : kelias(puslapis, role).reverse()
