@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inkubatoriaus būsenos redagavimo langas – Gyvūnų klonavimo sistema</title>
+    <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/navigacija.js" defer></script>
+</head>
+<body>
+    <nav class="meniu" id="meniu"></nav>
+    <main style="--posistemes-spalva: var(--pijus)">
+        <div class="antraste">
+            <span class="posisteme">Inkubatorių valdymas</span>
+            <h1>Inkubatoriaus būsenos redagavimo langas</h1>
+        </div>
+        <div id="pranesimas"></div>
+        <form class="kortele" data-tikslas="inkubatorius.html" data-pranesimas="Inkubatoriaus būsena atnaujinta." novalidate>
+            <div class="tinklelis">
+                <div class="laukas">
+                    <label for="busena">Būsena</label>
+                    <select id="busena" name="busena" required>
+                        <option value="">– pasirinkite –</option>
+                        <option value="Laisvas">Laisvas</option>
+                        <option value="Užimtas">Užimtas</option>
+                        <option value="Techninė priežiūra">Techninė priežiūra</option>
+                    </select>
+                </div>
+                <div class="laukas">
+                    <label for="tisline_temperatura">Tikslinė temperatūra (°C)</label>
+                    <input id="tisline_temperatura" name="tisline_temperatura" type="number" required step="0.1">
+                </div>
+                <div class="laukas">
+                    <label for="co2_procentas">CO₂ (%)</label>
+                    <input id="co2_procentas" name="co2_procentas" type="number" required step="0.1" min="0" max="100">
+                </div>
+                <div class="laukas">
+                    <label for="o2_procentas">O₂ (%)</label>
+                    <input id="o2_procentas" name="o2_procentas" type="number" required step="0.1" min="0" max="100">
+                </div>
+                <div class="laukas">
+                    <label for="ph_lygis">pH lygis</label>
+                    <input id="ph_lygis" name="ph_lygis" type="number" required step="0.01" min="0" max="14">
+                </div>
+            </div>
+            <div class="mygtukai">
+                <button type="submit" class="mygtukas">Išsaugoti</button>
+            <a class="mygtukas antrinis" href="inkubatorius.html">Atšaukti</a>
+            </div>
+        </form>
+    </main>
+    <footer>
+        <div class="legenda">
+            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
+            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
+            <span style="--c: var(--pijus)">Pijus Buknys</span>
+            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
+            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
+        </div>
+    </footer>
+</body>
+</html>

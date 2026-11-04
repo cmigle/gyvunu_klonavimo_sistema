@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inkubatoriaus parametrų peržiūros langas – Gyvūnų klonavimo sistema</title>
+    <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/navigacija.js" defer></script>
+</head>
+<body>
+    <nav class="meniu" id="meniu"></nav>
+    <main style="--posistemes-spalva: var(--pijus)">
+        <div class="antraste">
+            <span class="posisteme">Inkubatorių valdymas</span>
+            <h1>Inkubatoriaus parametrų peržiūros langas</h1>
+        </div>
+        <div id="pranesimas"></div>
+        <div class="kortele">
+        <dl class="duomenys">
+            <dt>Modelis</dt><dd>–</dd>
+            <dt>Serijinis numeris</dt><dd>–</dd>
+            <dt>Tikslinė temperatūra (°C)</dt><dd>–</dd>
+            <dt>Talpa</dt><dd>–</dd>
+            <dt>CO₂ (%)</dt><dd>–</dd>
+            <dt>O₂ (%)</dt><dd>–</dd>
+            <dt>pH lygis</dt><dd>–</dd>
+            <dt>Būsena</dt><dd>–</dd>
+        </dl>
+        </div>
+        <div class="mygtukai">
+            <a class="mygtukas" href="inkubatorius-busena.html">Redaguoti būseną</a>
+            <a class="mygtukas antrinis" href="inkubatoriai.html">Grįžti į sąrašą</a>
+            <button class="mygtukas pavojingas" data-istrinti="inkubatoriai.html" data-objektas="šį inkubatorių" data-pranesimas="Inkubatorius ištrintas.">Ištrinti</button>
+        </div>
+        <div class="kortele">
+            <div class="lenteles-virsus">
+                <strong>Inkubatoriaus matavimai</strong>
+                <div class="mygtukai">
+
+                </div>
+            </div>
+            <div class="slinktis">
+                <table>
+                    <thead><tr><th>Matavimo data</th><th>Temperatūra (°C)</th><th>Drėgmė (%)</th></tr></thead>
+                    <tbody><tr><td>–</td><td>–</td><td>–</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="legenda">
+            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
+            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
+            <span style="--c: var(--pijus)">Pijus Buknys</span>
+            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
+            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
+        </div>
+    </footer>
+</body>
+</html>
