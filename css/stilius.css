@@ -64,6 +64,10 @@ main {
     padding: 0 16px;
 }
 
+/* Naršymo kelias */
+.kelias { font-size: 13px; color: var(--blankus); margin-bottom: 8px; }
+.kelias a { color: var(--kontrastas); }
+
 /* Lango antraštė su posistemės spalva */
 .antraste {
     background: var(--kortele);

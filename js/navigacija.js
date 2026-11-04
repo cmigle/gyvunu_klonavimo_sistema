@@ -137,6 +137,20 @@ function pieštiMeniu() {
         `<span class="role">${role ? ROLES[role] : "Svečias"}</span>`;
 }
 
+// Naršymo kelias virš lango antraštės
+function pieštiKelia() {
+    const main = document.querySelector("main");
+    const grandine = kelias(dabartinisPuslapis(), gautiRole());
+    if (!main || grandine.length < 2) return;
+    const nav = document.createElement("nav");
+    nav.className = "kelias";
+    nav.setAttribute("aria-label", "Naršymo kelias");
+    nav.innerHTML = grandine.map((p, i) => i === grandine.length - 1
+        ? `<span aria-current="page">${LANGAI[p][0]}</span>`
+        : `<a href="${p}">${LANGAI[p][0]}</a>`).join('<span aria-hidden="true"> › </span>');
+    main.prepend(nav);
+}
+
 function rodytiPranesima() {
     const vieta = document.getElementById("pranesimas");
     if (!vieta) return;
@@ -236,6 +250,7 @@ function rodytiPlyteles() {
 
 document.addEventListener("DOMContentLoaded", () => {
     pieštiMeniu();
+    pieštiKelia();
     rodytiPranesima();
     paruostiFormas();
     paruostiIstrynima();
