@@ -5,48 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Prisijungimo langas – Gyvūnų klonavimo sistema</title>
     <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
     <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
 </head>
 <body>
     <nav class="meniu" id="meniu"></nav>
-    <main style="--posistemes-spalva: var(--migle)">
-        <div class="antraste">
+    <main class="centruotas" style="--posistemes-spalva: var(--migle)">
+        <div class="prisijungimo-kortele">
             <span class="posisteme">Kliento ir augintinio valdymas</span>
             <h1>Prisijungimo langas</h1>
+            <p class="aprasas">Prisijunkite prie gyvūnų klonavimo sistemos.</p>
+            <div id="pranesimas"></div>
+            <form id="prisijungimo-forma">
+                <div class="laukas">
+                    <label for="el_pastas">El. paštas</label>
+                    <input id="el_pastas" name="el_pastas" type="email" required autocomplete="username">
+                </div>
+                <div class="laukas">
+                    <label for="slaptazodis">Slaptažodis</label>
+                    <input id="slaptazodis" name="slaptazodis" type="password" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="mygtukas platus">Prisijungti</button>
+            </form>
+            <p class="apacioje">Neturite paskyros? <a href="registracija.html">Registruokitės</a></p>
         </div>
-        <div id="pranesimas"></div>
-        <form class="kortele" data-tikslas="index.html" data-pranesimas="Sėkmingai prisijungta." data-role data-klaida="Neteisingi prisijungimo duomenys." novalidate>
-            <div class="laukas">
-                <label for="el_pastas">El. paštas</label>
-                <input id="el_pastas" name="el_pastas" type="email" required>
-            </div>
-            <div class="laukas">
-                <label for="slaptazodis">Slaptažodis</label>
-                <input id="slaptazodis" name="slaptazodis" type="password" required>
-            </div>
-            <div class="laukas">
-                <label for="role">Rolė (tik prototipe)</label>
-                <select id="role" name="role">
-                    <option value="klientas">Klientas</option>
-                    <option value="specialistas">Laboratorijos specialistas</option>
-                    <option value="administratorius">Administratorius</option>
-
-                </select>
-            </div>
-            <div class="mygtukai">
-                <button type="submit" class="mygtukas">Prisijungti</button>
-            <a class="mygtukas antrinis" href="registracija.html">Neturite paskyros? Registruotis</a>
-            </div>
-        </form>
+        <div class="demo-paskyros">
+            <p>Demonstracinės paskyros, slaptažodis <code>demo1234</code>:</p>
+            <ul class="paskyros" id="demo-paskyros"></ul>
+        </div>
     </main>
-    <footer>
-        <div class="legenda">
-            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
-            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
-            <span style="--c: var(--pijus)">Pijus Buknys</span>
-            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
-            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
-        </div>
-    </footer>
+    <footer></footer>
 </body>
 </html>

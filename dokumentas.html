@@ -5,39 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dokumento peržiūros langas – Gyvūnų klonavimo sistema</title>
     <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
     <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
 </head>
 <body>
     <nav class="meniu" id="meniu"></nav>
-    <main style="--posistemes-spalva: var(--migle)">
-        <div class="antraste">
-            <span class="posisteme">Kliento ir augintinio valdymas</span>
-            <h1>Dokumento peržiūros langas</h1>
-        </div>
+    <main style="--posistemes-spalva: var(--migle)" data-prieiga="klientas specialistas">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">Kliento ir augintinio valdymas</span>
+                <h1>Dokumento peržiūros langas</h1>
+            </div>
+        </header>
         <div id="pranesimas"></div>
         <div class="kortele">
-        <dl class="duomenys">
-            <dt>Pavadinimas</dt><dd>–</dd>
-            <dt>Dokumento tipas</dt><dd>–</dd>
-            <dt>Įkėlimo data</dt><dd>–</dd>
-            <dt>Failo formatas</dt><dd>–</dd>
-            <dt>Galiojimo data</dt><dd>–</dd>
-        </dl>
+            <div class="korteles-virsus"><h2 data-f="pavadinimas">–</h2><span data-f="galiojimas"></span></div>
+            <dl class="duomenys">
+                <dt>Pavadinimas</dt><dd data-f="pavadinimas">–</dd>
+                <dt>Dokumento tipas</dt><dd data-f="dokumento_tipas">–</dd>
+                <dt>Augintinis</dt><dd data-f="augintinis">–</dd>
+                <dt>Įkėlimo data</dt><dd data-f="ikelimo_data">–</dd>
+                <dt>Failo formatas</dt><dd data-f="failo_formatas">–</dd>
+                <dt>Galiojimo data</dt><dd data-f="galiojimo_data">–</dd>
+            </dl>
+        </div>
+        <div class="kortele">
+            <h2>Failas</h2>
+            <div class="failo-perziura">
+                <span class="formatas" data-f="failo_formatas">–</span>
+                <div>
+                    <strong data-f="failo_pavadinimas">–</strong>
+                    <p class="pagalba">Prototipe failo turinys nesaugomas, rodomi tik dokumento duomenys.</p>
+                </div>
+            </div>
         </div>
         <div class="mygtukai">
-            <a class="mygtukas" href="dokumentas-redaguoti.html">Redaguoti</a>
-            <a class="mygtukas antrinis" href="dokumentai.html">Grįžti į sąrašą</a>
-            <button class="mygtukas pavojingas" data-istrinti="dokumentai.html" data-objektas="šį dokumentą" data-pranesimas="Dokumentas ištrintas.">Ištrinti</button>
+            <a class="mygtukas" id="redaguoti" href="dokumentas-redaguoti.html" hidden>Redaguoti</a>
+            <a class="mygtukas antrinis" id="grizti" href="dokumentai.html">Grįžti į sąrašą</a>
         </div>
     </main>
-    <footer>
-        <div class="legenda">
-            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
-            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
-            <span style="--c: var(--pijus)">Pijus Buknys</span>
-            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
-            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
-        </div>
-    </footer>
+    <footer></footer>
 </body>
 </html>

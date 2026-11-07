@@ -5,61 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Registracijos langas – Gyvūnų klonavimo sistema</title>
     <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
     <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
 </head>
 <body>
     <nav class="meniu" id="meniu"></nav>
-    <main style="--posistemes-spalva: var(--migle)">
-        <div class="antraste">
+    <main class="centruotas" style="--posistemes-spalva: var(--migle)">
+        <div class="prisijungimo-kortele platesne">
             <span class="posisteme">Kliento ir augintinio valdymas</span>
             <h1>Registracijos langas</h1>
-        </div>
-        <div id="pranesimas"></div>
-        <form class="kortele" data-tikslas="prisijungimas.html" data-pranesimas="Paskyra sukurta. Galite prisijungti." data-klaida="Registracijos duomenys neteisingi. Patikrinkite pažymėtus laukus." novalidate>
-            <div class="tinklelis">
-                <div class="laukas">
-                    <label for="vardas">Vardas</label>
-                    <input id="vardas" name="vardas" type="text" required>
-                </div>
-                <div class="laukas">
-                    <label for="pavarde">Pavardė</label>
-                    <input id="pavarde" name="pavarde" type="text" required>
+            <p class="aprasas">Sukurkite kliento paskyrą.</p>
+            <div id="pranesimas"></div>
+            <form id="registracijos-forma">
+                <div class="du-laukai">
+                    <div class="laukas">
+                        <label for="vardas">Vardas</label>
+                        <input id="vardas" name="vardas" type="text" required autocomplete="given-name">
+                    </div>
+                    <div class="laukas">
+                        <label for="pavarde">Pavardė</label>
+                        <input id="pavarde" name="pavarde" type="text" required autocomplete="family-name">
+                    </div>
                 </div>
                 <div class="laukas">
                     <label for="el_pastas">El. paštas</label>
-                    <input id="el_pastas" name="el_pastas" type="email" required>
+                    <input id="el_pastas" name="el_pastas" type="email" required autocomplete="email">
                 </div>
-                <div class="laukas">
-                    <label for="telefono_numeris">Telefono numeris</label>
-                    <input id="telefono_numeris" name="telefono_numeris" type="tel" required>
-                </div>
-                <div class="laukas">
-                    <label for="asmens_kodas">Asmens kodas</label>
-                    <input id="asmens_kodas" name="asmens_kodas" type="text" required pattern="[0-9]{11}" title="11 skaitmenų">
+                <div class="du-laukai">
+                    <div class="laukas">
+                        <label for="telefono_numeris">Telefono numeris</label>
+                        <input id="telefono_numeris" name="telefono_numeris" type="tel" required pattern="\+?[0-9 ]{8,15}" placeholder="+370 6xx xxxxx" autocomplete="tel">
+                    </div>
+                    <div class="laukas">
+                        <label for="asmens_kodas">Asmens kodas</label>
+                        <input id="asmens_kodas" name="asmens_kodas" type="text" required pattern="[0-9]{11}" inputmode="numeric" title="11 skaitmenų">
+                    </div>
                 </div>
                 <div class="laukas">
                     <label for="slaptazodis">Slaptažodis</label>
-                    <input id="slaptazodis" name="slaptazodis" type="password" required minlength="8">
+                    <input id="slaptazodis" name="slaptazodis" type="password" required minlength="8" autocomplete="new-password">
+                    <p class="pagalba">Ne mažiau kaip 8 simboliai.</p>
                 </div>
                 <div class="laukas">
                     <label for="slaptazodis2">Pakartokite slaptažodį</label>
-                    <input id="slaptazodis2" name="slaptazodis2" type="password" required minlength="8">
+                    <input id="slaptazodis2" name="slaptazodis2" type="password" required minlength="8" autocomplete="new-password">
                 </div>
-            </div>
-            <div class="mygtukai">
-                <button type="submit" class="mygtukas">Registruotis</button>
-            <a class="mygtukas antrinis" href="prisijungimas.html">Jau turite paskyrą? Prisijungti</a>
-            </div>
-        </form>
-    </main>
-    <footer>
-        <div class="legenda">
-            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
-            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
-            <span style="--c: var(--pijus)">Pijus Buknys</span>
-            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
-            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
+                <button type="submit" class="mygtukas platus">Registruotis</button>
+            </form>
+            <p class="apacioje">Jau turite paskyrą? <a href="prisijungimas.html">Prisijunkite</a></p>
         </div>
-    </footer>
+    </main>
+    <footer></footer>
 </body>
 </html>

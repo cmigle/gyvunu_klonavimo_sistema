@@ -5,17 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Augintinio kūrimo langas – Gyvūnų klonavimo sistema</title>
     <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
     <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
 </head>
 <body>
     <nav class="meniu" id="meniu"></nav>
-    <main style="--posistemes-spalva: var(--migle)">
-        <div class="antraste">
-            <span class="posisteme">Kliento ir augintinio valdymas</span>
-            <h1>Augintinio kūrimo langas</h1>
-        </div>
+    <main style="--posistemes-spalva: var(--migle)" data-prieiga="klientas">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">Kliento ir augintinio valdymas</span>
+                <h1>Augintinio kūrimo langas</h1>
+            </div>
+        </header>
         <div id="pranesimas"></div>
-        <form class="kortele" data-tikslas="augintinis.html" data-pranesimas="Augintinis sukurtas." novalidate>
+        <form class="kortele" id="augintinio-forma">
             <div class="tinklelis">
                 <div class="laukas">
                     <label for="vardas">Vardas</label>
@@ -26,53 +30,39 @@
                     <input id="veisle" name="veisle" type="text" required>
                 </div>
                 <div class="laukas">
-                    <label for="amzius">Amžius (metai)</label>
-                    <input id="amzius" name="amzius" type="number" required min="0">
-                </div>
-                <div class="laukas">
                     <label for="tipas">Tipas</label>
                     <select id="tipas" name="tipas" required>
-                        <option value="">– pasirinkite –</option>
-                        <option value="Šuo">Šuo</option>
-                        <option value="Katė">Katė</option>
-                        <option value="Triušis">Triušis</option>
-                        <option value="Žirgas">Žirgas</option>
-                        <option value="Avis">Avis</option>
-                        <option value="Kiaulė">Kiaulė</option>
-                        <option value="Papūga">Papūga</option>
+                        <option value="">Pasirinkite…</option>
                     </select>
+                </div>
+                <div class="laukas">
+                    <label for="amzius">Amžius (metai)</label>
+                    <input id="amzius" name="amzius" type="number" required min="0" max="100" step="1">
                 </div>
                 <div class="laukas">
                     <label for="lytis">Lytis</label>
                     <select id="lytis" name="lytis" required>
-                        <option value="">– pasirinkite –</option>
+                        <option value="">Pasirinkite…</option>
                         <option value="Patinas">Patinas</option>
                         <option value="Patelė">Patelė</option>
                     </select>
                 </div>
                 <div class="laukas">
                     <label for="svoris">Svoris (kg)</label>
-                    <input id="svoris" name="svoris" type="number" required min="0" step="0.1">
+                    <input id="svoris" name="svoris" type="number" required min="0.01" step="0.01">
                 </div>
                 <div class="laukas">
                     <label for="mikroschemos_numeris">Mikroschemos numeris</label>
-                    <input id="mikroschemos_numeris" name="mikroschemos_numeris" type="text" required>
+                    <input id="mikroschemos_numeris" name="mikroschemos_numeris" type="text" required pattern="[0-9]{15}" inputmode="numeric" title="15 skaitmenų (ISO 11784)">
+                    <p class="pagalba">15 skaitmenų (ISO 11784).</p>
                 </div>
             </div>
             <div class="mygtukai">
                 <button type="submit" class="mygtukas">Sukurti</button>
-            <a class="mygtukas antrinis" href="augintiniai.html">Atšaukti</a>
+                <a class="mygtukas antrinis" href="augintiniai.html">Atšaukti</a>
             </div>
         </form>
     </main>
-    <footer>
-        <div class="legenda">
-            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
-            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
-            <span style="--c: var(--pijus)">Pijus Buknys</span>
-            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
-            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
-        </div>
-    </footer>
+    <footer></footer>
 </body>
 </html>

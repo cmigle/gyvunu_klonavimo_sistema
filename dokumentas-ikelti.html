@@ -5,17 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dokumento įkėlimo langas – Gyvūnų klonavimo sistema</title>
     <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
     <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
 </head>
 <body>
     <nav class="meniu" id="meniu"></nav>
-    <main style="--posistemes-spalva: var(--migle)">
-        <div class="antraste">
-            <span class="posisteme">Kliento ir augintinio valdymas</span>
-            <h1>Dokumento įkėlimo langas</h1>
-        </div>
+    <main style="--posistemes-spalva: var(--migle)" data-prieiga="klientas">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">Kliento ir augintinio valdymas</span>
+                <h1>Dokumento įkėlimo langas</h1>
+                <p class="aprasas" id="aprasas"></p>
+            </div>
+        </header>
         <div id="pranesimas"></div>
-        <form class="kortele" data-tikslas="dokumentai.html" data-pranesimas="Dokumentas sėkmingai įkeltas." data-klaida="Netinkamas failo formatas arba neužpildyti duomenys." novalidate>
+        <form class="kortele" id="dokumento-forma">
             <div class="tinklelis">
                 <div class="laukas">
                     <label for="pavadinimas">Pavadinimas</label>
@@ -24,7 +29,7 @@
                 <div class="laukas">
                     <label for="dokumento_tipas">Dokumento tipas</label>
                     <select id="dokumento_tipas" name="dokumento_tipas" required>
-                        <option value="">– pasirinkite –</option>
+                        <option value="">Pasirinkite…</option>
                         <option value="Kilmės sertifikatas">Kilmės sertifikatas</option>
                         <option value="Sutartis">Sutartis</option>
                         <option value="Veterinarinis pasas">Veterinarinis pasas</option>
@@ -36,24 +41,17 @@
                     <input id="galiojimo_data" name="galiojimo_data" type="date" required>
                 </div>
                 <div class="laukas">
-                    <label for="failas">Failas (PDF, JPG, PNG)</label>
+                    <label for="failas">Failas</label>
                     <input id="failas" name="failas" type="file" required accept=".pdf,.jpg,.jpeg,.png">
+                    <p class="pagalba">Leidžiami formatai: PDF, JPG, PNG (iki 10 MB).</p>
                 </div>
             </div>
             <div class="mygtukai">
                 <button type="submit" class="mygtukas">Įkelti</button>
-            <a class="mygtukas antrinis" href="dokumentai.html">Atšaukti</a>
+                <a class="mygtukas antrinis" id="atsaukti" href="dokumentai.html">Atšaukti</a>
             </div>
         </form>
     </main>
-    <footer>
-        <div class="legenda">
-            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
-            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
-            <span style="--c: var(--pijus)">Pijus Buknys</span>
-            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
-            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
-        </div>
-    </footer>
+    <footer></footer>
 </body>
 </html>

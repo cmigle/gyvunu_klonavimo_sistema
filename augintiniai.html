@@ -5,39 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Augintinių sąrašo langas – Gyvūnų klonavimo sistema</title>
     <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
     <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
 </head>
 <body>
     <nav class="meniu" id="meniu"></nav>
-    <main style="--posistemes-spalva: var(--migle)">
-        <div class="antraste">
-            <span class="posisteme">Kliento ir augintinio valdymas</span>
-            <h1>Augintinių sąrašo langas</h1>
-        </div>
-        <div id="pranesimas"></div>
-        <div class="kortele">
-            <div class="lenteles-virsus">
-                <span></span>
-                <div class="mygtukai">
-                <a class="mygtukas" href="augintinis-kurti.html">+ Sukurti gyvūną</a>
-                </div>
+    <main style="--posistemes-spalva: var(--migle)" data-prieiga="klientas">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">Kliento ir augintinio valdymas</span>
+                <h1>Augintinių sąrašo langas</h1>
             </div>
+            <div class="mygtukai">
+                <a class="mygtukas" href="augintinis-kurti.html">+ Sukurti gyvūną</a>
+            </div>
+        </header>
+        <div id="pranesimas"></div>
+        <p class="santrauka" id="rodikliai"></p>
+        <div class="kortele lenteles-kortele">
             <div class="slinktis">
                 <table>
-                    <thead><tr><th>Vardas</th><th>Tipas</th><th>Veislė</th><th>Amžius</th><th>Mikroschemos nr.</th><th>Veiksmai</th></tr></thead>
-                    <tbody><tr><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td class="veiksmai"><a class="mygtukas mazas antrinis" href="augintinis.html">Peržiūrėti</a> <a class="mygtukas mazas antrinis" href="augintinis-redaguoti.html">Redaguoti</a> <a class="mygtukas mazas antrinis" href="dokumentai.html">Dokumentai</a> <button class="mygtukas pavojingas mazas" data-istrinti="augintiniai.html" data-objektas="šį augintinį" data-pranesimas="Augintinis ištrintas.">Ištrinti</button></td></tr></tbody>
+                    <thead><tr><th>Vardas</th><th>Tipas</th><th>Veislė</th><th class="skaicius">Amžius</th><th>Mikroschemos nr.</th><th>Užsakymas</th><th class="skaicius">Dokumentai</th><th></th></tr></thead>
+                    <tbody id="augintiniai"></tbody>
                 </table>
             </div>
         </div>
     </main>
-    <footer>
-        <div class="legenda">
-            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
-            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
-            <span style="--c: var(--pijus)">Pijus Buknys</span>
-            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
-            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
-        </div>
-    </footer>
+    <footer></footer>
 </body>
 </html>
