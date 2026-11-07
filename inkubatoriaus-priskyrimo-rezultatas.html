@@ -5,36 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Inkubatoriaus priskyrimo rezultato langas – Gyvūnų klonavimo sistema</title>
     <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
     <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
 </head>
 <body>
     <nav class="meniu" id="meniu"></nav>
-    <main style="--posistemes-spalva: var(--pijus)">
-        <div class="antraste">
-            <span class="posisteme">Inkubatorių valdymas</span>
-            <h1>Inkubatoriaus priskyrimo rezultato langas</h1>
-        </div>
+    <main style="--posistemes-spalva: var(--pijus)" data-prieiga="specialistas">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">Inkubatorių valdymas</span>
+                <h1>Inkubatoriaus priskyrimo rezultato langas</h1>
+                <p class="aprasas" id="aprasas"></p>
+            </div>
+        </header>
         <div id="pranesimas"></div>
-        <div class="kortele">
-        <dl class="duomenys">
-            <dt>Klonavimo procesas</dt><dd>–</dd>
-            <dt>Priskirtas inkubatorius</dt><dd>–</dd>
-            <dt>Inkubatoriaus užimtumas</dt><dd>–</dd>
-        </dl>
+        <div class="kortele" id="rezultatas"></div>
+        <div class="du-stulpeliai" id="priskyrimo-duomenys">
+            <div class="kortele">
+                <h2>DNR pavyzdys</h2>
+                <dl class="duomenys">
+                    <dt>Pavyzdžio ID</dt><dd data-f="kodas">–</dd>
+                    <dt>Augintinis</dt><dd data-f="augintinis">–</dd>
+                    <dt>Gyvūno tipas</dt><dd data-f="tipas">–</dd>
+                    <dt>Užsakymas</dt><dd data-f="uzsakymas">–</dd>
+                </dl>
+            </div>
+            <div class="kortele">
+                <h2>Reikalingi inkubatoriaus parametrai</h2>
+                <dl class="duomenys">
+                    <dt>Temperatūra</dt><dd data-f="temperatura">–</dd>
+                    <dt>CO₂</dt><dd data-f="co2">–</dd>
+                    <dt>O₂</dt><dd data-f="o2">–</dd>
+                    <dt>pH</dt><dd data-f="ph">–</dd>
+                    <dt>Būsena</dt><dd>Laisvas</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="kortele lenteles-kortele" id="patikrinimai">
+            <div class="korteles-virsus"><h2>Inkubatorių parametrų patikrinimas</h2></div>
+            <div class="slinktis">
+                <table>
+                    <thead><tr><th>Inkubatorius</th><th>Būsena</th><th class="skaicius">Temp.</th><th class="skaicius">CO₂</th><th class="skaicius">O₂</th><th class="skaicius">pH</th><th>Rezultatas</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
         <div class="mygtukai">
-            <button class="mygtukas" data-eiti="inkubatoriai.html" data-pranesimas="Inkubatorius priskirtas klonavimo procesui.">Patvirtinti priskyrimą</button>
-            <a class="mygtukas antrinis" href="inkubatoriaus-priskyrimas.html">Atšaukti</a>
+            <a class="mygtukas antrinis" href="inkubatoriai.html">Grįžti į inkubatorių langą</a>
         </div>
     </main>
-    <footer>
-        <div class="legenda">
-            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
-            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
-            <span style="--c: var(--pijus)">Pijus Buknys</span>
-            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
-            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
-        </div>
-    </footer>
+    <footer></footer>
 </body>
 </html>

@@ -3,58 +3,61 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Inkubatoriaus parametrų peržiūros langas – Gyvūnų klonavimo sistema</title>
+    <title>Inkubatoriaus parametrų langas – Gyvūnų klonavimo sistema</title>
     <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
     <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
 </head>
 <body>
     <nav class="meniu" id="meniu"></nav>
-    <main style="--posistemes-spalva: var(--pijus)">
-        <div class="antraste">
-            <span class="posisteme">Inkubatorių valdymas</span>
-            <h1>Inkubatoriaus parametrų peržiūros langas</h1>
-        </div>
-        <div id="pranesimas"></div>
-        <div class="kortele">
-        <dl class="duomenys">
-            <dt>Modelis</dt><dd>–</dd>
-            <dt>Serijinis numeris</dt><dd>–</dd>
-            <dt>Tikslinė temperatūra (°C)</dt><dd>–</dd>
-            <dt>Talpa</dt><dd>–</dd>
-            <dt>CO₂ (%)</dt><dd>–</dd>
-            <dt>O₂ (%)</dt><dd>–</dd>
-            <dt>pH lygis</dt><dd>–</dd>
-            <dt>Būsena</dt><dd>–</dd>
-        </dl>
-        </div>
-        <div class="mygtukai">
-            <a class="mygtukas" href="inkubatorius-busena.html">Redaguoti būseną</a>
-            <a class="mygtukas antrinis" href="inkubatoriai.html">Grįžti į sąrašą</a>
-            <button class="mygtukas pavojingas" data-istrinti="inkubatoriai.html" data-objektas="šį inkubatorių" data-pranesimas="Inkubatorius ištrintas.">Ištrinti</button>
-        </div>
-        <div class="kortele">
-            <div class="lenteles-virsus">
-                <strong>Inkubatoriaus matavimai</strong>
-                <div class="mygtukai">
-
-                </div>
+    <main style="--posistemes-spalva: var(--pijus)" data-prieiga="specialistas">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">Inkubatorių valdymas</span>
+                <h1>Inkubatoriaus parametrų langas</h1>
             </div>
+        </header>
+        <div id="pranesimas"></div>
+        <div class="du-stulpeliai">
+            <div class="kortele">
+                <div class="korteles-virsus"><h2 data-f="modelis">–</h2><span data-f="busenos_zyma"></span></div>
+                <dl class="duomenys">
+                    <dt>Modelis</dt><dd data-f="modelis">–</dd>
+                    <dt>Serijinis numeris</dt><dd data-f="serijinis_numeris">–</dd>
+                    <dt>Tikslinė temperatūra</dt><dd data-f="tiksline_temperatura">–</dd>
+                    <dt>Talpa</dt><dd data-f="talpa">–</dd>
+                    <dt>CO₂</dt><dd data-f="co2_procentas">–</dd>
+                    <dt>O₂</dt><dd data-f="o2_procentas">–</dd>
+                    <dt>pH lygis</dt><dd data-f="ph_lygis">–</dd>
+                    <dt>Būsena</dt><dd data-f="busena">–</dd>
+                </dl>
+            </div>
+            <div class="kortele">
+                <h2>Vykdomas klonavimas</h2>
+                <dl class="duomenys">
+                    <dt>Klonavimas</dt><dd data-f="klonavimas">–</dd>
+                    <dt>Augintinis</dt><dd data-f="augintinis">–</dd>
+                    <dt>DNR pavyzdys</dt><dd data-f="dnr">–</dd>
+                    <dt>Specialistas</dt><dd data-f="specialistas">–</dd>
+                    <dt>Laikotarpis</dt><dd data-f="laikotarpis">–</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="kortele lenteles-kortele">
+            <div class="korteles-virsus"><h2>Inkubatoriaus matavimai</h2></div>
             <div class="slinktis">
                 <table>
-                    <thead><tr><th>Matavimo data</th><th>Temperatūra (°C)</th><th>Drėgmė (%)</th></tr></thead>
-                    <tbody><tr><td>–</td><td>–</td><td>–</td></tr></tbody>
+                    <thead><tr><th>Matavimo data</th><th class="skaicius">Temperatūra</th><th class="skaicius">Nuokrypis nuo tikslinės</th><th class="skaicius">Drėgmė</th></tr></thead>
+                    <tbody id="matavimai"></tbody>
                 </table>
             </div>
         </div>
-    </main>
-    <footer>
-        <div class="legenda">
-            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
-            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
-            <span style="--c: var(--pijus)">Pijus Buknys</span>
-            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
-            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
+        <div class="mygtukai">
+            <a class="mygtukas" id="redaguoti" href="inkubatorius-busena.html">Redaguoti būseną</a>
+            <a class="mygtukas antrinis" href="inkubatoriai.html">Grįžti į sąrašą</a>
         </div>
-    </footer>
+    </main>
+    <footer></footer>
 </body>
 </html>

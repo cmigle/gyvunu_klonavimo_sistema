@@ -5,58 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Inkubatoriaus būsenos redagavimo langas – Gyvūnų klonavimo sistema</title>
     <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
     <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
 </head>
 <body>
     <nav class="meniu" id="meniu"></nav>
-    <main style="--posistemes-spalva: var(--pijus)">
-        <div class="antraste">
-            <span class="posisteme">Inkubatorių valdymas</span>
-            <h1>Inkubatoriaus būsenos redagavimo langas</h1>
-        </div>
+    <main style="--posistemes-spalva: var(--pijus)" data-prieiga="specialistas">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">Inkubatorių valdymas</span>
+                <h1>Inkubatoriaus būsenos redagavimo langas</h1>
+                <p class="aprasas" id="aprasas"></p>
+            </div>
+        </header>
         <div id="pranesimas"></div>
-        <form class="kortele" data-tikslas="inkubatorius.html" data-pranesimas="Inkubatoriaus būsena atnaujinta." novalidate>
+        <form class="kortele" id="inkubatoriaus-forma">
             <div class="tinklelis">
                 <div class="laukas">
                     <label for="busena">Būsena</label>
                     <select id="busena" name="busena" required>
-                        <option value="">– pasirinkite –</option>
-                        <option value="Laisvas">Laisvas</option>
-                        <option value="Užimtas">Užimtas</option>
-                        <option value="Techninė priežiūra">Techninė priežiūra</option>
+                        <option value="false">Laisvas</option>
+                        <option value="true">Užimtas</option>
                     </select>
                 </div>
-                <div class="laukas">
-                    <label for="tisline_temperatura">Tikslinė temperatūra (°C)</label>
-                    <input id="tisline_temperatura" name="tisline_temperatura" type="number" required step="0.1">
-                </div>
-                <div class="laukas">
-                    <label for="co2_procentas">CO₂ (%)</label>
-                    <input id="co2_procentas" name="co2_procentas" type="number" required step="0.1" min="0" max="100">
-                </div>
-                <div class="laukas">
-                    <label for="o2_procentas">O₂ (%)</label>
-                    <input id="o2_procentas" name="o2_procentas" type="number" required step="0.1" min="0" max="100">
-                </div>
-                <div class="laukas">
-                    <label for="ph_lygis">pH lygis</label>
-                    <input id="ph_lygis" name="ph_lygis" type="number" required step="0.01" min="0" max="14">
-                </div>
             </div>
+            <fieldset>
+                <legend>Inkubavimo parametrai</legend>
+                <div class="tinklelis">
+                    <div class="laukas">
+                        <label for="tiksline_temperatura">Tikslinė temperatūra (°C)</label>
+                        <input id="tiksline_temperatura" name="tiksline_temperatura" type="number" required min="20" max="45" step="0.1">
+                    </div>
+                    <div class="laukas">
+                        <label for="co2_procentas">CO₂ (%)</label>
+                        <input id="co2_procentas" name="co2_procentas" type="number" required min="0" max="20" step="0.1">
+                    </div>
+                    <div class="laukas">
+                        <label for="o2_procentas">O₂ (%)</label>
+                        <input id="o2_procentas" name="o2_procentas" type="number" required min="1" max="21" step="0.1">
+                    </div>
+                    <div class="laukas">
+                        <label for="ph_lygis">pH lygis</label>
+                        <input id="ph_lygis" name="ph_lygis" type="number" required min="6" max="8.5" step="0.01">
+                    </div>
+                </div>
+            </fieldset>
             <div class="mygtukai">
                 <button type="submit" class="mygtukas">Išsaugoti</button>
-            <a class="mygtukas antrinis" href="inkubatorius.html">Atšaukti</a>
+                <a class="mygtukas antrinis" href="inkubatoriai.html">Atšaukti</a>
             </div>
         </form>
     </main>
-    <footer>
-        <div class="legenda">
-            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
-            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
-            <span style="--c: var(--pijus)">Pijus Buknys</span>
-            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
-            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
-        </div>
-    </footer>
+    <footer></footer>
 </body>
 </html>
