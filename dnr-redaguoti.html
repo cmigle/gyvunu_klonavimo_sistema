@@ -3,25 +3,29 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>DNR pavyzdžio redagavimo langas – Gyvūnų klonavimo sistema</title>
+    <title>DNR pavyzdžio redagavimo forma – Gyvūnų klonavimo sistema</title>
     <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
     <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
 </head>
 <body>
     <nav class="meniu" id="meniu"></nav>
-    <main style="--posistemes-spalva: var(--evelina)">
-        <div class="antraste">
-            <span class="posisteme">DNR pavyzdžio valdymas</span>
-            <h1>DNR pavyzdžio redagavimo langas</h1>
-        </div>
+    <main style="--posistemes-spalva: var(--evelina)" data-prieiga="specialistas">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">DNR pavyzdžio valdymas</span>
+                <h1>DNR pavyzdžio redagavimo forma</h1>
+                <p class="aprasas" id="aprasas"></p>
+            </div>
+        </header>
         <div id="pranesimas"></div>
-        <form class="kortele" data-tikslas="dnr.html" data-pranesimas="DNR pavyzdžio duomenys atnaujinti." novalidate>
+        <form class="kortele" id="dnr-forma">
             <div class="tinklelis">
                 <div class="laukas">
                     <label for="augintinis">Augintinis</label>
-                    <select id="augintinis" name="augintinis">
-                        <option value="">– pasirinkite –</option>
-
+                    <select id="augintinis" name="augintinis" required>
+                        <option value="">Pasirinkite…</option>
                     </select>
                 </div>
                 <div class="laukas">
@@ -30,43 +34,19 @@
                 </div>
                 <div class="laukas">
                     <label for="saugojimo_temperatura">Saugojimo temperatūra (°C)</label>
-                    <input id="saugojimo_temperatura" name="saugojimo_temperatura" type="number" required step="0.1">
-                </div>
-                <div class="laukas">
-                    <label for="dnr_koncentracija">DNR koncentracija (ng/µl)</label>
-                    <input id="dnr_koncentracija" name="dnr_koncentracija" type="number" step="0.01">
-                </div>
-                <div class="laukas">
-                    <label for="tirpalo_turis">Tirpalo tūris (ml)</label>
-                    <input id="tirpalo_turis" name="tirpalo_turis" type="number" step="0.01">
-                </div>
-                <div class="laukas">
-                    <label for="baltymu_tarsa">Baltymų tarša (A260/280)</label>
-                    <input id="baltymu_tarsa" name="baltymu_tarsa" type="number" step="0.01">
-                </div>
-                <div class="laukas">
-                    <label for="din_verte">DIN vertė</label>
-                    <input id="din_verte" name="din_verte" type="number" step="0.01">
-                </div>
-                <div class="laukas">
-                    <label for="lasteliu_gyvybingumas">Ląstelių gyvybingumas (%)</label>
-                    <input id="lasteliu_gyvybingumas" name="lasteliu_gyvybingumas" type="number" step="0.01">
+                    <input id="saugojimo_temperatura" name="saugojimo_temperatura" type="number" required step="0.1" min="-200" max="10">
                 </div>
             </div>
+            <fieldset>
+                <legend>Analizės rezultatai</legend>
+                <div class="tinklelis" id="rezultatu-laukai"></div>
+            </fieldset>
             <div class="mygtukai">
                 <button type="submit" class="mygtukas">Išsaugoti</button>
-            <a class="mygtukas antrinis" href="dnr-pavyzdys.html">Atšaukti</a>
+                <a class="mygtukas antrinis" href="dnr.html">Atšaukti</a>
             </div>
         </form>
     </main>
-    <footer>
-        <div class="legenda">
-            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
-            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
-            <span style="--c: var(--pijus)">Pijus Buknys</span>
-            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
-            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
-        </div>
-    </footer>
+    <footer></footer>
 </body>
 </html>

@@ -3,52 +3,47 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>DNR tinkamumo analizės rezultato langas – Gyvūnų klonavimo sistema</title>
+    <title>DNR pavyzdžio ataskaitos langas – Gyvūnų klonavimo sistema</title>
     <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
     <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
 </head>
 <body>
     <nav class="meniu" id="meniu"></nav>
-    <main style="--posistemes-spalva: var(--evelina)">
-        <div class="antraste">
-            <span class="posisteme">DNR pavyzdžio valdymas</span>
-            <h1>DNR tinkamumo analizės rezultato langas</h1>
-        </div>
+    <main style="--posistemes-spalva: var(--evelina)" data-prieiga="specialistas">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">DNR pavyzdžio valdymas</span>
+                <h1>DNR pavyzdžio ataskaitos langas</h1>
+            </div>
+        </header>
         <div id="pranesimas"></div>
         <div class="kortele">
-            <div class="lenteles-virsus">
-                <strong>Parametrų patikrinimas</strong>
-                <div class="mygtukai">
-
-                </div>
-            </div>
+            <div class="korteles-virsus"><h2>Pavyzdys <span data-f="kodas"></span></h2><span data-f="statusas"></span></div>
+            <dl class="duomenys">
+                <dt>Augintinis</dt><dd data-f="augintinis">–</dd>
+                <dt>Paėmimo data</dt><dd data-f="paemimo_data">–</dd>
+                <dt>Analizės data</dt><dd data-f="tinkamumo_data">–</dd>
+                <dt>Neatitikimų skaičius</dt><dd data-f="neatitikimai">–</dd>
+                <dt>Priskirtas statusas</dt><dd data-f="tinkamumas">–</dd>
+            </dl>
+        </div>
+        <div class="kortele lenteles-kortele" id="patikrinimai">
+            <div class="korteles-virsus"><h2>Biologinių parametrų patikrinimas</h2></div>
             <div class="slinktis">
                 <table>
-                    <thead><tr><th>Parametras</th><th>Vertė</th><th>Norma</th><th>Atitikimas</th></tr></thead>
-                    <tbody><tr><td>–</td><td>–</td><td>–</td><td>–</td></tr></tbody>
+                    <thead><tr><th>Parametras</th><th class="skaicius">Vertė</th><th>Norma</th><th>Atitikimas</th></tr></thead>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>
-        <div class="kortele">
-        <dl class="duomenys">
-            <dt>Neatitikimų skaičius</dt><dd>–</dd>
-            <dt>Priskirtas statusas</dt><dd>–</dd>
-            <dt>Atmetimo priežastys</dt><dd>–</dd>
-        </dl>
-        </div>
+        <div class="kortele" id="isvada"></div>
         <div class="mygtukai">
-            <button class="mygtukas" data-eiti="dnr-pavyzdys.html" data-pranesimas="Sertifikatas / atmetimo ataskaita atsisiųsta.">Atsisiųsti sertifikatą / ataskaitą</button>
+            <button type="button" class="mygtukas" id="spausdinti">Spausdinti</button>
             <a class="mygtukas antrinis" href="dnr.html">Grįžti į sąrašą</a>
         </div>
     </main>
-    <footer>
-        <div class="legenda">
-            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
-            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
-            <span style="--c: var(--pijus)">Pijus Buknys</span>
-            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
-            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
-        </div>
-    </footer>
+    <footer></footer>
 </body>
 </html>

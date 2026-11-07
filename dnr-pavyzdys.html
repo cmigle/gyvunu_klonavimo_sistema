@@ -5,46 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>DNR pavyzdžio peržiūros langas – Gyvūnų klonavimo sistema</title>
     <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
     <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
 </head>
 <body>
     <nav class="meniu" id="meniu"></nav>
-    <main style="--posistemes-spalva: var(--evelina)">
-        <div class="antraste">
-            <span class="posisteme">DNR pavyzdžio valdymas</span>
-            <h1>DNR pavyzdžio peržiūros langas</h1>
-        </div>
+    <main style="--posistemes-spalva: var(--evelina)" data-prieiga="specialistas">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">DNR pavyzdžio valdymas</span>
+                <h1>DNR pavyzdžio peržiūros langas</h1>
+            </div>
+        </header>
         <div id="pranesimas"></div>
+        <div class="du-stulpeliai">
+            <div class="kortele">
+                <div class="korteles-virsus"><h2 data-f="kodas">–</h2><span data-f="tinkamumo_zyma"></span></div>
+                <dl class="duomenys">
+                    <dt>Pavyzdžio ID</dt><dd data-f="kodas">–</dd>
+                    <dt>Augintinis</dt><dd data-f="augintinis">–</dd>
+                    <dt>Klientas</dt><dd data-f="klientas">–</dd>
+                    <dt>Paėmimo data</dt><dd data-f="paemimo_data">–</dd>
+                    <dt>Saugojimo temperatūra</dt><dd data-f="saugojimo_temperatura">–</dd>
+                </dl>
+            </div>
+            <div class="kortele">
+                <h2>Analizės rezultatai</h2>
+                <dl class="duomenys">
+                    <dt>DNR koncentracija</dt><dd data-f="dnr_koncentracija">–</dd>
+                    <dt>Tirpalo tūris</dt><dd data-f="tirpalo_turis">–</dd>
+                    <dt>Baltymų tarša (A260/280)</dt><dd data-f="baltymu_tarsa">–</dd>
+                    <dt>DIN vertė</dt><dd data-f="din_verte">–</dd>
+                    <dt>Ląstelių gyvybingumas</dt><dd data-f="lasteliu_gyvybingumas">–</dd>
+                    <dt>Tinkamumas</dt><dd data-f="tinkamumas">–</dd>
+                </dl>
+            </div>
+        </div>
         <div class="kortele">
-        <dl class="duomenys">
-            <dt>Pavyzdžio ID</dt><dd>–</dd>
-            <dt>Augintinis</dt><dd>–</dd>
-            <dt>Paėmimo data</dt><dd>–</dd>
-            <dt>Saugojimo temperatūra</dt><dd>–</dd>
-            <dt>DNR koncentracija (ng/µl)</dt><dd>–</dd>
-            <dt>Tirpalo tūris (ml)</dt><dd>–</dd>
-            <dt>Baltymų tarša (A260/280)</dt><dd>–</dd>
-            <dt>DIN vertė</dt><dd>–</dd>
-            <dt>Ląstelių gyvybingumas (%)</dt><dd>–</dd>
-            <dt>Tinkamumas</dt><dd>–</dd>
-        </dl>
+            <h2>Panaudojimas</h2>
+            <dl class="duomenys">
+                <dt>Užsakymas</dt><dd data-f="uzsakymas">–</dd>
+                <dt>Klonavimas</dt><dd data-f="klonavimas">–</dd>
+                <dt>Inkubatorius</dt><dd data-f="inkubatorius">–</dd>
+            </dl>
         </div>
         <div class="mygtukai">
-            <a class="mygtukas" href="dnr-redaguoti.html">Redaguoti</a>
-            <a class="mygtukas antrinis" href="dnr-rezultatai.html">Įvesti rezultatus</a>
-            <a class="mygtukas antrinis" href="dnr-tinkamumas.html">Nustatyti tinkamumą</a>
+            <a class="mygtukas" id="redaguoti" href="dnr-redaguoti.html">Redaguoti</a>
+            <a class="mygtukas" id="rezultatai" href="dnr-rezultatai.html">Įvesti rezultatus</a>
+            <a class="mygtukas" id="ataskaita" href="dnr-tinkamumo-rezultatas.html" hidden>Tinkamumo ataskaita</a>
+            <button type="button" class="mygtukas pavojingas" id="istrinti">Ištrinti</button>
             <a class="mygtukas antrinis" href="dnr.html">Grįžti į sąrašą</a>
-            <button class="mygtukas pavojingas" data-istrinti="dnr.html" data-objektas="šį DNR pavyzdį" data-pranesimas="DNR pavyzdys ištrintas.">Ištrinti</button>
         </div>
     </main>
-    <footer>
-        <div class="legenda">
-            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
-            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
-            <span style="--c: var(--pijus)">Pijus Buknys</span>
-            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
-            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
-        </div>
-    </footer>
+    <footer></footer>
 </body>
 </html>

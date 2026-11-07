@@ -3,42 +3,49 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>DNR pavyzdžių sąrašo langas – Gyvūnų klonavimo sistema</title>
+    <title>DNR pavyzdžių puslapis – Gyvūnų klonavimo sistema</title>
     <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
     <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
 </head>
 <body>
     <nav class="meniu" id="meniu"></nav>
-    <main style="--posistemes-spalva: var(--evelina)">
-        <div class="antraste">
-            <span class="posisteme">DNR pavyzdžio valdymas</span>
-            <h1>DNR pavyzdžių sąrašo langas</h1>
-        </div>
-        <div id="pranesimas"></div>
-        <div class="kortele">
-            <div class="lenteles-virsus">
-                <span></span>
-                <div class="mygtukai">
-                <a class="mygtukas" href="dnr-kurti.html">+ Sukurti DNR pavyzdį</a>
-                <a class="mygtukas antrinis" href="index.html">Į pagrindinį langą</a>
-                </div>
+    <main style="--posistemes-spalva: var(--evelina)" data-prieiga="specialistas">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">DNR pavyzdžio valdymas</span>
+                <h1>DNR pavyzdžių puslapis</h1>
             </div>
+            <div class="mygtukai">
+                <a class="mygtukas" href="dnr-kurti.html">+ Sukurti DNR pavyzdį</a>
+            </div>
+        </header>
+        <div id="pranesimas"></div>
+
+        <div class="kortele" id="etikete" hidden>
+            <div class="korteles-virsus"><h2>Sugeneruota pavyzdžio etiketė</h2></div>
+            <div class="etikete">
+                <span class="kodas" data-f="kodas"></span>
+                <span data-f="barkodas" aria-hidden="true"></span>
+                <small><span data-f="augintinis"></span> · paimta <span data-f="paemimo_data"></span> · laikyti <span data-f="temperatura"></span></small>
+            </div>
+            <div class="mygtukai" style="margin-top: 14px">
+                <button type="button" class="mygtukas" id="spausdinti-etikete">Spausdinti etiketę</button>
+                <button type="button" class="mygtukas antrinis" id="uzdaryti-etikete">Uždaryti</button>
+            </div>
+        </div>
+
+        <p class="santrauka" id="rodikliai"></p>
+        <div class="kortele lenteles-kortele">
             <div class="slinktis">
                 <table>
-                    <thead><tr><th>ID</th><th>Augintinis</th><th>Paėmimo data</th><th>Saugojimo temp.</th><th>Tinkamumas</th><th>Veiksmai</th></tr></thead>
-                    <tbody><tr><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td class="veiksmai"><a class="mygtukas mazas antrinis" href="dnr-pavyzdys.html">Peržiūrėti</a> <a class="mygtukas mazas antrinis" href="dnr-redaguoti.html">Redaguoti</a> <a class="mygtukas mazas antrinis" href="dnr-rezultatai.html">Įvesti rezultatus</a> <a class="mygtukas mazas antrinis" href="dnr-tinkamumas.html">Nustatyti tinkamumą</a> <button class="mygtukas pavojingas mazas" data-istrinti="dnr.html" data-objektas="šį DNR pavyzdį" data-pranesimas="DNR pavyzdys ištrintas.">Ištrinti</button></td></tr></tbody>
+                    <thead><tr><th>ID</th><th>Augintinis</th><th>Paėmimo data</th><th>Rezultatai</th><th>Tinkamumas</th><th></th></tr></thead>
+                    <tbody id="pavyzdziai"></tbody>
                 </table>
             </div>
         </div>
     </main>
-    <footer>
-        <div class="legenda">
-            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
-            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
-            <span style="--c: var(--pijus)">Pijus Buknys</span>
-            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
-            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
-        </div>
-    </footer>
+    <footer></footer>
 </body>
 </html>

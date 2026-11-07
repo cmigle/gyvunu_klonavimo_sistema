@@ -3,26 +3,31 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>DNR pavyzdžio kūrimo langas – Gyvūnų klonavimo sistema</title>
+    <title>Naujo DNR pavyzdžio įvedimo langas – Gyvūnų klonavimo sistema</title>
     <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
     <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
 </head>
 <body>
     <nav class="meniu" id="meniu"></nav>
-    <main style="--posistemes-spalva: var(--evelina)">
-        <div class="antraste">
-            <span class="posisteme">DNR pavyzdžio valdymas</span>
-            <h1>DNR pavyzdžio kūrimo langas</h1>
-        </div>
+    <main style="--posistemes-spalva: var(--evelina)" data-prieiga="specialistas">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">DNR pavyzdžio valdymas</span>
+                <h1>Naujo DNR pavyzdžio įvedimo langas</h1>
+                <p class="aprasas">Analizės rezultatus galėsite įvesti vėliau.</p>
+            </div>
+        </header>
         <div id="pranesimas"></div>
-        <form class="kortele" data-tikslas="dnr.html" data-pranesimas="DNR pavyzdys sukurtas." novalidate>
+        <form class="kortele" id="dnr-forma">
             <div class="tinklelis">
                 <div class="laukas">
                     <label for="augintinis">Augintinis</label>
-                    <select id="augintinis" name="augintinis">
-                        <option value="">– pasirinkite –</option>
-
+                    <select id="augintinis" name="augintinis" required>
+                        <option value="">Pasirinkite…</option>
                     </select>
+                    <p class="pagalba">Rodomi augintiniai, kurie dar neturi DNR pavyzdžio.</p>
                 </div>
                 <div class="laukas">
                     <label for="paemimo_data">Paėmimo data</label>
@@ -30,26 +35,19 @@
                 </div>
                 <div class="laukas">
                     <label for="saugojimo_temperatura">Saugojimo temperatūra (°C)</label>
-                    <input id="saugojimo_temperatura" name="saugojimo_temperatura" type="number" required step="0.1">
+                    <input id="saugojimo_temperatura" name="saugojimo_temperatura" type="number" required step="0.1" min="-200" max="10" value="-80">
+                    <p class="pagalba">Norma: ≤ −20 °C.</p>
                 </div>
-                <div class="laukas zymimasis">
-                    <label><input type="checkbox" name="spausdinti_etikete"> Spausdinti pavyzdžio etiketę</label>
-                </div>
+            </div>
+            <div class="laukas zymimasis">
+                <label><input type="checkbox" name="spausdinti_etikete" checked> Sugeneruoti ir spausdinti pavyzdžio etiketę</label>
             </div>
             <div class="mygtukai">
                 <button type="submit" class="mygtukas">Sukurti</button>
-            <a class="mygtukas antrinis" href="dnr.html">Atšaukti</a>
+                <a class="mygtukas antrinis" href="dnr.html">Atšaukti</a>
             </div>
         </form>
     </main>
-    <footer>
-        <div class="legenda">
-            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
-            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
-            <span style="--c: var(--pijus)">Pijus Buknys</span>
-            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
-            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
-        </div>
-    </footer>
+    <footer></footer>
 </body>
 </html>
