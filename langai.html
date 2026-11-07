@@ -5,99 +5,93 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Visi langai – Gyvūnų klonavimo sistema</title>
     <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
     <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
 </head>
 <body>
     <nav class="meniu" id="meniu"></nav>
     <main style="--posistemes-spalva: var(--sistema)">
-        <div class="antraste">
-            <span class="posisteme">Gyvūnų klonavimo sistema</span>
-            <h1>Visi langai</h1>
-        </div>
+        <header class="antraste">
+            <div>
+                <span class="posisteme">Gyvūnų klonavimo sistema</span>
+                <h1>Visi langai</h1>
+                <p class="aprasas">Visi prototipo langai pagal posistemes (pavadinimai kaip analizės diagramose).</p>
+            </div>
+        </header>
         <div id="pranesimas"></div>
         <div class="langai">
-        <section class="kortele" style="--spalva: var(--sistema)">
-            <h2>Gyvūnų klonavimo sistema</h2>
-            <ul>
-                <li><a href="index.html" data-pradinis>Pradžios langas</a></li>
-            </ul>
-        </section>
-        <section class="kortele" style="--spalva: var(--migle)">
-            <h2>Kliento ir augintinio valdymas</h2>
-            <ul>
-                <li><a href="prisijungimas.html">Prisijungimo langas</a></li>
-                <li><a href="registracija.html">Registracijos langas</a></li>
-                <li><a href="atsijungimas.html">Atsijungimo langas</a></li>
-                <li><a href="profilis.html">Kliento profilio langas</a></li>
-                <li><a href="profilis-redaguoti.html">Kliento profilio redagavimo langas</a></li>
-                <li><a href="istorijos-patikrinimas.html">Kliento istorijos patikrinimo langas</a></li>
-                <li><a href="istorijos-rezultatas.html">Kliento istorijos patikrinimo rezultato langas</a></li>
-                <li><a href="augintiniai.html">Augintinių sąrašo langas</a></li>
-                <li><a href="augintinis-kurti.html">Augintinio kūrimo langas</a></li>
-                <li><a href="augintinis.html">Augintinio peržiūros langas</a></li>
-                <li><a href="augintinis-redaguoti.html">Augintinio redagavimo langas</a></li>
-                <li><a href="dokumentai.html">Dokumentų sąrašo langas</a></li>
-                <li><a href="dokumentas-ikelti.html">Dokumento įkėlimo langas</a></li>
-                <li><a href="dokumentas.html">Dokumento peržiūros langas</a></li>
-                <li><a href="dokumentas-redaguoti.html">Dokumento redagavimo langas</a></li>
-            </ul>
-        </section>
-        <section class="kortele" style="--spalva: var(--vytaute)">
-            <h2>Užsakymo valdymas</h2>
-            <ul>
-                <li><a href="uzsakymai.html">Užsakymų sąrašo langas</a></li>
-                <li><a href="uzsakymas-kurti.html">Užsakymo kūrimo langas</a></li>
-                <li><a href="uzsakymas-formos-perziura.html">Užsakymo formos peržiūros langas</a></li>
-                <li><a href="uzsakymas.html">Užsakymo peržiūros langas</a></li>
-                <li><a href="uzsakymas-redaguoti.html">Užsakymo redagavimo langas</a></li>
-                <li><a href="uzsakymo-patvirtinimas.html">Užsakymo patvirtinimo langas</a></li>
-            </ul>
-        </section>
-        <section class="kortele" style="--spalva: var(--evelina)">
-            <h2>DNR pavyzdžio valdymas</h2>
-            <ul>
-                <li><a href="dnr.html">DNR pavyzdžių sąrašo langas</a></li>
-                <li><a href="dnr-kurti.html">DNR pavyzdžio kūrimo langas</a></li>
-                <li><a href="dnr-pavyzdys.html">DNR pavyzdžio peržiūros langas</a></li>
-                <li><a href="dnr-redaguoti.html">DNR pavyzdžio redagavimo langas</a></li>
-                <li><a href="dnr-rezultatai.html">DNR pavyzdžio rezultatų įvedimo langas</a></li>
-                <li><a href="dnr-tinkamumas.html">DNR pavyzdžio tinkamumo analizės langas</a></li>
-                <li><a href="dnr-tinkamumo-rezultatas.html">DNR tinkamumo analizės rezultato langas</a></li>
-            </ul>
-        </section>
-        <section class="kortele" style="--spalva: var(--pijus)">
-            <h2>Inkubatorių valdymas</h2>
-            <ul>
-                <li><a href="inkubatoriai.html">Inkubatorių sąrašo langas</a></li>
-                <li><a href="inkubatorius-kurti.html">Inkubatoriaus kūrimo langas</a></li>
-                <li><a href="inkubatorius.html">Inkubatoriaus parametrų peržiūros langas</a></li>
-                <li><a href="inkubatorius-busena.html">Inkubatoriaus būsenos redagavimo langas</a></li>
-                <li><a href="inkubatoriaus-priskyrimas.html">Inkubatoriaus priskyrimo langas</a></li>
-                <li><a href="inkubatoriaus-priskyrimo-rezultatas.html">Inkubatoriaus priskyrimo rezultato langas</a></li>
-            </ul>
-        </section>
-        <section class="kortele" style="--spalva: var(--ugne)">
-            <h2>Darbuotojų valdymas</h2>
-            <ul>
-                <li><a href="darbuotojai.html">Darbuotojų valdymo langas</a></li>
-                <li><a href="darbuotojas-kurti.html">Darbuotojo kūrimo langas</a></li>
-                <li><a href="darbuotojas.html">Darbuotojo peržiūros langas</a></li>
-                <li><a href="darbuotojas-redaguoti.html">Darbuotojo redagavimo langas</a></li>
-                <li><a href="darbuotojo-tyrimai.html">Darbuotojo tyrimų sąrašo langas</a></li>
-                <li><a href="tyrimas.html">Tyrimo peržiūros langas</a></li>
-                <li><a href="kruvio-analize.html">Darbuotojų krūvio analizės langas</a></li>
-            </ul>
-        </section>
+            <section class="kortele" style="--spalva: var(--sistema)">
+                <h2>Gyvūnų klonavimo sistema</h2>
+                <ul>
+                    <li><a href="index.html" data-pradinis>Pradžios langas</a></li>
+                </ul>
+            </section>
+            <section class="kortele" style="--spalva: var(--migle)">
+                <h2>Kliento ir augintinio valdymas</h2>
+                <ul>
+                    <li><a href="prisijungimas.html">Prisijungimo langas</a></li>
+                    <li><a href="registracija.html">Registracijos langas</a></li>
+                    <li><a href="atsijungimas.html">Atsijungimo langas</a></li>
+                    <li><a href="profilis.html">Kliento profilio langas</a></li>
+                    <li><a href="profilis-redaguoti.html">Kliento profilio redagavimo langas</a></li>
+                    <li><a href="istorijos-patikrinimas.html">Kliento istorijos patikrinimo langas</a></li>
+                    <li><a href="istorijos-rezultatas.html">Patikrinimo rezultato langas</a></li>
+                    <li><a href="augintiniai.html">Augintinių sąrašo langas</a></li>
+                    <li><a href="augintinis-kurti.html">Augintinio kūrimo langas</a></li>
+                    <li><a href="augintinis.html">Augintinio peržiūros langas</a></li>
+                    <li><a href="augintinis-redaguoti.html">Augintinio redagavimo langas</a></li>
+                    <li><a href="dokumentai.html">Dokumentų sąrašo langas</a></li>
+                    <li><a href="dokumentas-ikelti.html">Dokumento įkėlimo langas</a></li>
+                    <li><a href="dokumentas.html">Dokumento peržiūros langas</a></li>
+                    <li><a href="dokumentas-redaguoti.html">Dokumento redagavimo langas</a></li>
+                </ul>
+            </section>
+            <section class="kortele" style="--spalva: var(--vytaute)">
+                <h2>Užsakymo valdymas</h2>
+                <ul>
+                    <li><a href="uzsakymai.html">Užsakymų sąrašo langas</a></li>
+                    <li><a href="uzsakymas-kurti.html">Užsakymo kūrimo langas</a></li>
+                    <li><a href="uzsakymas.html">Užsakymo peržiūros langas</a></li>
+                    <li><a href="uzsakymas-redaguoti.html">Užsakymo redagavimo langas</a></li>
+                </ul>
+            </section>
+            <section class="kortele" style="--spalva: var(--evelina)">
+                <h2>DNR pavyzdžio valdymas</h2>
+                <ul>
+                    <li><a href="dnr.html">DNR pavyzdžių puslapis</a></li>
+                    <li><a href="dnr-kurti.html">Naujo DNR pavyzdžio įvedimo langas</a></li>
+                    <li><a href="dnr-pavyzdys.html">DNR pavyzdžio peržiūros langas</a></li>
+                    <li><a href="dnr-redaguoti.html">DNR pavyzdžio redagavimo forma</a></li>
+                    <li><a href="dnr-rezultatai.html">DNR pavyzdžio rezultatų įvedimo langas</a></li>
+                    <li><a href="dnr-tinkamumo-rezultatas.html">DNR pavyzdžio ataskaitos langas</a></li>
+                </ul>
+            </section>
+            <section class="kortele" style="--spalva: var(--pijus)">
+                <h2>Inkubatorių valdymas</h2>
+                <ul>
+                    <li><a href="inkubatoriai.html">Inkubatorių langas</a></li>
+                    <li><a href="inkubatorius-kurti.html">Naujo inkubatoriaus kūrimo langas</a></li>
+                    <li><a href="inkubatorius.html">Inkubatoriaus parametrų langas</a></li>
+                    <li><a href="inkubatorius-busena.html">Inkubatoriaus būsenos redagavimo langas</a></li>
+                    <li><a href="inkubatoriaus-priskyrimo-rezultatas.html">Inkubatoriaus priskyrimo rezultato langas</a></li>
+                </ul>
+            </section>
+            <section class="kortele" style="--spalva: var(--ugne)">
+                <h2>Darbuotojų valdymas</h2>
+                <ul>
+                    <li><a href="darbuotojai.html">Darbuotojų sąrašo langas</a></li>
+                    <li><a href="darbuotojas-kurti.html">Darbuotojo sukūrimo langas</a></li>
+                    <li><a href="darbuotojas.html">Darbuotojo peržiūros langas</a></li>
+                    <li><a href="darbuotojas-redaguoti.html">Darbuotojo redagavimo langas</a></li>
+                    <li><a href="darbuotojo-tyrimai.html">Darbuotojo tyrimų sąrašo langas</a></li>
+                    <li><a href="tyrimas.html">Tyrimo peržiūros langas</a></li>
+                    <li><a href="kruvio-analize.html">Darbo krūvio analizės langas</a></li>
+                    <li><a href="kruvio-suvestine.html">Darbo krūvio suvestinės langas</a></li>
+                </ul>
+            </section>
         </div>
     </main>
-    <footer>
-        <div class="legenda">
-            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
-            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
-            <span style="--c: var(--pijus)">Pijus Buknys</span>
-            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
-            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
-        </div>
-    </footer>
+    <footer></footer>
 </body>
 </html>
