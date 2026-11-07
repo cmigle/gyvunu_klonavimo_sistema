@@ -5,48 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Užsakymo redagavimo langas – Gyvūnų klonavimo sistema</title>
     <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
     <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
 </head>
 <body>
     <nav class="meniu" id="meniu"></nav>
-    <main style="--posistemes-spalva: var(--vytaute)">
-        <div class="antraste">
-            <span class="posisteme">Užsakymo valdymas</span>
-            <h1>Užsakymo redagavimo langas</h1>
-        </div>
+    <main style="--posistemes-spalva: var(--vytaute)" data-prieiga="klientas">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">Užsakymo valdymas</span>
+                <h1>Užsakymo redagavimo langas</h1>
+                <p class="aprasas" id="aprasas"></p>
+            </div>
+        </header>
         <div id="pranesimas"></div>
-        <form class="kortele" data-tikslas="uzsakymas.html" data-pranesimas="Užsakymas sėkmingai atnaujintas." novalidate>
+        <form class="kortele" id="uzsakymo-forma">
             <div class="tinklelis">
                 <div class="laukas">
                     <label for="augintinis">Augintinis</label>
-                    <select id="augintinis" name="augintinis">
-                        <option value="">– pasirinkite –</option>
-
+                    <select id="augintinis" name="augintinis" required>
+                        <option value="">Pasirinkite…</option>
                     </select>
+                    <p class="pagalba">Galima pasirinkti augintinį, kuris dar neturi kito užsakymo.</p>
                 </div>
                 <div class="laukas">
-                    <label for="pradzia">Pageidaujama klonavimo pradžia</label>
-                    <input id="pradzia" name="pradzia" type="date" required>
-                </div>
-                <div class="laukas">
-                    <label for="pastabos">Pastabos</label>
-                    <textarea id="pastabos" name="pastabos" rows="3"></textarea>
+                    <label>Kaina</label>
+                    <output class="reiksme" id="kaina">–</output>
                 </div>
             </div>
             <div class="mygtukai">
-                <button type="submit" class="mygtukas">Išsaugoti</button>
-            <a class="mygtukas antrinis" href="uzsakymas.html">Atšaukti</a>
+                <button type="submit" class="mygtukas">Peržiūrėti pakeitimus</button>
+                <a class="mygtukas antrinis" href="uzsakymai.html">Atšaukti</a>
             </div>
         </form>
-    </main>
-    <footer>
-        <div class="legenda">
-            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
-            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
-            <span style="--c: var(--pijus)">Pijus Buknys</span>
-            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
-            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
+
+        <div class="kortele lenteles-kortele" id="pakeitimu-perziura" hidden>
+            <div class="korteles-virsus"><h2>Pakeistų duomenų peržiūra</h2></div>
+            <div class="slinktis">
+                <table>
+                    <thead><tr><th>Laukas</th><th>Buvo</th><th>Bus</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="mygtukai" style="padding: 16px 20px">
+                <button type="button" class="mygtukas" id="issaugoti">Išsaugoti pakeitimus</button>
+                <button type="button" class="mygtukas antrinis" id="grizti-redaguoti">Grįžti redaguoti</button>
+            </div>
         </div>
-    </footer>
+
+        <div class="mygtukai" id="negalima" hidden>
+            <a class="mygtukas antrinis" href="uzsakymai.html">Grįžti į užsakymų sąrašą</a>
+        </div>
+    </main>
+    <footer></footer>
 </body>
 </html>

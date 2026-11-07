@@ -5,40 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Užsakymų sąrašo langas – Gyvūnų klonavimo sistema</title>
     <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
     <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
 </head>
 <body>
     <nav class="meniu" id="meniu"></nav>
-    <main style="--posistemes-spalva: var(--vytaute)">
-        <div class="antraste">
-            <span class="posisteme">Užsakymo valdymas</span>
-            <h1>Užsakymų sąrašo langas</h1>
-        </div>
-        <div id="pranesimas"></div>
-        <div class="kortele">
-            <div class="lenteles-virsus">
-                <span></span>
-                <div class="mygtukai">
-                <a class="mygtukas" href="uzsakymas-kurti.html">+ Sukurti užsakymą</a>
-                <a class="mygtukas antrinis" href="index.html">Į pagrindinį langą</a>
-                </div>
+    <main style="--posistemes-spalva: var(--vytaute)" data-prieiga="klientas specialistas">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">Užsakymo valdymas</span>
+                <h1>Užsakymų sąrašo langas</h1>
+                <p class="aprasas" id="aprasas"></p>
             </div>
+            <div class="mygtukai">
+                <a class="mygtukas" id="kurti" href="uzsakymas-kurti.html">+ Sukurti užsakymą</a>
+            </div>
+        </header>
+        <div id="pranesimas"></div>
+
+        <!-- Patvirtinto užsakymo informacija ir per „Laiško šabloną“ išsiųstas laiškas (2.15 pav., 3.1.17 pav.) -->
+        <div class="kortele" id="patvirtintas" hidden>
+            <div class="korteles-virsus"><h2>Patvirtinto užsakymo informacija</h2><span data-f="zyma"></span></div>
+            <dl class="duomenys">
+                <dt>Užsakymas</dt><dd data-f="nr">–</dd>
+                <dt>Augintinis</dt><dd data-f="augintinis">–</dd>
+                <dt>Kaina</dt><dd data-f="kaina">–</dd>
+                <dt>Patvirtinimo data</dt><dd data-f="patvirtinimo_data">–</dd>
+            </dl>
+            <div class="laiskas">
+                <div class="laisko-antraste">
+                    <span><b>Kam:</b> <span data-f="gavejas"></span></span>
+                    <span><b>Tema:</b> <span data-f="tema"></span></span>
+                    <span><b>Išsiųsta:</b> <span data-f="siuntimo_data"></span> per el. pašto serverį</span>
+                </div>
+                <pre data-f="tekstas"></pre>
+            </div>
+        </div>
+
+        <p class="santrauka" id="rodikliai"></p>
+        <div class="kortele lenteles-kortele">
             <div class="slinktis">
                 <table>
-                    <thead><tr><th>Nr.</th><th>Augintinis</th><th>Kaina</th><th>Sukūrimo data</th><th>Būsena</th><th>Patvirtinimo data</th><th>Veiksmai</th></tr></thead>
-                    <tbody><tr><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td class="veiksmai"><a class="mygtukas mazas antrinis" href="uzsakymas.html">Peržiūrėti</a> <a class="mygtukas mazas antrinis" href="uzsakymas-redaguoti.html">Redaguoti</a> <a class="mygtukas mazas antrinis" href="uzsakymo-patvirtinimas.html">Patvirtinti</a> <button class="mygtukas pavojingas mazas" data-istrinti="uzsakymai.html" data-objektas="šį užsakymą" data-pranesimas="Užsakymas ištrintas.">Ištrinti</button></td></tr></tbody>
+                    <thead><tr><th>Nr.</th><th>Augintinis</th><th class="specialistui">Klientas</th><th class="skaicius">Kaina</th><th>Sukūrimo data</th><th>Būsena</th><th>Patvirtinimo data</th><th></th></tr></thead>
+                    <tbody id="uzsakymai"></tbody>
                 </table>
             </div>
         </div>
     </main>
-    <footer>
-        <div class="legenda">
-            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
-            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
-            <span style="--c: var(--pijus)">Pijus Buknys</span>
-            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
-            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
-        </div>
-    </footer>
+    <footer></footer>
 </body>
 </html>

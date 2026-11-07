@@ -5,42 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Užsakymo peržiūros langas – Gyvūnų klonavimo sistema</title>
     <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
     <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
 </head>
 <body>
     <nav class="meniu" id="meniu"></nav>
-    <main style="--posistemes-spalva: var(--vytaute)">
-        <div class="antraste">
-            <span class="posisteme">Užsakymo valdymas</span>
-            <h1>Užsakymo peržiūros langas</h1>
-        </div>
+    <main style="--posistemes-spalva: var(--vytaute)" data-prieiga="klientas specialistas">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">Užsakymo valdymas</span>
+                <h1>Užsakymo peržiūros langas</h1>
+            </div>
+        </header>
         <div id="pranesimas"></div>
         <div class="kortele">
-        <dl class="duomenys">
-            <dt>Užsakymo numeris</dt><dd>–</dd>
-            <dt>Augintinis</dt><dd>–</dd>
-            <dt>Kaina</dt><dd>–</dd>
-            <dt>Sukūrimo data</dt><dd>–</dd>
-            <dt>Būsena</dt><dd>–</dd>
-            <dt>Patvirtinimo data</dt><dd>–</dd>
-        </dl>
+            <div class="korteles-virsus"><h2>Užsakymas <span data-f="nr"></span></h2><span data-f="busenos_zyma"></span></div>
+            <dl class="duomenys">
+                <dt>Užsakymo numeris</dt><dd data-f="nr">–</dd>
+                <dt>Klientas</dt><dd data-f="klientas">–</dd>
+                <dt>Augintinis</dt><dd data-f="augintinis">–</dd>
+                <dt>Kaina</dt><dd data-f="kaina">–</dd>
+                <dt>Sukūrimo data</dt><dd data-f="sukurimo_data">–</dd>
+                <dt>Būsena</dt><dd data-f="busena">–</dd>
+                <dt>Patvirtinimo data</dt><dd data-f="patvirtinimo_data">–</dd>
+            </dl>
+        </div>
+        <div class="du-stulpeliai">
+            <div class="kortele">
+                <h2>DNR pavyzdys</h2>
+                <dl class="duomenys">
+                    <dt>Pavyzdžio ID</dt><dd data-f="dnr_kodas">–</dd>
+                    <dt>Paėmimo data</dt><dd data-f="paemimo_data">–</dd>
+                    <dt>Tinkamumas</dt><dd data-f="tinkamumas">–</dd>
+                </dl>
+            </div>
+            <div class="kortele">
+                <h2>Klonavimas</h2>
+                <dl class="duomenys">
+                    <dt>Būsena</dt><dd data-f="klonavimo_busena">–</dd>
+                    <dt>Laikotarpis</dt><dd data-f="laikotarpis">–</dd>
+                    <dt>Inkubatorius</dt><dd data-f="inkubatorius">–</dd>
+                    <dt>Rezultatas</dt><dd data-f="rezultatas">–</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="kortele" id="pranesimo-kortele" hidden>
+            <div class="korteles-virsus"><h2>Pranešimas apie užsakymo patvirtinimą</h2><span data-f="pranesimo_busena"></span></div>
+            <div class="laiskas">
+                <div class="laisko-antraste">
+                    <span><b>Kam:</b> <span data-f="gavejas"></span></span>
+                    <span><b>Išsiųsta:</b> <span data-f="siuntimo_data"></span></span>
+                </div>
+                <pre data-f="tekstas"></pre>
+            </div>
         </div>
         <div class="mygtukai">
-            <a class="mygtukas" href="uzsakymas-redaguoti.html">Redaguoti</a>
-            <a class="mygtukas antrinis" href="uzsakymo-patvirtinimas.html">Patvirtinti</a>
-            <a class="mygtukas antrinis" href="dokumentai.html">Augintinio dokumentai</a>
+            <a class="mygtukas" id="redaguoti" href="uzsakymas-redaguoti.html" hidden>Redaguoti</a>
+            <a class="mygtukas" id="dokumentu-nuoroda" href="dokumentai.html">Augintinio dokumentai</a>
             <a class="mygtukas antrinis" href="uzsakymai.html">Grįžti į sąrašą</a>
-            <button class="mygtukas pavojingas" data-istrinti="uzsakymai.html" data-objektas="šį užsakymą" data-pranesimas="Užsakymas ištrintas.">Ištrinti</button>
         </div>
     </main>
-    <footer>
-        <div class="legenda">
-            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
-            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
-            <span style="--c: var(--pijus)">Pijus Buknys</span>
-            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
-            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
-        </div>
-    </footer>
+    <footer></footer>
 </body>
 </html>
