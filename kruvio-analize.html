@@ -3,48 +3,44 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Darbuotojų krūvio analizės langas – Gyvūnų klonavimo sistema</title>
+    <title>Darbo krūvio analizės langas – Gyvūnų klonavimo sistema</title>
     <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
     <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
 </head>
 <body>
     <nav class="meniu" id="meniu"></nav>
-    <main style="--posistemes-spalva: var(--ugne)">
-        <div class="antraste">
-            <span class="posisteme">Darbuotojų valdymas</span>
-            <h1>Darbuotojų krūvio analizės langas</h1>
-        </div>
+    <main style="--posistemes-spalva: var(--ugne)" data-prieiga="administratorius">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">Darbuotojų valdymas</span>
+                <h1>Darbo krūvio analizės langas</h1>
+            </div>
+        </header>
         <div id="pranesimas"></div>
+        <p class="santrauka" id="rodikliai"></p>
         <div class="kortele">
-            <p>Sistema įvertins laboratorijos specialistams priskirtus aktyvius klonavimus, jų kiekį, trukmę ir etatą.</p>
+            <h2>Kaip skaičiuojamas darbo krūvis</h2>
+            <ol class="zingsniai">
+                <li>Gaunamas laboratorijos specialistų sąrašas.</li>
+                <li>Kiekvienam specialistui gaunami jam priskirti klonavimai ir atrenkami aktyvūs.</li>
+                <li>Apskaičiuojamas aktyvių klonavimų kiekis ir bendra trukmė dienomis.</li>
+                <li>Pagal formulę ir darbuotojo etatą apskaičiuojamas darbo krūvio rodiklis.</li>
+                <li>Pagal rodiklį priskiriamas užimtumo lygis ir suformuojama suvestinė.</li>
+            </ol>
+            <div class="formule" id="formule"></div>
             <div class="mygtukai">
-                <button class="mygtukas" data-eiti="kruvio-analize.html" data-pranesimas="Darbo krūvio suvestinė suformuota.">Atlikti analizę</button>
-                <a class="mygtukas antrinis" href="darbuotojai.html">Grįžti</a>
+                <span class="zyma info">&lt; 70 %: mažas darbo krūvis</span>
+                <span class="zyma sekme">70–100 %: normalus darbo krūvis</span>
+                <span class="zyma klaida">&gt; 100 %: didelis darbo krūvis</span>
             </div>
         </div>
-        <div class="kortele">
-            <div class="lenteles-virsus">
-                <strong>Darbo krūvio suvestinė</strong>
-                <div class="mygtukai">
-
-                </div>
-            </div>
-            <div class="slinktis">
-                <table>
-                    <thead><tr><th>Darbuotojas</th><th>Aktyvūs klonavimai</th><th>Bendra trukmė (d.)</th><th>Etatas</th><th>Darbo krūvis (%)</th><th>Užimtumo lygis</th></tr></thead>
-                    <tbody><tr><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td></tr></tbody>
-                </table>
-            </div>
+        <div class="mygtukai">
+            <button type="button" class="mygtukas" id="atlikti">Atlikti analizę</button>
+            <a class="mygtukas antrinis" href="darbuotojai.html">Grįžti į darbuotojų sąrašą</a>
         </div>
     </main>
-    <footer>
-        <div class="legenda">
-            <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
-            <span style="--c: var(--evelina)">Evelina Riukaitė</span>
-            <span style="--c: var(--pijus)">Pijus Buknys</span>
-            <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
-            <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
-        </div>
-    </footer>
+    <footer></footer>
 </body>
 </html>

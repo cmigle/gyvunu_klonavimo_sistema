@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Darbo krūvio suvestinės langas – Gyvūnų klonavimo sistema</title>
+    <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
+    <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
+</head>
+<body>
+    <nav class="meniu" id="meniu"></nav>
+    <main style="--posistemes-spalva: var(--ugne)" data-prieiga="administratorius">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">Darbuotojų valdymas</span>
+                <h1>Darbo krūvio suvestinės langas</h1>
+                <p class="aprasas" id="aprasas"></p>
+            </div>
+        </header>
+        <div id="pranesimas"></div>
+        <p class="santrauka" id="rodikliai"></p>
+        <div class="kortele lenteles-kortele">
+            <div class="korteles-virsus"><h2>Darbuotojų darbo krūvio suvestinė</h2></div>
+            <div class="slinktis">
+                <table>
+                    <thead><tr><th>Darbuotojas</th><th class="skaicius">Etatas</th><th class="skaicius">Aktyvūs klonavimai</th><th class="skaicius">Bendra trukmė</th><th>Darbo krūvis</th><th>Užimtumo lygis</th></tr></thead>
+                    <tbody id="suvestine"></tbody>
+                </table>
+            </div>
+            <p class="pagalba" id="formule" style="padding: 12px 20px 16px"></p>
+        </div>
+        <div class="mygtukai">
+            <button type="button" class="mygtukas" id="spausdinti">Spausdinti suvestinę</button>
+            <a class="mygtukas antrinis" href="kruvio-analize.html">Atlikti analizę iš naujo</a>
+            <a class="mygtukas antrinis" href="darbuotojai.html">Darbuotojų sąrašas</a>
+        </div>
+    </main>
+    <footer></footer>
+</body>
+</html>
