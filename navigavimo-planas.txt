@@ -1,17 +1,18 @@
 NAVIGAVIMO PLANAS – «boundary» klasės ir perėjimai tarp jų
 ============================================================
+Langų pavadinimai sutampa su reikalavimų analizės diagramų (3.1 skyrius)
+«boundary» klasėmis. Veiksmai (redaguoti, ištrinti, patvirtinti) pradedami
+iš sąrašo langų, kaip aprašyta sekų diagramose (2.2 skyrius).
 
 [Gyvūnų klonavimo sistema]
-  «boundary» Pradinis langas  (index.html)
-      → Prisijungimo langas
-      → Registracijos langas
-      → Kliento profilio langas
-      → Augintinių sąrašo langas
-      → Užsakymų sąrašo langas
-      → DNR pavyzdžių sąrašo langas
-      → Inkubatorių sąrašo langas
-      → Darbuotojų valdymo langas
-      → Darbuotojų krūvio analizės langas
+  «boundary» Pradžios langas / Pagrindinis langas  (index.html)
+      → Prisijungimo langas, Registracijos langas                  (svečias)
+      → Kliento profilio langas, Augintinių sąrašo langas,
+        Užsakymų sąrašo langas, Užsakymo peržiūros langas          (klientas)
+      → Užsakymų sąrašo langas, DNR pavyzdžių puslapis,
+        DNR pavyzdžio peržiūros langas, Inkubatorių langas         (lab. specialistas)
+      → Darbuotojų sąrašo langas, Darbuotojo peržiūros langas,
+        Darbo krūvio analizės langas                               (administratorius)
 
 [Kliento ir augintinio valdymas]
   «boundary» Prisijungimo langas  (prisijungimas.html)
@@ -26,134 +27,142 @@ NAVIGAVIMO PLANAS – «boundary» klasės ir perėjimai tarp jų
       → Kliento profilio redagavimo langas
       → Kliento istorijos patikrinimo langas
       → Augintinių sąrašo langas
-      → Prisijungimo langas
+      → Ištrynimo patvirtinimo langas → Prisijungimo langas
   «boundary» Kliento profilio redagavimo langas  (profilis-redaguoti.html)
       → Kliento profilio langas
   «boundary» Kliento istorijos patikrinimo langas  (istorijos-patikrinimas.html)
-      → Kliento istorijos patikrinimo rezultato langas
+      → Patikrinimo rezultato langas  (per «boundary» CourtListener API sąsaja)
       → Kliento profilio langas
-  «boundary» Kliento istorijos patikrinimo rezultato langas  (istorijos-rezultatas.html)
+  «boundary» Patikrinimo rezultato langas  (istorijos-rezultatas.html)
       → Kliento profilio langas
       → Kliento istorijos patikrinimo langas
+      → Užsakymo kūrimo langas  (jei patikrinimas pradėtas kuriant užsakymą)
   «boundary» Augintinių sąrašo langas  (augintiniai.html)
       → Augintinio kūrimo langas
       → Augintinio peržiūros langas
       → Augintinio redagavimo langas
       → Dokumentų sąrašo langas
+      → Ištrynimo patvirtinimo langas
   «boundary» Augintinio kūrimo langas  (augintinis-kurti.html)
       → Augintinio peržiūros langas
       → Augintinių sąrašo langas
   «boundary» Augintinio peržiūros langas  (augintinis.html)
       → Augintinio redagavimo langas
+      → Užsakymo kūrimo langas  (jei augintinis dar neturi užsakymo)
       → Dokumentų sąrašo langas
-      → Užsakymo kūrimo langas
+      → Užsakymo peržiūros langas
       → Augintinių sąrašo langas
   «boundary» Augintinio redagavimo langas  (augintinis-redaguoti.html)
       → Augintinio peržiūros langas
+      → Augintinių sąrašo langas
   «boundary» Dokumentų sąrašo langas  (dokumentai.html)
       → Dokumento įkėlimo langas
-      → Augintinio peržiūros langas
       → Dokumento peržiūros langas
       → Dokumento redagavimo langas
+      → Ištrynimo patvirtinimo langas
+      → Augintinių sąrašo langas  (klientas) / Užsakymo peržiūros langas  (specialistas)
   «boundary» Dokumento įkėlimo langas  (dokumentas-ikelti.html)
       → Dokumentų sąrašo langas
   «boundary» Dokumento peržiūros langas  (dokumentas.html)
-      → Dokumento redagavimo langas
+      → Dokumento redagavimo langas  (klientas)
       → Dokumentų sąrašo langas
   «boundary» Dokumento redagavimo langas  (dokumentas-redaguoti.html)
       → Dokumento peržiūros langas
+      → Dokumentų sąrašo langas
+  «boundary» Ištrynimo patvirtinimo langas  (dialogas)
+      → langas, iš kurio iškviestas (patvirtinus – atnaujintas sąrašas)
 
 [Užsakymo valdymas]
   «boundary» Užsakymų sąrašo langas  (uzsakymai.html)
       → Užsakymo kūrimo langas
-      → Pradinis langas
       → Užsakymo peržiūros langas
-      → Užsakymo redagavimo langas
-      → Užsakymo patvirtinimo langas
+      → Užsakymo redagavimo langas  (tik nepatvirtintas užsakymas)
+      → Ištrynimo patvirtinimo langas  (tik nepatvirtintas užsakymas)
+      → Laiško šablonas → El. pašto serveris  (patvirtinus užsakymą)
+      → Dokumentų sąrašo langas  (specialistas)
   «boundary» Užsakymo kūrimo langas  (uzsakymas-kurti.html)
-      → Užsakymo formos peržiūros langas
       → Užsakymų sąrašo langas
-  «boundary» Užsakymo formos peržiūros langas  (uzsakymas-formos-perziura.html)
-      → Užsakymų sąrašo langas
-      → Užsakymo kūrimo langas
+      → Kliento istorijos patikrinimo langas  («include» – kai istorija nepatikrinta)
+      → Augintinio kūrimo langas  (kai visi augintiniai jau turi užsakymą)
   «boundary» Užsakymo peržiūros langas  (uzsakymas.html)
-      → Užsakymo redagavimo langas
-      → Užsakymo patvirtinimo langas
+      → Užsakymo redagavimo langas  (klientas, nepatvirtintas užsakymas)
       → Dokumentų sąrašo langas
+      → Augintinio peržiūros langas  (klientas)
+      → DNR pavyzdžio peržiūros langas, Inkubatoriaus parametrų langas  (specialistas)
       → Užsakymų sąrašo langas
   «boundary» Užsakymo redagavimo langas  (uzsakymas-redaguoti.html)
-      → Užsakymo peržiūros langas
-  «boundary» Užsakymo patvirtinimo langas  (uzsakymo-patvirtinimas.html)
       → Užsakymų sąrašo langas
 
 [DNR pavyzdžio valdymas]
-  «boundary» DNR pavyzdžių sąrašo langas  (dnr.html)
-      → DNR pavyzdžio kūrimo langas
-      → Pradinis langas
+  «boundary» DNR pavyzdžių puslapis  (dnr.html)
+      → Naujo DNR pavyzdžio įvedimo langas
       → DNR pavyzdžio peržiūros langas
-      → DNR pavyzdžio redagavimo langas
+      → DNR pavyzdžio redagavimo forma
       → DNR pavyzdžio rezultatų įvedimo langas
-      → DNR pavyzdžio tinkamumo analizės langas
-  «boundary» DNR pavyzdžio kūrimo langas  (dnr-kurti.html)
-      → DNR pavyzdžių sąrašo langas
+      → DNR pavyzdžio ataskaitos langas  (nustačius tinkamumą)
+      → Ištrynimo patvirtinimo langas
+  «boundary» Naujo DNR pavyzdžio įvedimo langas  (dnr-kurti.html)
+      → DNR pavyzdžių puslapis  (su sugeneruota etikete, jei pasirinkta)
   «boundary» DNR pavyzdžio peržiūros langas  (dnr-pavyzdys.html)
-      → DNR pavyzdžio redagavimo langas
+      → DNR pavyzdžio redagavimo forma
       → DNR pavyzdžio rezultatų įvedimo langas
-      → DNR pavyzdžio tinkamumo analizės langas
-      → DNR pavyzdžių sąrašo langas
-  «boundary» DNR pavyzdžio redagavimo langas  (dnr-redaguoti.html)
-      → DNR pavyzdžių sąrašo langas
-      → DNR pavyzdžio peržiūros langas
+      → DNR pavyzdžio ataskaitos langas
+      → Inkubatoriaus parametrų langas
+      → Ištrynimo patvirtinimo langas → DNR pavyzdžių puslapis
+      → DNR pavyzdžių puslapis
+  «boundary» DNR pavyzdžio redagavimo forma  (dnr-redaguoti.html)
+      → DNR pavyzdžių puslapis
   «boundary» DNR pavyzdžio rezultatų įvedimo langas  (dnr-rezultatai.html)
-      → DNR pavyzdžio peržiūros langas
-  «boundary» DNR pavyzdžio tinkamumo analizės langas  (dnr-tinkamumas.html)
-      → DNR tinkamumo analizės rezultato langas
-      → DNR pavyzdžio peržiūros langas
-  «boundary» DNR tinkamumo analizės rezultato langas  (dnr-tinkamumo-rezultatas.html)
-      → DNR pavyzdžio peržiūros langas
-      → DNR pavyzdžių sąrašo langas
+      → DNR pavyzdžių puslapis
+  «boundary» DNR pavyzdžio ataskaitos langas  (dnr-tinkamumo-rezultatas.html)
+      → DNR pavyzdžių puslapis
 
 [Inkubatorių valdymas]
-  «boundary» Inkubatorių sąrašo langas  (inkubatoriai.html)
-      → Inkubatoriaus kūrimo langas
-      → Inkubatoriaus priskyrimo langas
-      → Inkubatoriaus parametrų peržiūros langas
+  «boundary» Inkubatorių langas  (inkubatoriai.html)
+      → Naujo inkubatoriaus kūrimo langas
+      → Inkubatoriaus parametrų langas
       → Inkubatoriaus būsenos redagavimo langas
-  «boundary» Inkubatoriaus kūrimo langas  (inkubatorius-kurti.html)
-      → Inkubatorių sąrašo langas
-  «boundary» Inkubatoriaus parametrų peržiūros langas  (inkubatorius.html)
+      → Inkubatoriaus priskyrimo rezultato langas  (pasirinkus DNR pavyzdį)
+  «boundary» Naujo inkubatoriaus kūrimo langas  (inkubatorius-kurti.html)
+      → Inkubatorių langas
+  «boundary» Inkubatoriaus parametrų langas  (inkubatorius.html)
       → Inkubatoriaus būsenos redagavimo langas
-      → Inkubatorių sąrašo langas
+      → DNR pavyzdžio peržiūros langas
+      → Inkubatorių langas
   «boundary» Inkubatoriaus būsenos redagavimo langas  (inkubatorius-busena.html)
-      → Inkubatoriaus parametrų peržiūros langas
-  «boundary» Inkubatoriaus priskyrimo langas  (inkubatoriaus-priskyrimas.html)
-      → Inkubatoriaus priskyrimo rezultato langas
-      → Inkubatorių sąrašo langas
+      → Inkubatorių langas
   «boundary» Inkubatoriaus priskyrimo rezultato langas  (inkubatoriaus-priskyrimo-rezultatas.html)
-      → Inkubatorių sąrašo langas
-      → Inkubatoriaus priskyrimo langas
+      → Inkubatoriaus parametrų langas  (priskirtas inkubatorius)
+      → Inkubatoriaus būsenos redagavimo langas  (tinkamų nerasta)
+      → Inkubatorių langas
 
 [Darbuotojų valdymas]
-  «boundary» Darbuotojų valdymo langas  (darbuotojai.html)
-      → Darbuotojo kūrimo langas
-      → Darbuotojų krūvio analizės langas
+  «boundary» Darbuotojų sąrašo langas  (darbuotojai.html)
+      → Darbuotojo sukūrimo langas
       → Darbuotojo peržiūros langas
       → Darbuotojo redagavimo langas
       → Darbuotojo tyrimų sąrašo langas
-  «boundary» Darbuotojo kūrimo langas  (darbuotojas-kurti.html)
-      → Darbuotojų valdymo langas
+      → Darbo krūvio analizės langas
+      → Ištrynimo patvirtinimo langas
+  «boundary» Darbuotojo sukūrimo langas  (darbuotojas-kurti.html)
+      → Darbuotojų sąrašo langas
   «boundary» Darbuotojo peržiūros langas  (darbuotojas.html)
       → Darbuotojo redagavimo langas
       → Darbuotojo tyrimų sąrašo langas
-      → Darbuotojų valdymo langas
+      → Darbuotojų sąrašo langas
   «boundary» Darbuotojo redagavimo langas  (darbuotojas-redaguoti.html)
-      → Darbuotojo peržiūros langas
+      → Darbuotojų sąrašo langas
   «boundary» Darbuotojo tyrimų sąrašo langas  (darbuotojo-tyrimai.html)
-      → Darbuotojo peržiūros langas
       → Tyrimo peržiūros langas
+      → Darbuotojų sąrašo langas
   «boundary» Tyrimo peržiūros langas  (tyrimas.html)
       → Darbuotojo tyrimų sąrašo langas
-  «boundary» Darbuotojų krūvio analizės langas  (kruvio-analize.html)
-      → Darbuotojų valdymo langas
+  «boundary» Darbo krūvio analizės langas  (kruvio-analize.html)
+      → Darbo krūvio suvestinės langas
+      → Darbuotojų sąrašo langas
+  «boundary» Darbo krūvio suvestinės langas  (kruvio-suvestine.html)
+      → Darbuotojo peržiūros langas
+      → Darbo krūvio analizės langas
+      → Darbuotojų sąrašo langas
 
-Pastaba: viršutinis meniu iš bet kurio lango veda į pagrindinius rolės langus (Klientas: Pradinis, Kliento profilio, Augintinių sąrašo, Užsakymų sąrašo, Atsijungimo; Lab. specialistas: Pradinis, Užsakymų, DNR pavyzdžių, Inkubatorių sąrašo, Atsijungimo; Administratorius: Pradinis, Darbuotojų valdymo, Krūvio analizės, Atsijungimo).
+Pastaba: viršutinis meniu iš bet kurio lango veda į pagrindinius rolės langus (Klientas: Pagrindinis, Kliento profilio, Augintinių sąrašo, Užsakymų sąrašo, Atsijungimo; Lab. specialistas: Pagrindinis, Užsakymų sąrašo, DNR pavyzdžių puslapis, Inkubatorių, Atsijungimo; Administratorius: Pagrindinis, Darbuotojų sąrašo, Darbo krūvio analizės, Atsijungimo).
