@@ -62,7 +62,6 @@ const LANGAI = {
     "dnr-kurti.html": ["Naujas pavyzdys", "dnr.html"],
     "dnr-pavyzdys.html": ["Pavyzdys", "dnr.html"],
     "dnr-redaguoti.html": ["Redagavimas", "dnr.html"],
-    "dnr-rezultatai.html": ["Rezultatų įvedimas", "dnr.html"],
     "dnr-tinkamumo-rezultatas.html": ["Ataskaita", "dnr.html"],
     "inkubatoriai.html": ["Inkubatoriai", "index.html"],
     "inkubatorius-kurti.html": ["Naujas inkubatorius", "inkubatoriai.html"],

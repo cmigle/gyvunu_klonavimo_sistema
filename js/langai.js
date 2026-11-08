@@ -33,7 +33,7 @@ function eilutes(tbody, irasai, eilute, tusciaTekstas) {
 const nuorodosMygtukas = (tekstas, href) => `<a href="${href}">${tekstas}</a>`;
 const veiksmoMygtukas = (tekstas, veiksmas, id, klase = "") =>
     `<button type="button" class="nuoroda ${klase === "pavojingas" ? "pavojinga" : ""}" data-veiksmas="${veiksmas}" data-id="${id}">${tekstas}</button>`;
-const veiksmai = (...mygtukai) => `<td class="veiksmai">${mygtukai.join(" | ")}</td>`;
+const veiksmai = (...mygtukai) => `<td class="veiksmai">${mygtukai.filter(Boolean).join(" | ")}</td>`;
 
 // Eilučių mygtukų paspaudimai: kaiPaspausta(tbody, { istrinti: id => ... })
 function kaiPaspausta(konteineris, apdorojimai) {
@@ -750,8 +750,7 @@ PUSLAPIAI["dnr.html"] = () => {
             ${veiksmai(
                 nuorodosMygtukas("Peržiūrėti", nuoroda("dnr-pavyzdys.html", p)),
                 nuorodosMygtukas("Redaguoti", nuoroda("dnr-redaguoti.html", p)),
-                yraRezultatai ? veiksmoMygtukas("Nustatyti tinkamumą", "tinkamumas", x.id)
-                    : nuorodosMygtukas("Įvesti rezultatus", nuoroda("dnr-rezultatai.html", p)),
+                yraRezultatai && veiksmoMygtukas("Nustatyti tinkamumą", "tinkamumas", x.id),
                 veiksmoMygtukas("Ištrinti", "istrinti", x.id, "pavojingas"))}
         </tr>`;
     }, "DNR pavyzdžių dar nėra.");
@@ -835,7 +834,6 @@ PUSLAPIAI["dnr-pavyzdys.html"] = () => {
             : laukiaInkubatoriaus().includes(x) ? "Laukia priskyrimo" : "–"
     });
     $("#redaguoti").href = nuoroda("dnr-redaguoti.html", { dnr: x.id });
-    $("#rezultatai").href = nuoroda("dnr-rezultatai.html", { dnr: x.id });
     $("#ataskaita").hidden = !x.tinkamumas;
     $("#ataskaita").href = nuoroda("dnr-tinkamumo-rezultatas.html", { dnr: x.id });
     $("#istrinti").addEventListener("click", async () => {
@@ -848,11 +846,11 @@ PUSLAPIAI["dnr-pavyzdys.html"] = () => {
 };
 
 // Analizės rezultatų laukai su normomis
-function rezultatuLaukai(vieta, privalomi) {
+function rezultatuLaukai(vieta) {
     vieta.innerHTML = DNR_NORMOS.filter(n => DNR_REZULTATAI.includes(n.laukas)).map(n => `
         <div class="laukas">
             <label for="${n.laukas}">${n.pavadinimas}${n.vienetai ? ` (${n.vienetai})` : ""}</label>
-            <input id="${n.laukas}" name="${n.laukas}" type="number" step="0.01" min="0"${n.vienetai === "%" ? ' max="100"' : ""}${privalomi ? " required" : ""}>
+            <input id="${n.laukas}" name="${n.laukas}" type="number" step="0.01" min="0"${n.vienetai === "%" ? ' max="100"' : ""}>
             <p class="pagalba">Norma: ${normosTekstas(n)}</p>
         </div>`).join("");
 }
@@ -861,10 +859,10 @@ function rezultatuLaukai(vieta, privalomi) {
 PUSLAPIAI["dnr-redaguoti.html"] = () => {
     const x = pagalParametra("dnr", visi("dnr"));
     if (!x) return nera("DNR pavyzdys nerastas.", "dnr.html", "Grįžti į sąrašą");
-    $("#aprasas").textContent = `Redaguojamas pavyzdys ${dnrKodas(x)}. Pakeitus rezultatus ar saugojimo temperatūrą, tinkamumą reikės nustatyti iš naujo.`;
+    $("#aprasas").textContent = `Redaguojamas pavyzdys ${dnrKodas(x)}. Čia įvedami ir analizės rezultatai; juos ar saugojimo temperatūrą pakeitus, tinkamumą reikės nustatyti iš naujo.`;
     const forma = $("#dnr-forma");
     const l = forma.elements;
-    rezultatuLaukai($("#rezultatu-laukai"), false);
+    rezultatuLaukai($("#rezultatu-laukai"));
     parinktys(l.augintinis, visi("augintiniai").filter(a => a.id === x.augintinis || !augintinioDnr(a.id)), augintinioSuKlientu, x.augintinis);
     // Klonavime panaudoto pavyzdžio augintinio keisti negalima
     if (dnrKlonavimas(x.id)) l.augintinis.disabled = true;
@@ -875,19 +873,6 @@ PUSLAPIAI["dnr-redaguoti.html"] = () => {
         const pasikeite = ["saugojimo_temperatura", ...DNR_REZULTATAI].some(r => d[r] !== x[r]);
         atnaujinti("dnr", x.id, Object.assign(d, pasikeite ? { tinkamumas: null, tinkamumo_data: null } : {}));
         eiti("dnr.html", `DNR pavyzdžio ${dnrKodas(x)} duomenys atnaujinti.${pasikeite && x.tinkamumas ? " Tinkamumą reikia nustatyti iš naujo." : ""}`);
-    });
-};
-
-PUSLAPIAI["dnr-rezultatai.html"] = () => {
-    const x = pagalParametra("dnr", visi("dnr"));
-    if (!x) return nera("DNR pavyzdys nerastas.", "dnr.html", "Grįžti į sąrašą");
-    $("#aprasas").textContent = `Pavyzdys ${dnrKodas(x)}: ${augintinioPavadinimas(rasti("augintiniai", x.augintinis))}, paimtas ${x.paemimo_data}.`;
-    const forma = $("#rezultatu-forma");
-    rezultatuLaukai($("#rezultatu-laukai"), true);
-    uzpildytiForma(forma, x);
-    kaiPateikta(forma, d => {
-        atnaujinti("dnr", x.id, { ...d, tinkamumas: null, tinkamumo_data: null });
-        eiti("dnr.html", `Pavyzdžio ${dnrKodas(x)} analizės rezultatai išsaugoti. Dabar galite nustatyti jo tinkamumą.`);
     });
 };
 
