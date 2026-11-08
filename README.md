@@ -26,7 +26,7 @@ Demonstracinės paskyros (slaptažodis visoms – `demo1234`):
 |---|---|---|
 | Jonas Petrauskas, klientas | jonas@pavyzdys.lt | patvirtinti užsakymą UZ-0002, sukurti užsakymą Žaibui |
 | Rūta Kazlauskienė, klientas | ruta@pavyzdys.lt | istorija nepatikrinta – užsakymas reikalauja patikrinimo („Petras Petraitis“ – rasta įrašų) |
-| Laura Vaitkutė, lab. specialistė | laura@klonavimas.lt | DNR-0012 tinkamumas, DNR-0013 rezultatai, inkubatoriaus priskyrimas (Kiki – pavyks, Pūkis – tinkamo nėra) |
+| Laura Vaitkutė, lab. specialistė | laura@klonavimas.lt | DNR-0012 tinkamumas, DNR-0013 rezultatų įvedimas (Redaguoti), inkubatoriaus priskyrimas (Kiki – pavyks, Pūkis – tinkamo nėra) |
 | Asta Kairienė, administratorė | asta@klonavimas.lt | darbuotojai, tyrimai, krūvio analizė (didelis / normalus / mažas) |
 
 ## Naršymas
