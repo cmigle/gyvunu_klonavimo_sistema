@@ -1,0 +1,12 @@
+@model IEnumerable<Rodiklis>
+
+<p class="santrauka">
+    @foreach (var (r, i) in Model.Select((r, i) => (r, i)))
+    {
+        if (i > 0)
+        {
+            <text>&nbsp;|&nbsp; </text>
+        }
+        @r.Pavadinimas<text>: </text><b>@r.Reiksme</b>
+    }
+</p>
