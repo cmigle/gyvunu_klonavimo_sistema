@@ -6,6 +6,8 @@ An information system for a pet cloning laboratory: clients register their pets 
 
 The user interface and the domain model are in Lithuanian, as the course required; class, controller and table names follow the UML vocabulary one-to-one.
 
+**Try the clickable prototype:** <https://cmigle.github.io/gyvunu_klonavimo_sistema/> – runs entirely in the browser with demo data; pick a demo account in the top bar.
+
 ![Lab specialist's home page](docs/ekrano-kopijos/pagrindinis-langas-specialistas.png)
 
 ## What it does
