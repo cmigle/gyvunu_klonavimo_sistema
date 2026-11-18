@@ -1,0 +1,28 @@
+@model DokumentoIkelimoForma
+@{
+    var a = (Augintinis)ViewData["Augintinis"]!;
+    ViewData["Title"] = "Dokumento įkėlimo langas";
+    ViewData["Posisteme"] = Posisteme.KlientaiIrAugintiniai;
+    ViewData["Aprasas"] = $"Dokumentas bus priskirtas augintiniui „{a.Vardas}“.";
+    ViewData["Kelias"] = new[]
+    {
+        new KelioDalis("Mano augintiniai", "/augintiniai"),
+        new KelioDalis("Dokumentai", $"/dokumentai?augintinisId={a.Id}"),
+        new KelioDalis("Įkėlimas")
+    };
+}
+
+<form method="post" enctype="multipart/form-data" class="kortele" novalidate>
+    <div class="tinklelis">
+        <partial name="_Laukai" model="Model" />
+        <div laukas-for="Failas">
+            <label asp-for="Failas"></label>
+            <input asp-for="Failas" type="file" accept=".pdf,.jpg,.jpeg,.png">
+            <p class="pagalba">Leidžiami formatai: PDF, JPG, PNG (iki 10 MB).</p>
+        </div>
+    </div>
+    <div class="mygtukai">
+        <button type="submit" class="mygtukas">Įkelti</button>
+        <a class="mygtukas antrinis" href="/dokumentai?augintinisId=@a.Id">Atšaukti</a>
+    </div>
+</form>
