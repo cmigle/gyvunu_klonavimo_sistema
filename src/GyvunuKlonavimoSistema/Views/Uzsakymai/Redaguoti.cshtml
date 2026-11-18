@@ -1,0 +1,16 @@
+@model UzsakymoForma
+@{
+    ViewData["Title"] = "Užsakymo redagavimo langas";
+    ViewData["Posisteme"] = Posisteme.Uzsakymai;
+    ViewData["Aprasas"] = $"Redaguojamas užsakymas {Model.Uzsakymas!.Numeris}.";
+    ViewData["Kelias"] = new[] { new KelioDalis("Užsakymai", "/uzsakymai"), new KelioDalis("Redagavimas") };
+    ViewData["Pagalba"] = "Galima pasirinkti augintinį, kuris dar neturi kito užsakymo.";
+}
+
+<form class="kortele" method="post" novalidate>
+    <partial name="_AugintinioPasirinkimas" model="Model" />
+    <div class="mygtukai">
+        <button type="submit" class="mygtukas">Išsaugoti pakeitimus</button>
+        <a class="mygtukas antrinis" href="/uzsakymai">Atšaukti</a>
+    </div>
+</form>

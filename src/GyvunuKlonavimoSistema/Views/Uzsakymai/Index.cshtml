@@ -1,0 +1,76 @@
+@model List<Uzsakymas>
+@{
+    var klientas = User.Role() == Roles.Klientas;
+    ViewData["Title"] = "Užsakymų sąrašo langas";
+    ViewData["Posisteme"] = Posisteme.Uzsakymai;
+    ViewData["Aprasas"] = klientas ? "Jūsų klonavimo užsakymai ir jų būsenos." : "Visų klientų užsakymai ir augintinių dokumentai.";
+    ViewData["Kelias"] = new[] { new KelioDalis("Užsakymai") };
+    var stulpeliai = klientas ? 7 : 8;
+}
+@section Mygtukai {
+    @if (klientas)
+    {
+        <a class="mygtukas" href="/uzsakymai/kurti">+ Sukurti užsakymą</a>
+    }
+}
+
+<partial name="_Rodikliai" model="@(new Rodiklis[] {
+    new("Užsakymai", Model.Count),
+    new("Nepatvirtinti", Model.Count(u => !u.Busena)),
+    new("Patvirtinti", Model.Count(u => u.Busena)),
+    new("Bendra suma", Formatai.Pinigai(Model.Sum(u => u.Kaina)))
+})" />
+
+<div class="kortele lenteles-kortele">
+    <div class="slinktis">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nr.</th><th>Augintinis</th>
+                    @if (!klientas)
+                    {
+                        <th>Klientas</th>
+                    }
+                    <th class="skaicius">Kaina</th><th>Sukūrimo data</th><th>Būsena</th><th>Patvirtinimo data</th><th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var u in Model)
+                {
+                    <tr>
+                        <td><a class="pagrindinis" href="/uzsakymai/perziura/@u.Id">@u.Numeris</a></td>
+                        <td>@u.Augintinis.Vardas<small>@u.Augintinis.Tipas</small></td>
+                        @if (!klientas)
+                        {
+                            <td>@u.Augintinis.Klientas.VardasPavarde</td>
+                        }
+                        <td class="skaicius">@Formatai.Pinigai(u.Kaina)</td>
+                        <td>@Formatai.Data(u.SukurimoData)</td>
+                        <td>@Html.Zyma(u.BusenosPavadinimas)</td>
+                        <td>@Formatai.Data(u.PatvirtinimoData)</td>
+                        <td class="veiksmai">
+                            <a href="/uzsakymai/perziura/@u.Id">Peržiūrėti</a> |
+                            @if (klientas)
+                            {
+                                <a href="/uzsakymai/redaguoti/@u.Id">Redaguoti</a> <text>|</text>
+                                @* Patvirtintam užsakymui patvirtinimo langas nerodomas – sistema iš karto praneša, kad ištrinti negalima *@
+                                <form method="post" asp-action="Istrinti" asp-route-id="@u.Id" style="display: inline"
+                                      data-patvirtinimas="@(u.Busena ? null : $"Ar tikrai norite ištrinti užsakymą {u.Numeris}? Šio veiksmo atšaukti negalima.")">
+                                    <button type="submit" class="nuoroda pavojinga">Ištrinti</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <a href="/dokumentai?augintinisId=@u.AugintinisId">Dokumentai</a>
+                            }
+                        </td>
+                    </tr>
+                }
+                @if (Model.Count == 0)
+                {
+                    <tr><td class="tuscia" colspan="@stulpeliai">@(klientas ? "Užsakymų dar nėra. Sukurkite pirmąjį užsakymą." : "Užsakymų nėra.")</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

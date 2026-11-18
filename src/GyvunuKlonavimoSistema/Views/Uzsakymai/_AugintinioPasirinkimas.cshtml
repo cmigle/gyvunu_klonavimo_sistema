@@ -1,0 +1,32 @@
+@model UzsakymoForma
+@using GyvunuKlonavimoSistema.Services
+@* Augintinio pasirinkimas su kaina pagal gyvūno tipą (kūrimo ir redagavimo langai) *@
+
+<div class="tinklelis">
+    <div laukas-for="AugintinisId">
+        <label asp-for="AugintinisId"></label>
+        <select asp-for="AugintinisId">
+            <option value="">Pasirinkite…</option>
+            @foreach (var a in Model.Augintiniai)
+            {
+                <option value="@a.Id" data-kaina="@Formatai.Pinigai(KlonavimoNormos.Kainos[a.Tipas])">@a.Vardas (@a.Tipas.ToString().ToLowerInvariant(), @a.Veisle)</option>
+            }
+        </select>
+        <p class="pagalba">@ViewData["Pagalba"]</p>
+    </div>
+    <div class="laukas">
+        <label>Kaina</label>
+        <output class="reiksme" id="kaina">–</output>
+    </div>
+</div>
+
+<script>
+    // Kaina priklauso nuo pasirinkto gyvūno tipo
+    (() => {
+        const pasirinkimas = document.getElementById("AugintinisId");
+        const kaina = document.getElementById("kaina");
+        const rodyti = () => { kaina.textContent = pasirinkimas.selectedOptions[0]?.dataset.kaina || "–"; };
+        pasirinkimas.addEventListener("change", rodyti);
+        rodyti();
+    })();
+</script>
