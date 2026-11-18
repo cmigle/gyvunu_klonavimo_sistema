@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tyrimo peržiūros langas – Gyvūnų klonavimo sistema</title>
+    <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
+    <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
+</head>
+<body>
+    <nav class="meniu" id="meniu"></nav>
+    <main style="--posistemes-spalva: var(--ugne)" data-prieiga="administratorius">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">Darbuotojų valdymas</span>
+                <h1>Tyrimo peržiūros langas</h1>
+            </div>
+        </header>
+        <div id="pranesimas"></div>
+        <div class="du-stulpeliai">
+            <div class="kortele">
+                <div class="korteles-virsus"><h2>Tyrimas <span data-f="nr"></span></h2><span data-f="busenos_zyma"></span></div>
+                <dl class="duomenys">
+                    <dt>Tyrimo (klonavimo) nr.</dt><dd data-f="nr">–</dd>
+                    <dt>Specialistas</dt><dd data-f="specialistas">–</dd>
+                    <dt>Pradžios data</dt><dd data-f="pradzios_data">–</dd>
+                    <dt>Pabaigos data</dt><dd data-f="pabaigos_data">–</dd>
+                    <dt>Trukmė</dt><dd data-f="trukme">–</dd>
+                    <dt>Rezultatas</dt><dd data-f="rezultatas">–</dd>
+                    <dt>Specialisto patvirtinimas</dt><dd data-f="specialisto_patvirtinimas">–</dd>
+                    <dt>Būsena</dt><dd data-f="busena">–</dd>
+                </dl>
+            </div>
+            <div class="kortele">
+                <h2>Susiję duomenys</h2>
+                <dl class="duomenys">
+                    <dt>Užsakymas</dt><dd data-f="uzsakymas">–</dd>
+                    <dt>Klientas</dt><dd data-f="klientas">–</dd>
+                    <dt>Augintinis</dt><dd data-f="augintinis">–</dd>
+                    <dt>DNR pavyzdys</dt><dd data-f="dnr">–</dd>
+                    <dt>Inkubatorius</dt><dd data-f="inkubatorius">–</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="mygtukai">
+            <a class="mygtukas antrinis" id="grizti" href="darbuotojo-tyrimai.html">Grįžti į tyrimų sąrašą</a>
+        </div>
+    </main>
+    <footer></footer>
+</body>
+</html>

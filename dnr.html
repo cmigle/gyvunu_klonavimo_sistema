@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DNR pavyzdžių puslapis – Gyvūnų klonavimo sistema</title>
+    <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
+    <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
+</head>
+<body>
+    <nav class="meniu" id="meniu"></nav>
+    <main style="--posistemes-spalva: var(--evelina)" data-prieiga="specialistas">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">DNR pavyzdžio valdymas</span>
+                <h1>DNR pavyzdžių puslapis</h1>
+            </div>
+            <div class="mygtukai">
+                <a class="mygtukas" href="dnr-kurti.html">+ Sukurti DNR pavyzdį</a>
+            </div>
+        </header>
+        <div id="pranesimas"></div>
+
+        <div class="kortele" id="etikete" hidden>
+            <div class="korteles-virsus"><h2>Sugeneruota pavyzdžio etiketė</h2></div>
+            <div class="etikete">
+                <span class="kodas" data-f="kodas"></span>
+                <span data-f="barkodas" aria-hidden="true"></span>
+                <small><span data-f="augintinis"></span> · paimta <span data-f="paemimo_data"></span> · laikyti <span data-f="temperatura"></span></small>
+            </div>
+            <div class="mygtukai" style="margin-top: 14px">
+                <button type="button" class="mygtukas" id="spausdinti-etikete">Spausdinti etiketę</button>
+                <button type="button" class="mygtukas antrinis" id="uzdaryti-etikete">Uždaryti</button>
+            </div>
+        </div>
+
+        <p class="santrauka" id="rodikliai"></p>
+        <div class="kortele lenteles-kortele">
+            <div class="slinktis">
+                <table>
+                    <thead><tr><th>ID</th><th>Augintinis</th><th>Paėmimo data</th><th>Rezultatai</th><th>Tinkamumas</th><th></th></tr></thead>
+                    <tbody id="pavyzdziai"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    <footer></footer>
+</body>
+</html>

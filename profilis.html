@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kliento profilio langas – Gyvūnų klonavimo sistema</title>
+    <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
+    <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
+</head>
+<body>
+    <nav class="meniu" id="meniu"></nav>
+    <main style="--posistemes-spalva: var(--migle)" data-prieiga="klientas">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">Kliento ir augintinio valdymas</span>
+                <h1>Kliento profilio langas</h1>
+            </div>
+            <div class="mygtukai">
+                <a class="mygtukas" href="profilis-redaguoti.html">Redaguoti profilį</a>
+            </div>
+        </header>
+        <div id="pranesimas"></div>
+        <p class="santrauka" id="rodikliai"></p>
+        <div class="du-stulpeliai">
+            <div class="kortele">
+                <h2>Kliento duomenys</h2>
+                <dl class="duomenys">
+                    <dt>Vardas</dt><dd data-f="vardas">–</dd>
+                    <dt>Pavardė</dt><dd data-f="pavarde">–</dd>
+                    <dt>El. paštas</dt><dd data-f="el_pastas">–</dd>
+                    <dt>Telefono numeris</dt><dd data-f="telefono_numeris">–</dd>
+                    <dt>Asmens kodas</dt><dd data-f="asmens_kodas">–</dd>
+                </dl>
+            </div>
+            <div class="kortele">
+                <div class="korteles-virsus"><h2>Teistumo istorijos patikrinimas</h2><span data-f="istorijos_zyma"></span></div>
+                <dl class="duomenys">
+                    <dt>Būsena</dt><dd data-f="istorijos_busena">–</dd>
+                    <dt>Patikrinimo data</dt><dd data-f="patikrinimo_data">–</dd>
+                    <dt>Rasta teistumo įrašų</dt><dd data-f="rasta_irasu">–</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="mygtukai">
+            <a class="mygtukas" href="istorijos-patikrinimas.html">Patikrinti istoriją</a>
+            <a class="mygtukas" href="augintiniai.html">Mano augintiniai</a>
+            <button type="button" class="mygtukas pavojingas" id="istrinti-paskyra">Ištrinti paskyrą</button>
+        </div>
+    </main>
+    <footer></footer>
+</body>
+</html>

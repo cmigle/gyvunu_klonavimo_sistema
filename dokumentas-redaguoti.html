@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dokumento redagavimo langas – Gyvūnų klonavimo sistema</title>
+    <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
+    <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
+</head>
+<body>
+    <nav class="meniu" id="meniu"></nav>
+    <main style="--posistemes-spalva: var(--migle)" data-prieiga="klientas">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">Kliento ir augintinio valdymas</span>
+                <h1>Dokumento redagavimo langas</h1>
+                <p class="aprasas" id="aprasas"></p>
+            </div>
+        </header>
+        <div id="pranesimas"></div>
+        <form class="kortele" id="dokumento-forma">
+            <div class="tinklelis">
+                <div class="laukas">
+                    <label for="pavadinimas">Pavadinimas</label>
+                    <input id="pavadinimas" name="pavadinimas" type="text" required>
+                </div>
+                <div class="laukas">
+                    <label for="dokumento_tipas">Dokumento tipas</label>
+                    <select id="dokumento_tipas" name="dokumento_tipas" required>
+                        <option value="">Pasirinkite…</option>
+                        <option value="Kilmės sertifikatas">Kilmės sertifikatas</option>
+                        <option value="Sutartis">Sutartis</option>
+                        <option value="Veterinarinis pasas">Veterinarinis pasas</option>
+                        <option value="Kita">Kita</option>
+                    </select>
+                </div>
+                <div class="laukas">
+                    <label for="galiojimo_data">Galiojimo data</label>
+                    <input id="galiojimo_data" name="galiojimo_data" type="date" required>
+                </div>
+                <div class="laukas">
+                    <label for="failas">Naujas failas (neprivaloma)</label>
+                    <input id="failas" name="failas" type="file" accept=".pdf,.jpg,.jpeg,.png">
+                    <p class="pagalba" id="dabartinis-failas"></p>
+                </div>
+            </div>
+            <div class="mygtukai">
+                <button type="submit" class="mygtukas">Išsaugoti</button>
+                <a class="mygtukas antrinis" id="atsaukti" href="dokumentai.html">Atšaukti</a>
+            </div>
+        </form>
+    </main>
+    <footer></footer>
+</body>
+</html>

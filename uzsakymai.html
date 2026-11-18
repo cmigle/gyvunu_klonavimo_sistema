@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Užsakymų sąrašo langas – Gyvūnų klonavimo sistema</title>
+    <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
+    <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
+</head>
+<body>
+    <nav class="meniu" id="meniu"></nav>
+    <main style="--posistemes-spalva: var(--vytaute)" data-prieiga="klientas specialistas">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">Užsakymo valdymas</span>
+                <h1>Užsakymų sąrašo langas</h1>
+                <p class="aprasas" id="aprasas"></p>
+            </div>
+            <div class="mygtukai">
+                <a class="mygtukas" id="kurti" href="uzsakymas-kurti.html">+ Sukurti užsakymą</a>
+            </div>
+        </header>
+        <div id="pranesimas"></div>
+        <p class="santrauka" id="rodikliai"></p>
+        <div class="kortele lenteles-kortele">
+            <div class="slinktis">
+                <table>
+                    <thead><tr><th>Nr.</th><th>Augintinis</th><th class="specialistui">Klientas</th><th class="skaicius">Kaina</th><th>Sukūrimo data</th><th>Būsena</th><th>Patvirtinimo data</th><th></th></tr></thead>
+                    <tbody id="uzsakymai"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    <footer></footer>
+</body>
+</html>

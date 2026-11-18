@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Patikrinimo rezultato langas – Gyvūnų klonavimo sistema</title>
+    <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
+    <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
+</head>
+<body>
+    <nav class="meniu" id="meniu"></nav>
+    <main style="--posistemes-spalva: var(--migle)" data-prieiga="klientas">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">Kliento ir augintinio valdymas</span>
+                <h1>Patikrinimo rezultato langas</h1>
+            </div>
+        </header>
+        <div id="pranesimas"></div>
+        <div class="kortele" id="rezultatas">
+            <div class="korteles-virsus"><h2>Teistumo istorijos patikrinimo rezultatas</h2><span data-f="zyma"></span></div>
+            <dl class="duomenys">
+                <dt>Tikrintas asmuo</dt><dd data-f="asmuo">–</dd>
+                <dt>Patikrinimo data</dt><dd data-f="patikrinimo_data">–</dd>
+                <dt>CourtListener API užklausa</dt><dd data-f="uzklausa">–</dd>
+                <dt>Rastų teistumo įrašų skaičius</dt><dd data-f="rasta_irasu">–</dd>
+                <dt>Rezultatas</dt><dd data-f="rezultatas">–</dd>
+            </dl>
+        </div>
+        <div class="kortele lenteles-kortele" id="bylos" hidden>
+            <div class="korteles-virsus"><h2>Rasti teistumo įrašai</h2></div>
+            <div class="slinktis">
+                <table>
+                    <thead><tr><th>Bylos nr.</th><th>Byla</th><th>Teismas</th><th>Data</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="mygtukai" id="rezultato-mygtukai">
+            <a class="mygtukas antrinis" href="profilis.html">Grįžti į profilį</a>
+            <a class="mygtukas antrinis" href="istorijos-patikrinimas.html">Tikrinti iš naujo</a>
+        </div>
+    </main>
+    <footer></footer>
+</body>
+</html>

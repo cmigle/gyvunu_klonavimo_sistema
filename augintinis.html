@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Augintinio peržiūros langas – Gyvūnų klonavimo sistema</title>
+    <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
+    <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
+</head>
+<body>
+    <nav class="meniu" id="meniu"></nav>
+    <main style="--posistemes-spalva: var(--migle)" data-prieiga="klientas">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">Kliento ir augintinio valdymas</span>
+                <h1>Augintinio peržiūros langas</h1>
+            </div>
+        </header>
+        <div id="pranesimas"></div>
+        <div class="du-stulpeliai">
+            <div class="kortele">
+                <div class="korteles-virsus"><h2 data-f="vardas">–</h2><span data-f="tipas_zyma"></span></div>
+                <dl class="duomenys">
+                    <dt>Vardas</dt><dd data-f="vardas">–</dd>
+                    <dt>Veislė</dt><dd data-f="veisle">–</dd>
+                    <dt>Tipas</dt><dd data-f="tipas">–</dd>
+                    <dt>Amžius</dt><dd data-f="amzius">–</dd>
+                    <dt>Lytis</dt><dd data-f="lytis">–</dd>
+                    <dt>Svoris</dt><dd data-f="svoris">–</dd>
+                    <dt>Mikroschemos numeris</dt><dd data-f="mikroschemos_numeris">–</dd>
+                </dl>
+            </div>
+            <div class="kortele">
+                <h2>Susijusi informacija</h2>
+                <dl class="duomenys">
+                    <dt>Savininkas</dt><dd data-f="savininkas">–</dd>
+                    <dt>Užsakymas</dt><dd data-f="uzsakymas">–</dd>
+                    <dt>DNR pavyzdys</dt><dd data-f="dnr">–</dd>
+                    <dt>Klonavimas</dt><dd data-f="klonavimas">–</dd>
+                    <dt>Dokumentai</dt><dd data-f="dokumentai">–</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="mygtukai">
+            <a class="mygtukas" id="redaguoti" href="augintinis-redaguoti.html">Redaguoti</a>
+            <a class="mygtukas" id="dokumentu-nuoroda" href="dokumentai.html">Dokumentai</a>
+            <a class="mygtukas" id="kurti-uzsakyma" href="uzsakymas-kurti.html" hidden>Sukurti užsakymą</a>
+            <a class="mygtukas antrinis" href="augintiniai.html">Grįžti į sąrašą</a>
+        </div>
+    </main>
+    <footer></footer>
+</body>
+</html>

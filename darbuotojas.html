@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Darbuotojo peržiūros langas – Gyvūnų klonavimo sistema</title>
+    <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
+    <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
+</head>
+<body>
+    <nav class="meniu" id="meniu"></nav>
+    <main style="--posistemes-spalva: var(--ugne)" data-prieiga="administratorius">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">Darbuotojų valdymas</span>
+                <h1>Darbuotojo peržiūros langas</h1>
+            </div>
+        </header>
+        <div id="pranesimas"></div>
+        <div class="du-stulpeliai">
+            <div class="kortele">
+                <div class="korteles-virsus"><h2 data-f="vardas_pavarde">–</h2><span data-f="roles_zyma"></span></div>
+                <dl class="duomenys">
+                    <dt>Vardas</dt><dd data-f="vardas">–</dd>
+                    <dt>Pavardė</dt><dd data-f="pavarde">–</dd>
+                    <dt>Telefono numeris</dt><dd data-f="telefono_numeris">–</dd>
+                    <dt>El. paštas</dt><dd data-f="el_pastas">–</dd>
+                    <dt>Etatas</dt><dd data-f="etatas">–</dd>
+                    <dt>Rolė</dt><dd data-f="role">–</dd>
+                </dl>
+            </div>
+            <div class="kortele" id="specialisto-duomenys">
+                <h2>Laboratorijos specialisto duomenys</h2>
+                <dl class="duomenys">
+                    <dt>Licencijos numeris</dt><dd data-f="licencijos_numeris">–</dd>
+                    <dt>Būsena</dt><dd data-f="busena">–</dd>
+                    <dt>Užduočių kiekis</dt><dd data-f="uzduociu_kiekis">–</dd>
+                    <dt>Darbo krūvis</dt><dd data-f="kruvis">–</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="mygtukai">
+            <a class="mygtukas" id="redaguoti" href="darbuotojas-redaguoti.html">Redaguoti</a>
+            <a class="mygtukas" id="tyrimu-nuoroda" href="darbuotojo-tyrimai.html">Darbuotojo tyrimai</a>
+            <a class="mygtukas antrinis" href="darbuotojai.html">Grįžti į sąrašą</a>
+        </div>
+    </main>
+    <footer></footer>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inkubatoriaus parametrų langas – Gyvūnų klonavimo sistema</title>
+    <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
+    <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
+</head>
+<body>
+    <nav class="meniu" id="meniu"></nav>
+    <main style="--posistemes-spalva: var(--pijus)" data-prieiga="specialistas">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">Inkubatorių valdymas</span>
+                <h1>Inkubatoriaus parametrų langas</h1>
+            </div>
+        </header>
+        <div id="pranesimas"></div>
+        <div class="du-stulpeliai">
+            <div class="kortele">
+                <div class="korteles-virsus"><h2 data-f="modelis">–</h2><span data-f="busenos_zyma"></span></div>
+                <dl class="duomenys">
+                    <dt>Modelis</dt><dd data-f="modelis">–</dd>
+                    <dt>Serijinis numeris</dt><dd data-f="serijinis_numeris">–</dd>
+                    <dt>Tikslinė temperatūra</dt><dd data-f="tiksline_temperatura">–</dd>
+                    <dt>Talpa</dt><dd data-f="talpa">–</dd>
+                    <dt>CO₂</dt><dd data-f="co2_procentas">–</dd>
+                    <dt>O₂</dt><dd data-f="o2_procentas">–</dd>
+                    <dt>pH lygis</dt><dd data-f="ph_lygis">–</dd>
+                    <dt>Būsena</dt><dd data-f="busena">–</dd>
+                </dl>
+            </div>
+            <div class="kortele">
+                <h2>Vykdomas klonavimas</h2>
+                <dl class="duomenys">
+                    <dt>Klonavimas</dt><dd data-f="klonavimas">–</dd>
+                    <dt>Augintinis</dt><dd data-f="augintinis">–</dd>
+                    <dt>DNR pavyzdys</dt><dd data-f="dnr">–</dd>
+                    <dt>Specialistas</dt><dd data-f="specialistas">–</dd>
+                    <dt>Laikotarpis</dt><dd data-f="laikotarpis">–</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="kortele lenteles-kortele">
+            <div class="korteles-virsus"><h2>Inkubatoriaus matavimai</h2></div>
+            <div class="slinktis">
+                <table>
+                    <thead><tr><th>Matavimo data</th><th class="skaicius">Temperatūra</th><th class="skaicius">Nuokrypis nuo tikslinės</th><th class="skaicius">Drėgmė</th></tr></thead>
+                    <tbody id="matavimai"></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="mygtukai">
+            <a class="mygtukas" id="redaguoti" href="inkubatorius-busena.html">Redaguoti būseną</a>
+            <a class="mygtukas antrinis" href="inkubatoriai.html">Grįžti į sąrašą</a>
+        </div>
+    </main>
+    <footer></footer>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Augintinių sąrašo langas – Gyvūnų klonavimo sistema</title>
+    <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
+    <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
+</head>
+<body>
+    <nav class="meniu" id="meniu"></nav>
+    <main style="--posistemes-spalva: var(--migle)" data-prieiga="klientas">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">Kliento ir augintinio valdymas</span>
+                <h1>Augintinių sąrašo langas</h1>
+            </div>
+            <div class="mygtukai">
+                <a class="mygtukas" href="augintinis-kurti.html">+ Sukurti gyvūną</a>
+            </div>
+        </header>
+        <div id="pranesimas"></div>
+        <p class="santrauka" id="rodikliai"></p>
+        <div class="kortele lenteles-kortele">
+            <div class="slinktis">
+                <table>
+                    <thead><tr><th>Vardas</th><th>Tipas</th><th>Veislė</th><th class="skaicius">Amžius</th><th>Mikroschemos nr.</th><th>Užsakymas</th><th class="skaicius">Dokumentai</th><th></th></tr></thead>
+                    <tbody id="augintiniai"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    <footer></footer>
+</body>
+</html>

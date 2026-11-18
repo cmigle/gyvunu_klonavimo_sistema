@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Darbo krūvio analizės langas – Gyvūnų klonavimo sistema</title>
+    <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
+    <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
+</head>
+<body>
+    <nav class="meniu" id="meniu"></nav>
+    <main style="--posistemes-spalva: var(--ugne)" data-prieiga="administratorius">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">Darbuotojų valdymas</span>
+                <h1>Darbo krūvio analizės langas</h1>
+            </div>
+        </header>
+        <div id="pranesimas"></div>
+        <p class="santrauka" id="rodikliai"></p>
+        <div class="kortele">
+            <h2>Kaip skaičiuojamas darbo krūvis</h2>
+            <ol class="zingsniai">
+                <li>Gaunamas laboratorijos specialistų sąrašas.</li>
+                <li>Kiekvienam specialistui gaunami jam priskirti klonavimai ir atrenkami aktyvūs.</li>
+                <li>Apskaičiuojamas aktyvių klonavimų kiekis ir bendra trukmė dienomis.</li>
+                <li>Pagal formulę ir darbuotojo etatą apskaičiuojamas darbo krūvio rodiklis.</li>
+                <li>Pagal rodiklį priskiriamas užimtumo lygis ir suformuojama suvestinė.</li>
+            </ol>
+            <div class="formule" id="formule"></div>
+            <div class="mygtukai">
+                <span class="zyma info">&lt; 70 %: mažas darbo krūvis</span>
+                <span class="zyma sekme">70–100 %: normalus darbo krūvis</span>
+                <span class="zyma klaida">&gt; 100 %: didelis darbo krūvis</span>
+            </div>
+        </div>
+        <div class="mygtukai">
+            <button type="button" class="mygtukas" id="atlikti">Atlikti analizę</button>
+            <a class="mygtukas antrinis" href="darbuotojai.html">Grįžti į darbuotojų sąrašą</a>
+        </div>
+    </main>
+    <footer></footer>
+</body>
+</html>

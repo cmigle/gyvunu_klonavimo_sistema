@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dokumentų sąrašo langas – Gyvūnų klonavimo sistema</title>
+    <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
+    <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
+</head>
+<body>
+    <nav class="meniu" id="meniu"></nav>
+    <main style="--posistemes-spalva: var(--migle)" data-prieiga="klientas specialistas">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">Kliento ir augintinio valdymas</span>
+                <h1>Dokumentų sąrašo langas</h1>
+                <p class="aprasas" id="aprasas"></p>
+            </div>
+            <div class="mygtukai">
+                <label class="pasirinkimas">Augintinis <select id="augintinio-pasirinkimas"></select></label>
+                <a class="mygtukas" id="ikelti" href="dokumentas-ikelti.html">+ Įkelti dokumentą</a>
+            </div>
+        </header>
+        <div id="pranesimas"></div>
+        <div class="kortele lenteles-kortele">
+            <div class="slinktis">
+                <table>
+                    <thead><tr><th>Pavadinimas</th><th>Dokumento tipas</th><th>Įkėlimo data</th><th>Failo formatas</th><th>Galiojimo data</th><th></th></tr></thead>
+                    <tbody id="dokumentai"></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="mygtukai">
+            <a class="mygtukas antrinis" id="grizti" href="augintiniai.html">Grįžti į augintinių sąrašą</a>
+        </div>
+    </main>
+    <footer></footer>
+</body>
+</html>

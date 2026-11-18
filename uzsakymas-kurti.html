@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Užsakymo kūrimo langas – Gyvūnų klonavimo sistema</title>
+    <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
+    <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
+</head>
+<body>
+    <nav class="meniu" id="meniu"></nav>
+    <main style="--posistemes-spalva: var(--vytaute)" data-prieiga="klientas">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">Užsakymo valdymas</span>
+                <h1>Užsakymo kūrimo langas</h1>
+                <p class="aprasas">Kaina priklauso nuo gyvūno tipo.</p>
+            </div>
+        </header>
+        <div id="pranesimas"></div>
+
+        <!-- PA „Sukurti užsakymą“ «include» „Patikrinti kliento istoriją“ -->
+        <div class="kortele prieiga" id="istorijos-reikalavimas" hidden></div>
+
+        <form class="kortele" id="uzsakymo-forma">
+            <div class="tinklelis">
+                <div class="laukas">
+                    <label for="augintinis">Augintinis</label>
+                    <select id="augintinis" name="augintinis" required>
+                        <option value="">Pasirinkite…</option>
+                    </select>
+                    <p class="pagalba">Rodomi augintiniai, kurie dar neturi užsakymo.</p>
+                </div>
+                <div class="laukas">
+                    <label>Kaina</label>
+                    <output class="reiksme" id="kaina">–</output>
+                </div>
+            </div>
+            <div class="mygtukai">
+                <button type="submit" class="mygtukas">Peržiūrėti užsakymą</button>
+                <a class="mygtukas antrinis" href="uzsakymai.html">Atšaukti</a>
+            </div>
+        </form>
+
+        <div class="kortele" id="formos-perziura" hidden>
+            <div class="korteles-virsus"><h2>Užpildytos formos peržiūra</h2><span data-f="zyma"></span></div>
+            <dl class="duomenys">
+                <dt>Augintinis</dt><dd data-f="augintinis">–</dd>
+                <dt>Tipas</dt><dd data-f="tipas">–</dd>
+                <dt>Veislė</dt><dd data-f="veisle">–</dd>
+                <dt>Kaina</dt><dd data-f="kaina">–</dd>
+                <dt>Sukūrimo data</dt><dd data-f="sukurimo_data">–</dd>
+                <dt>Būsena</dt><dd data-f="busena">–</dd>
+            </dl>
+            <div class="mygtukai" style="margin-top: 16px">
+                <button type="button" class="mygtukas" id="pateikti">Pateikti užsakymą</button>
+                <button type="button" class="mygtukas antrinis" id="grizti-redaguoti">Grįžti redaguoti</button>
+            </div>
+        </div>
+    </main>
+    <footer></footer>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inkubatorių langas – Gyvūnų klonavimo sistema</title>
+    <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
+    <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
+</head>
+<body>
+    <nav class="meniu" id="meniu"></nav>
+    <main style="--posistemes-spalva: var(--pijus)" data-prieiga="specialistas">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">Inkubatorių valdymas</span>
+                <h1>Inkubatorių langas</h1>
+            </div>
+            <div class="mygtukai">
+                <a class="mygtukas" href="inkubatorius-kurti.html">+ Sukurti inkubatorių</a>
+            </div>
+        </header>
+        <div id="pranesimas"></div>
+        <p class="santrauka" id="rodikliai"></p>
+
+        <form class="kortele priskyrimas" id="priskyrimo-forma">
+            <h2>Inkubatoriaus priskyrimas DNR pavyzdžiui</h2>
+            <p class="pagalba" style="margin: -.5rem 0 .75rem">Pasirinkite DNR pavyzdį ir sistema pati parinks tinkamą laisvą inkubatorių.</p>
+            <div class="eilute">
+                <div class="laukas">
+                    <label for="dnr">DNR pavyzdys</label>
+                    <select id="dnr" name="dnr" required>
+                        <option value="">Pasirinkite…</option>
+                    </select>
+                </div>
+                <button type="submit" class="mygtukas">Priskirti inkubatorių</button>
+            </div>
+            <p class="pagalba" id="priskyrimo-pastaba"></p>
+        </form>
+
+        <div class="kortele lenteles-kortele">
+            <div class="slinktis">
+                <table>
+                    <thead><tr><th>Modelis</th><th class="skaicius">Temp.</th><th class="skaicius">CO₂</th><th class="skaicius">O₂</th><th class="skaicius">pH</th><th class="skaicius">Talpa</th><th>Būsena</th><th></th></tr></thead>
+                    <tbody id="inkubatoriai"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    <footer></footer>
+</body>
+</html>

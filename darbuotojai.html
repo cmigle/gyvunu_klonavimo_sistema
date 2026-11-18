@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Darbuotojų sąrašo langas – Gyvūnų klonavimo sistema</title>
+    <link rel="stylesheet" href="css/stilius.css">
+    <script src="js/duomenys.js" defer></script>
+    <script src="js/navigacija.js" defer></script>
+    <script src="js/langai.js" defer></script>
+</head>
+<body>
+    <nav class="meniu" id="meniu"></nav>
+    <main style="--posistemes-spalva: var(--ugne)" data-prieiga="administratorius">
+        <header class="antraste">
+            <div>
+                <span class="posisteme">Darbuotojų valdymas</span>
+                <h1>Darbuotojų sąrašo langas</h1>
+            </div>
+            <div class="mygtukai">
+                <a class="mygtukas antrinis" href="kruvio-analize.html">Krūvio analizė</a>
+                <a class="mygtukas" href="darbuotojas-kurti.html">+ Sukurti darbuotoją</a>
+            </div>
+        </header>
+        <div id="pranesimas"></div>
+        <p class="santrauka" id="rodikliai"></p>
+        <div class="kortele lenteles-kortele">
+            <div class="slinktis">
+                <table>
+                    <thead><tr><th>Darbuotojas</th><th>El. paštas</th><th>Telefono nr.</th><th class="skaicius">Etatas</th><th>Rolė</th><th>Būsena</th><th></th></tr></thead>
+                    <tbody id="darbuotojai"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    <footer></footer>
+</body>
+</html>
