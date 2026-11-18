@@ -1,0 +1,77 @@
+@model InkubatoriuSarasoModelis
+@{
+    ViewData["Title"] = "Inkubatorių langas";
+    ViewData["Posisteme"] = Posisteme.Inkubatoriai;
+    ViewData["Kelias"] = new[] { new KelioDalis("Inkubatoriai") };
+}
+@section Mygtukai {
+    <a class="mygtukas" asp-action="Kurti">+ Sukurti inkubatorių</a>
+}
+
+<partial name="_Rodikliai" model="Model.Rodikliai" />
+
+@* PA „Priskirti inkubatorių“: pasirenkamas DNR pavyzdys, kuriam sistema parenka inkubatorių *@
+<form class="kortele priskyrimas" method="post" asp-action="Priskirti" novalidate>
+    <h2>Inkubatoriaus priskyrimas DNR pavyzdžiui</h2>
+    <p class="pagalba" style="margin: -.5rem 0 .75rem">Pasirinkite DNR pavyzdį ir sistema pati parinks tinkamą laisvą inkubatorių.</p>
+    <div class="eilute">
+        <div laukas-for="DnrPavyzdysId">
+            <label asp-for="DnrPavyzdysId"></label>
+            <select asp-for="DnrPavyzdysId">
+                <option value="">Pasirinkite…</option>
+                @foreach (var d in Model.LaukiaInkubatoriaus)
+                {
+                    <option value="@d.Id">@d.Kodas: @d.Augintinis.Pavadinimas</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="mygtukas">Priskirti inkubatorių</button>
+    </div>
+    <p class="pagalba">
+        @(Model.LaukiaInkubatoriaus.Count > 0
+            ? "Rodomi tinkami klonuoti pavyzdžiai su patvirtintu užsakymu, kuriems dar nepriskirtas inkubatorius."
+            : "Šiuo metu nėra DNR pavyzdžių, laukiančių inkubatoriaus.")
+    </p>
+</form>
+
+<div class="kortele lenteles-kortele">
+    <div class="slinktis">
+        <table>
+            <thead><tr><th>Modelis</th><th class="skaicius">Temp.</th><th class="skaicius">CO₂</th><th class="skaicius">O₂</th><th class="skaicius">pH</th><th class="skaicius">Talpa</th><th>Būsena</th><th></th></tr></thead>
+            <tbody>
+                @foreach (var (i, k) in Model.Inkubatoriai)
+                {
+                    var pavadinimas = $"{i.Modelis} ({i.SerijinisNumeris})";
+                    <tr>
+                        <td><a class="pagrindinis" asp-action="Parametrai" asp-route-id="@i.Id">@i.Modelis</a><small>@i.SerijinisNumeris</small></td>
+                        <td class="skaicius">@Formatai.SuVienetais(i.TikslineTemperatura, "°C", 1)</td>
+                        <td class="skaicius">@Formatai.SuVienetais(i.Co2Procentas, "%", 1)</td>
+                        <td class="skaicius">@Formatai.SuVienetais(i.O2Procentas, "%", 1)</td>
+                        <td class="skaicius">@Formatai.Skaicius(i.PhLygis, 2)</td>
+                        <td class="skaicius">@Formatai.SuVienetais(i.Talpa, "l")</td>
+                        <td>
+                            @Html.Zyma(i.BusenosPavadinimas)
+                            @if (k is not null)
+                            {
+                                <small>@k.Uzsakymas.Augintinis.Vardas · @k.Numeris</small>
+                            }
+                        </td>
+                        <td class="veiksmai">
+                            <a asp-action="Parametrai" asp-route-id="@i.Id">Parametrai</a> |
+                            <a asp-action="Busena" asp-route-id="@i.Id">Redaguoti būseną</a> |
+                            @* Užimto inkubatoriaus ištrinti negalima – patvirtinimo langas nerodomas, valdiklis pateikia klaidą *@
+                            <form method="post" asp-action="Istrinti" asp-route-id="@i.Id" style="display: inline"
+                                  data-patvirtinimas="@(i.Busena ? null : $"Ar tikrai norite ištrinti inkubatorių {pavadinimas}? Kartu bus ištrinti jo matavimai.")">
+                                <button type="submit" class="nuoroda pavojinga">Ištrinti</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                @if (Model.Inkubatoriai.Count == 0)
+                {
+                    <tr><td class="tuscia" colspan="8">Inkubatorių dar nėra.</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
