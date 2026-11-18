@@ -1,0 +1,74 @@
+@model Augintinis
+@{
+    var u = Model.Uzsakymas;
+    var dnr = Model.DnrPavyzdys;
+    var kl = u?.Klonavimas;
+    ViewData["Title"] = "Augintinio peržiūros langas";
+    ViewData["Posisteme"] = Posisteme.KlientaiIrAugintiniai;
+    ViewData["Kelias"] = new[] { new KelioDalis("Mano augintiniai", "/augintiniai"), new KelioDalis("Augintinis") };
+}
+
+<div class="du-stulpeliai">
+    <div class="kortele">
+        <div class="korteles-virsus"><h2>@Model.Vardas</h2>@Html.Zyma(Model.Tipas.ToString(), "info")</div>
+        <dl class="duomenys">
+            <dt>Vardas</dt><dd>@Model.Vardas</dd>
+            <dt>Veislė</dt><dd>@Model.Veisle</dd>
+            <dt>Tipas</dt><dd>@Model.Tipas</dd>
+            <dt>Amžius</dt><dd>@Formatai.Metai(Model.Amzius)</dd>
+            <dt>Lytis</dt><dd>@Model.Lytis</dd>
+            <dt>Svoris</dt><dd>@Formatai.SuVienetais(Model.Svoris, "kg")</dd>
+            <dt>Mikroschemos numeris</dt><dd>@Model.MikroschemosNumeris</dd>
+        </dl>
+    </div>
+    <div class="kortele">
+        <h2>Susijusi informacija</h2>
+        <dl class="duomenys">
+            <dt>Savininkas</dt><dd>@Model.Klientas.VardasPavarde</dd>
+            <dt>Užsakymas</dt>
+            <dd>
+                @if (u is null)
+                {
+                    <text>Užsakymo nėra</text>
+                }
+                else
+                {
+                    <a href="/uzsakymai/perziura/@u.Id">@u.Numeris</a> @Html.Zyma(u.BusenosPavadinimas)
+                }
+            </dd>
+            <dt>DNR pavyzdys</dt>
+            <dd>
+                @if (dnr is null)
+                {
+                    <text>Pavyzdys dar nepaimtas</text>
+                }
+                else
+                {
+                    @dnr.Kodas <text> </text>@Html.Zyma(dnr.Tinkamumas ?? Tinkamumai.Neivertintas)
+                }
+            </dd>
+            <dt>Klonavimas</dt>
+            <dd>
+                @if (kl is null)
+                {
+                    <text>Nepradėtas</text>
+                }
+                else
+                {
+                    @kl.Numeris <text> </text>@Html.Zyma(kl.BusenosPavadinimas)
+                }
+            </dd>
+            <dt>Dokumentai</dt><dd>@Model.Dokumentai.Count</dd>
+        </dl>
+    </div>
+</div>
+<div class="mygtukai">
+    <a class="mygtukas" asp-action="Redaguoti" asp-route-id="@Model.Id">Redaguoti</a>
+    <a class="mygtukas" href="/dokumentai?augintinisId=@Model.Id">Dokumentai</a>
+    @* Augintinis gali turėti tik vieną užsakymą *@
+    @if (u is null)
+    {
+        <a class="mygtukas" href="/uzsakymai/kurti?augintinisId=@Model.Id">Sukurti užsakymą</a>
+    }
+    <a class="mygtukas antrinis" href="/augintiniai">Grįžti į sąrašą</a>
+</div>

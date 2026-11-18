@@ -1,0 +1,39 @@
+@model ProfilioModelis
+@{
+    var k = Model.Klientas;
+    ViewData["Title"] = "Kliento profilio langas";
+    ViewData["Posisteme"] = Posisteme.KlientaiIrAugintiniai;
+    ViewData["Kelias"] = new[] { new KelioDalis("Mano profilis") };
+}
+@section Mygtukai {
+    <a class="mygtukas" asp-action="Redaguoti">Redaguoti profilį</a>
+}
+
+<partial name="_Rodikliai" model="Model.Rodikliai" />
+<div class="du-stulpeliai">
+    <div class="kortele">
+        <h2>Kliento duomenys</h2>
+        <dl class="duomenys">
+            <dt>Vardas</dt><dd>@k.Vardas</dd>
+            <dt>Pavardė</dt><dd>@k.Pavarde</dd>
+            <dt>El. paštas</dt><dd>@k.ElPastas</dd>
+            <dt>Telefono numeris</dt><dd>@k.TelefonoNumeris</dd>
+            <dt>Asmens kodas</dt><dd>@k.AsmensKodas</dd>
+        </dl>
+    </div>
+    <div class="kortele">
+        <div class="korteles-virsus"><h2>Teistumo istorijos patikrinimas</h2>@Html.Zyma(k.IstorijosBusena)</div>
+        <dl class="duomenys">
+            <dt>Būsena</dt><dd>@k.IstorijosBusena</dd>
+            <dt>Patikrinimo data</dt><dd>@Formatai.DataLaikas(k.PatikrinimoData)</dd>
+        </dl>
+    </div>
+</div>
+<div class="mygtukai">
+    <a class="mygtukas" href="/istorijospatikrinimas">Patikrinti istoriją</a>
+    <a class="mygtukas" href="/augintiniai">Mano augintiniai</a>
+    <form method="post" asp-action="Istrinti"
+          data-patvirtinimas="@(Model.GalimaIstrinti ? "Ar tikrai norite ištrinti savo paskyrą? Kartu bus ištrinti jūsų augintiniai, jų dokumentai ir nepatvirtinti užsakymai." : null)">
+        <button type="submit" class="mygtukas pavojingas">Ištrinti paskyrą</button>
+    </form>
+</div>

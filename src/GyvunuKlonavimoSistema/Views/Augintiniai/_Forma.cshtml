@@ -1,0 +1,43 @@
+@model AugintinioForma
+
+<form method="post" class="kortele" novalidate>
+    <div class="tinklelis">
+        <div laukas-for="Vardas">
+            <label asp-for="Vardas"></label>
+            <input asp-for="Vardas">
+        </div>
+        <div laukas-for="Veisle">
+            <label asp-for="Veisle"></label>
+            <input asp-for="Veisle">
+        </div>
+        <div laukas-for="Tipas">
+            <label asp-for="Tipas"></label>
+            <select asp-for="Tipas" asp-items="@(new SelectList(Enum.GetValues<GyvunoTipas>()))">
+                <option value="">Pasirinkite…</option>
+            </select>
+        </div>
+        <div laukas-for="Amzius">
+            <label asp-for="Amzius"></label>
+            <input asp-for="Amzius" min="0" max="100" step="1">
+        </div>
+        <div laukas-for="Lytis">
+            <label asp-for="Lytis"></label>
+            <select asp-for="Lytis" asp-items="@(new SelectList(Lytys.Visos))">
+                <option value="">Pasirinkite…</option>
+            </select>
+        </div>
+        <div laukas-for="Svoris">
+            <label asp-for="Svoris"></label>
+            <input asp-for="Svoris" type="number" min="0.01" step="0.01">
+        </div>
+        <div laukas-for="MikroschemosNumeris">
+            <label asp-for="MikroschemosNumeris"></label>
+            <input asp-for="MikroschemosNumeris" inputmode="numeric" title="15 skaitmenų (ISO 11784)">
+            <p class="pagalba">15 skaitmenų (ISO 11784).</p>
+        </div>
+    </div>
+    <div class="mygtukai">
+        <button type="submit" class="mygtukas">@ViewData["Mygtukas"]</button>
+        <a class="mygtukas antrinis" href="/augintiniai">Atšaukti</a>
+    </div>
+</form>

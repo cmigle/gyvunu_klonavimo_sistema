@@ -1,0 +1,75 @@
+@model DokumentuSarasoModelis
+@{
+    var a = Model.Augintinis;
+    ViewData["Title"] = "Dokumentų sąrašo langas";
+    ViewData["Posisteme"] = Posisteme.KlientaiIrAugintiniai;
+    ViewData["Aprasas"] = $"Augintinio „{a.Vardas}“ ({a.Tipas.ToString().ToLowerInvariant()}) dokumentai.";
+    // Specialistas dokumentus pasiekia per užsakymą, ne per augintinį
+    ViewData["Kelias"] = Model.Klientas
+        ? new[] { new KelioDalis("Mano augintiniai", "/augintiniai"), new KelioDalis("Dokumentai") }
+        : new[] { new KelioDalis("Užsakymai", "/uzsakymai"), new KelioDalis("Užsakymas", $"/uzsakymai/perziura/{a.Uzsakymas?.Id}"), new KelioDalis("Dokumentai") };
+}
+@section Mygtukai {
+    <form method="get" action="/dokumentai">
+        <label class="pasirinkimas">Augintinis
+            <select name="augintinisId" onchange="this.form.submit()">
+                @foreach (var x in Model.Augintiniai)
+                {
+                    <option value="@x.Id" selected="@(x.Id == a.Id)">@(Model.Klientas ? x.Vardas : $"{x.Vardas} ({x.Klientas.VardasPavarde})")</option>
+                }
+            </select>
+        </label>
+        <noscript><button type="submit" class="mygtukas antrinis mazas">Rodyti</button></noscript>
+    </form>
+    @* Specialistas (užsakymų valdytojas) dokumentus tik peržiūri *@
+    @if (Model.Klientas)
+    {
+        <a class="mygtukas" href="/dokumentai/ikelti?augintinisId=@a.Id">+ Įkelti dokumentą</a>
+    }
+}
+
+<div class="kortele lenteles-kortele">
+    <div class="slinktis">
+        <table>
+            <thead><tr><th>Pavadinimas</th><th>Dokumento tipas</th><th>Įkėlimo data</th><th>Failo formatas</th><th>Galiojimo data</th><th></th></tr></thead>
+            <tbody>
+                @foreach (var d in Model.Dokumentai)
+                {
+                    <tr>
+                        <td><a class="pagrindinis" asp-action="Perziura" asp-route-id="@d.Id">@d.FailoPavadinimas</a></td>
+                        <td>@d.DokumentoTipas</td>
+                        <td>@Formatai.Data(d.IkelimoData)</td>
+                        <td>@d.FailoFormatas</td>
+                        <td>@Formatai.Data(d.GaliojimoData) @Html.Zyma(d.Galioja(Model.Siandien) ? "Galioja" : "Nebegalioja")</td>
+                        <td class="veiksmai">
+                            <a asp-action="Perziura" asp-route-id="@d.Id">Peržiūrėti</a>
+                            @if (Model.Klientas)
+                            {
+                                <text> | </text><a asp-action="Redaguoti" asp-route-id="@d.Id">Redaguoti</a><text> | </text>
+                                <form method="post" asp-action="Istrinti" asp-route-id="@d.Id" style="display: inline"
+                                      data-patvirtinimas="Ar tikrai norite ištrinti dokumentą „@d.FailoPavadinimas“? Šio veiksmo atšaukti negalima."
+                                      data-atsaukta="Dokumentas nebuvo ištrintas.">
+                                    <button type="submit" class="nuoroda pavojinga">Ištrinti</button>
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+                @if (Model.Dokumentai.Count == 0)
+                {
+                    <tr><td class="tuscia" colspan="6">Dokumentų nėra.</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="mygtukai">
+    @if (Model.Klientas)
+    {
+        <a class="mygtukas antrinis" href="/augintiniai">Grįžti į augintinių sąrašą</a>
+    }
+    else
+    {
+        <a class="mygtukas antrinis" href="/uzsakymai/perziura/@a.Uzsakymas?.Id">Grįžti į užsakymą</a>
+    }
+</div>

@@ -1,0 +1,33 @@
+@model IstorijosForma
+@{
+    ViewData["Title"] = "Kliento istorijos patikrinimo langas";
+    ViewData["Posisteme"] = Posisteme.KlientaiIrAugintiniai;
+    ViewData["Kelias"] = new[] { new KelioDalis("Mano profilis", "/klientas/profilis"), new KelioDalis("Istorijos patikrinimas") };
+    var atgal = Model.Grizti == "uzsakymas" ? "/uzsakymai/kurti" : "/klientas/profilis";
+}
+
+<div class="kortele info-kortele">
+    <p>Teistumo istorija tikrinama per <strong>CourtListener API</strong>. Jei įrašų nerasta, būsite pažymėti kaip patikrintas klientas. To reikia norint sukurti užsakymą.</p>
+    <p class="pagalba">Demonstracija: įvedus vardą „Petras“ ir pavardę „Petraitis“, API grąžins teistumo įrašų.</p>
+</div>
+<form method="post" class="kortele" novalidate>
+    <input type="hidden" asp-for="Grizti">
+    <div class="tinklelis">
+        <div laukas-for="Vardas">
+            <label asp-for="Vardas"></label>
+            <input asp-for="Vardas">
+        </div>
+        <div laukas-for="Pavarde">
+            <label asp-for="Pavarde"></label>
+            <input asp-for="Pavarde">
+        </div>
+        <div laukas-for="AsmensKodas">
+            <label asp-for="AsmensKodas"></label>
+            <input asp-for="AsmensKodas" inputmode="numeric" title="11 skaitmenų">
+        </div>
+    </div>
+    <div class="mygtukai">
+        <button type="submit" class="mygtukas">Tikrinti</button>
+        <a class="mygtukas antrinis" href="@atgal">Atšaukti</a>
+    </div>
+</form>

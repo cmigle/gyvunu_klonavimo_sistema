@@ -1,0 +1,11 @@
+@model AugintinioForma
+@{
+    var a = (Augintinis)ViewData["Augintinis"]!;
+    ViewData["Title"] = "Augintinio redagavimo langas";
+    ViewData["Posisteme"] = Posisteme.KlientaiIrAugintiniai;
+    ViewData["Aprasas"] = $"Redaguojami augintinio „{a.Vardas}“ duomenys.";
+    ViewData["Kelias"] = new[] { new KelioDalis("Mano augintiniai", "/augintiniai"), new KelioDalis("Redagavimas") };
+    ViewData["Mygtukas"] = "Išsaugoti";
+}
+
+<partial name="_Forma" model="Model" />

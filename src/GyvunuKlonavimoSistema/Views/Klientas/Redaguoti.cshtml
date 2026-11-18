@@ -1,0 +1,36 @@
+@model ProfilioForma
+@{
+    ViewData["Title"] = "Kliento profilio redagavimo langas";
+    ViewData["Posisteme"] = Posisteme.KlientaiIrAugintiniai;
+    ViewData["Aprasas"] = "Pakeitus vardą, pavardę ar asmens kodą, teistumo istoriją reikės patikrinti iš naujo.";
+    ViewData["Kelias"] = new[] { new KelioDalis("Mano profilis", "/klientas/profilis"), new KelioDalis("Redagavimas") };
+}
+
+<form method="post" class="kortele" novalidate>
+    <div class="tinklelis">
+        <div laukas-for="Vardas">
+            <label asp-for="Vardas"></label>
+            <input asp-for="Vardas" autocomplete="given-name">
+        </div>
+        <div laukas-for="Pavarde">
+            <label asp-for="Pavarde"></label>
+            <input asp-for="Pavarde" autocomplete="family-name">
+        </div>
+        <div laukas-for="ElPastas">
+            <label asp-for="ElPastas"></label>
+            <input asp-for="ElPastas" type="email" autocomplete="email">
+        </div>
+        <div laukas-for="TelefonoNumeris">
+            <label asp-for="TelefonoNumeris"></label>
+            <input asp-for="TelefonoNumeris" type="tel" autocomplete="tel">
+        </div>
+        <div laukas-for="AsmensKodas">
+            <label asp-for="AsmensKodas"></label>
+            <input asp-for="AsmensKodas" inputmode="numeric" title="11 skaitmenų">
+        </div>
+    </div>
+    <div class="mygtukai">
+        <button type="submit" class="mygtukas">Išsaugoti</button>
+        <a class="mygtukas antrinis" asp-action="Profilis">Atšaukti</a>
+    </div>
+</form>

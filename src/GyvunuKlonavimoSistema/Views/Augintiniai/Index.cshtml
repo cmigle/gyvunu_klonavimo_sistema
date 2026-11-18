@@ -1,0 +1,62 @@
+@model AugintiniuSarasoModelis
+@{
+    ViewData["Title"] = "Augintinių sąrašo langas";
+    ViewData["Posisteme"] = Posisteme.KlientaiIrAugintiniai;
+    ViewData["Kelias"] = new[] { new KelioDalis("Mano augintiniai") };
+}
+@section Mygtukai {
+    <a class="mygtukas" asp-action="Kurti">+ Sukurti gyvūną</a>
+}
+
+<partial name="_Rodikliai" model="Model.Rodikliai" />
+<div class="kortele lenteles-kortele">
+    <div class="slinktis">
+        <table>
+            <thead><tr><th>Vardas</th><th>Tipas</th><th>Veislė</th><th class="skaicius">Amžius</th><th>Mikroschemos nr.</th><th>Užsakymas</th><th class="skaicius">Dokumentai</th><th></th></tr></thead>
+            <tbody>
+                @foreach (var a in Model.Augintiniai)
+                {
+                    var u = a.Uzsakymas;
+                    // Patvirtinto užsakymo augintinio ištrinti negalima – serveris grąžina klaidos pranešimą
+                    var kartu = new[]
+                    {
+                        a.Dokumentai.Count > 0 ? $"dokumentai ({a.Dokumentai.Count})" : null,
+                        u is { Busena: false } ? $"nepatvirtintas užsakymas {u.Numeris}" : null
+                    }.OfType<string>().ToList();
+                    var klausimas = u?.Busena == true ? null
+                        : $"Ar tikrai norite ištrinti augintinį „{a.Vardas}“?{(kartu.Count > 0 ? $" Kartu bus ištrinti: {string.Join(", ", kartu)}." : "")} Šio veiksmo atšaukti negalima.";
+                    <tr>
+                        <td><a class="pagrindinis" asp-action="Perziura" asp-route-id="@a.Id">@a.Vardas</a><small>@a.Lytis</small></td>
+                        <td>@a.Tipas</td>
+                        <td>@a.Veisle</td>
+                        <td class="skaicius">@Formatai.Metai(a.Amzius)</td>
+                        <td><code>@a.MikroschemosNumeris</code></td>
+                        <td>
+                            @if (u is null)
+                            {
+                                @Html.Zyma("Nėra")
+                            }
+                            else
+                            {
+                                @Html.Zyma(u.BusenosPavadinimas)<small>@u.Numeris</small>
+                            }
+                        </td>
+                        <td class="skaicius">@a.Dokumentai.Count</td>
+                        <td class="veiksmai">
+                            <a asp-action="Perziura" asp-route-id="@a.Id">Peržiūrėti</a> |
+                            <a asp-action="Redaguoti" asp-route-id="@a.Id">Redaguoti</a> |
+                            <a href="/dokumentai?augintinisId=@a.Id">Dokumentai</a> |
+                            <form method="post" asp-action="Istrinti" asp-route-id="@a.Id" style="display: inline" data-patvirtinimas="@klausimas">
+                                <button type="submit" class="nuoroda pavojinga">Ištrinti</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                @if (Model.Augintiniai.Count == 0)
+                {
+                    <tr><td class="tuscia" colspan="8">Augintinių dar nėra. Sukurkite pirmąjį augintinį.</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

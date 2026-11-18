@@ -31,6 +31,17 @@ builder.Services.AddSingleton<IPasswordHasher<object>, PasswordHasher<object>>()
 builder.Services.AddSingleton(builder.Configuration.GetSection("ElPastas").Get<ElPastoNustatymai>() ?? new ElPastoNustatymai());
 builder.Services.AddSingleton<IElPastoServeris, SmtpElPastoServeris>();
 builder.Services.AddScoped<UzsakymoPatvirtinimas>();
+builder.Services.AddSingleton<DokumentuSaugykla>();
+var courtListenerToken = builder.Configuration["CourtListener:Token"];
+if (string.IsNullOrWhiteSpace(courtListenerToken))
+    builder.Services.AddSingleton<ICourtListenerSasaja, DemoCourtListenerSasaja>();
+else
+    builder.Services.AddHttpClient<ICourtListenerSasaja, CourtListenerApiSasaja>(c =>
+    {
+        c.BaseAddress = new Uri(CourtListener.Adresas);
+        c.DefaultRequestHeaders.Authorization = new("Token", courtListenerToken);
+        c.DefaultRequestHeaders.UserAgent.ParseAdd("GyvunuKlonavimoSistema/1.0");
+    });
 
 var app = builder.Build();
 

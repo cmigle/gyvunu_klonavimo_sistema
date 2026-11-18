@@ -1,0 +1,16 @@
+@model DokumentoForma
+
+<div laukas-for="FailoPavadinimas">
+    <label asp-for="FailoPavadinimas"></label>
+    <input asp-for="FailoPavadinimas">
+</div>
+<div laukas-for="DokumentoTipas">
+    <label asp-for="DokumentoTipas"></label>
+    <select asp-for="DokumentoTipas" asp-items="@(new SelectList(DokumentuTipai.Visi))">
+        <option value="">Pasirinkite…</option>
+    </select>
+</div>
+<div laukas-for="GaliojimoData">
+    <label asp-for="GaliojimoData"></label>
+    <input asp-for="GaliojimoData" type="date">
+</div>

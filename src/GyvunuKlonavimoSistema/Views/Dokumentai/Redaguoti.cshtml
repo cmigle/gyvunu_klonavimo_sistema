@@ -1,0 +1,28 @@
+@model DokumentoRedagavimoForma
+@{
+    var d = (Dokumentas)ViewData["Dokumentas"]!;
+    ViewData["Title"] = "Dokumento redagavimo langas";
+    ViewData["Posisteme"] = Posisteme.KlientaiIrAugintiniai;
+    ViewData["Aprasas"] = $"Redaguojamas dokumentas „{d.FailoPavadinimas}“.";
+    ViewData["Kelias"] = new[]
+    {
+        new KelioDalis("Mano augintiniai", "/augintiniai"),
+        new KelioDalis("Dokumentai", $"/dokumentai?augintinisId={d.AugintinisId}"),
+        new KelioDalis("Redagavimas")
+    };
+}
+
+<form method="post" enctype="multipart/form-data" class="kortele" novalidate>
+    <div class="tinklelis">
+        <partial name="_Laukai" model="Model" />
+        <div laukas-for="Failas">
+            <label asp-for="Failas"></label>
+            <input asp-for="Failas" type="file" accept=".pdf,.jpg,.jpeg,.png">
+            <p class="pagalba">Dabartinis failas: @d.FailoPavadinimas (@d.FailoFormatas). Leidžiami formatai: PDF, JPG, PNG.</p>
+        </div>
+    </div>
+    <div class="mygtukai">
+        <button type="submit" class="mygtukas">Išsaugoti</button>
+        <a class="mygtukas antrinis" href="/dokumentai?augintinisId=@d.AugintinisId">Atšaukti</a>
+    </div>
+</form>

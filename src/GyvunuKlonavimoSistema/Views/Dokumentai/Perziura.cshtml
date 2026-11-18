@@ -1,0 +1,53 @@
+@model DokumentoPerziurosModelis
+@{
+    var d = Model.Dokumentas;
+    var a = d.Augintinis;
+    var sarasas = $"/dokumentai?augintinisId={a.Id}";
+    ViewData["Title"] = "Dokumento peržiūros langas";
+    ViewData["Posisteme"] = Posisteme.KlientaiIrAugintiniai;
+    ViewData["Kelias"] = Model.Klientas
+        ? new[] { new KelioDalis("Mano augintiniai", "/augintiniai"), new KelioDalis("Dokumentai", sarasas), new KelioDalis("Dokumentas") }
+        : new[]
+        {
+            new KelioDalis("Užsakymai", "/uzsakymai"), new KelioDalis("Užsakymas", $"/uzsakymai/perziura/{a.Uzsakymas?.Id}"),
+            new KelioDalis("Dokumentai", sarasas), new KelioDalis("Dokumentas")
+        };
+}
+
+<div class="kortele">
+    <div class="korteles-virsus"><h2>@d.FailoPavadinimas</h2>@Html.Zyma(d.Galioja(Model.Siandien) ? "Galioja" : "Nebegalioja")</div>
+    <dl class="duomenys">
+        <dt>Pavadinimas</dt><dd>@d.FailoPavadinimas</dd>
+        <dt>Dokumento tipas</dt><dd>@d.DokumentoTipas</dd>
+        <dt>Augintinis</dt><dd>@a.Pavadinimas</dd>
+        <dt>Įkėlimo data</dt><dd>@Formatai.Data(d.IkelimoData)</dd>
+        <dt>Failo formatas</dt><dd>@d.FailoFormatas</dd>
+        <dt>Galiojimo data</dt><dd>@Formatai.Data(d.GaliojimoData)</dd>
+    </dl>
+</div>
+<div class="kortele">
+    <h2>Failas</h2>
+    <div class="failo-perziura">
+        <span class="formatas" style="background: @(d.FailoFormatas == "PDF" ? "var(--signalas)" : "var(--akcentas)")">@d.FailoFormatas</span>
+        <div>
+            @if (Model.FailasYra)
+            {
+                <strong><a asp-action="Failas" asp-route-id="@d.Id" target="_blank">@d.FailoPavadinimas</a></strong>
+                <p class="pagalba">Failas atidaromas naujame naršyklės skirtuke.</p>
+            }
+            else
+            {
+                <strong>@d.FailoPavadinimas</strong>
+                <p class="pagalba">Failas neįkeltas (demonstracinis įrašas).</p>
+            }
+        </div>
+    </div>
+</div>
+<div class="mygtukai">
+    @* Specialistas dokumentus tik peržiūri *@
+    @if (Model.Klientas)
+    {
+        <a class="mygtukas" asp-action="Redaguoti" asp-route-id="@d.Id">Redaguoti</a>
+    }
+    <a class="mygtukas antrinis" href="@sarasas">Grįžti į sąrašą</a>
+</div>

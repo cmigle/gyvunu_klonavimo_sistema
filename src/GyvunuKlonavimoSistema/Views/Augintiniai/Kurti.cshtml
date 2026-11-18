@@ -1,0 +1,9 @@
+@model AugintinioForma
+@{
+    ViewData["Title"] = "Augintinio kūrimo langas";
+    ViewData["Posisteme"] = Posisteme.KlientaiIrAugintiniai;
+    ViewData["Kelias"] = new[] { new KelioDalis("Mano augintiniai", "/augintiniai"), new KelioDalis("Naujas augintinis") };
+    ViewData["Mygtukas"] = "Sukurti";
+}
+
+<partial name="_Forma" model="Model" />
