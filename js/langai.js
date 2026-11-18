@@ -500,7 +500,7 @@ PUSLAPIAI["uzsakymai.html"] = () => {
         const perziura = nuoroda("uzsakymas.html", { uzsakymas: u.id });
         const mygtukai = klientas
             ? [nuorodosMygtukas("Peržiūrėti", perziura), veiksmoMygtukas("Redaguoti", "redaguoti", u.id),
-               veiksmoMygtukas("Patvirtinti", "patvirtinti", u.id), veiksmoMygtukas("Ištrinti", "istrinti", u.id, "pavojingas")]
+               veiksmoMygtukas("Ištrinti", "istrinti", u.id, "pavojingas")]
             : [nuorodosMygtukas("Peržiūrėti", perziura), nuorodosMygtukas("Dokumentai", nuoroda("dokumentai.html", { uzsakymas: u.id, augintinis: a.id }))];
         return `<tr>
             <td><a class="pagrindinis" href="${perziura}">${uzsakymoNr(u)}</a></td>
@@ -527,30 +527,8 @@ PUSLAPIAI["uzsakymai.html"] = () => {
             if (!taip) return;
             pasalinti("uzsakymai", id);
             eiti("uzsakymai.html", `Užsakymas ${uzsakymoNr(u)} ištrintas.`);
-        },
-        // 2.15 pav.: tikrinama būsena ir DNR pavyzdžio tinkamumas, siunčiamas el. laiškas
-        patvirtinti: id => {
-            const rezultatas = patvirtintiUzsakyma(id);
-            if (rezultatas.klaida) return klaida(rezultatas.klaida);
-            eiti(nuoroda("uzsakymai.html", { patvirtintas: id }),
-                `Užsakymas ${uzsakymoNr(rezultatas.uzsakymas)} patvirtintas. Patvirtinimo laiškas išsiųstas el. paštu.`);
         }
     });
-
-    const patvirtintas = uzsakymai.find(u => u.id === Number(param("patvirtintas")) && u.busena);
-    if (patvirtintas) {
-        const a = rasti("augintiniai", patvirtintas.augintinis);
-        const laiskas = laiskoSablonas(patvirtintas, a, rasti("klientai", a.klientas), augintinioDnr(a.id));
-        const pranesimas = uzsakymoPranesimas(patvirtintas.id);
-        const kortele = $("#patvirtintas");
-        kortele.hidden = false;
-        uzpildyti(kortele, {
-            zyma: html(zyma("Patvirtintas")), nr: uzsakymoNr(patvirtintas), augintinis: augintinioPavadinimas(a),
-            kaina: pinigai(patvirtintas.kaina), patvirtinimo_data: patvirtintas.patvirtinimo_data,
-            gavejas: laiskas.gavejas, tema: laiskas.tema, siuntimo_data: pranesimas?.siuntimo_data,
-            tekstas: pranesimas?.tekstas || laiskas.tekstas
-        });
-    }
 };
 
 const augintinioParinktis = a => `${a.vardas} (${a.tipas.toLowerCase()}, ${a.veisle})`;

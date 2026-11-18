@@ -24,7 +24,7 @@ Demonstracinės paskyros (slaptažodis visoms – `demo1234`):
 
 | Paskyra | El. paštas | Ką pademonstruoti |
 |---|---|---|
-| Jonas Petrauskas, klientas | jonas@pavyzdys.lt | patvirtinti užsakymą UZ-0002, sukurti užsakymą Žaibui |
+| Jonas Petrauskas, klientas | jonas@pavyzdys.lt | sukurti užsakymą Žaibui |
 | Rūta Kazlauskienė, klientas | ruta@pavyzdys.lt | istorija nepatikrinta – užsakymas reikalauja patikrinimo („Petras Petraitis“ – rasta įrašų) |
 | Laura Vaitkutė, lab. specialistė | laura@klonavimas.lt | DNR-0012 tinkamumas, DNR-0013 rezultatų įvedimas (Redaguoti), inkubatoriaus priskyrimas (Kiki – pavyks, Pūkis – tinkamo nėra) |
 | Asta Kairienė, administratorė | asta@klonavimas.lt | darbuotojai, tyrimai, krūvio analizė (didelis / normalus / mažas) |
@@ -37,6 +37,6 @@ Demonstracinės paskyros (slaptažodis visoms – `demo1234`):
 
 ## Failai
 
-- `js/duomenys.js` – esybės, demonstraciniai duomenys ir automatinės funkcijos (DNR tinkamumas, inkubatoriaus priskyrimas, krūvio analizė, CourtListener ir el. pašto imitacijos).
+- `js/duomenys.js` – esybės, demonstraciniai duomenys ir automatinės funkcijos (DNR tinkamumas, inkubatoriaus priskyrimas, krūvio analizė, CourtListener imitacija).
 - `js/navigacija.js` – meniu, naršymo kelias, prieiga pagal rolę, formų tikrinimas, patvirtinimo langas.
 - `js/langai.js` – kiekvieno lango turinys ir veiksmai pagal sekų diagramas.

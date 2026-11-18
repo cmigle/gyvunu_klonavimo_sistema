@@ -1,7 +1,7 @@
 NAVIGAVIMO PLANAS – «boundary» klasės ir perėjimai tarp jų
 ============================================================
 Langų pavadinimai sutampa su reikalavimų analizės diagramų (3.1 skyrius)
-«boundary» klasėmis. Veiksmai (redaguoti, ištrinti, patvirtinti) pradedami
+«boundary» klasėmis. Veiksmai (redaguoti, ištrinti) pradedami
 iš sąrašo langų, kaip aprašyta sekų diagramose (2.2 skyrius).
 
 [Gyvūnų klonavimo sistema]
@@ -78,7 +78,6 @@ iš sąrašo langų, kaip aprašyta sekų diagramose (2.2 skyrius).
       → Užsakymo peržiūros langas
       → Užsakymo redagavimo langas  (tik nepatvirtintas užsakymas)
       → Ištrynimo patvirtinimo langas  (tik nepatvirtintas užsakymas)
-      → Laiško šablonas → El. pašto serveris  (patvirtinus užsakymą)
       → Dokumentų sąrašo langas  (specialistas)
   «boundary» Užsakymo kūrimo langas  (uzsakymas-kurti.html)
       → Užsakymų sąrašo langas

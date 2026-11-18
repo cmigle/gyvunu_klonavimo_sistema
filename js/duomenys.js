@@ -354,9 +354,9 @@ function patikrintiIstorija(klientoId, vardas, pavarde) {
     });
 }
 
-// ---------- Užsakymo patvirtinimas (2.15 pav.) ----------
+// ---------- Pranešimas apie užsakymo patvirtinimą ----------
 
-// „Laiško šablonas“ – per jį pranešimas perduodamas el. pašto serveriui (3.1.17 pav.)
+// „Laiško šablonas“ (3.1.17 pav.)
 function laiskoSablonas(uzsakymas, augintinis, klientas, pavyzdys) {
     return {
         gavejas: klientas.el_pastas,
@@ -374,30 +374,6 @@ function laiskoSablonas(uzsakymas, augintinis, klientas, pavyzdys) {
             "Gyvūnų klonavimo sistema"
         ].join("\n")
     };
-}
-
-// El. pašto serverio imitacija
-function siustiLaiska(laiskas) {
-    console.info(`El. laiškas → ${laiskas.gavejas}: ${laiskas.tema}`);
-    return true;
-}
-
-function patvirtintiUzsakyma(id) {
-    const uzsakymas = rasti("uzsakymai", id);
-    const nr = uzsakymoNr(uzsakymas);
-    if (uzsakymas.busena) return { klaida: `Užsakymas ${nr} jau patvirtintas.` };
-    const pavyzdys = augintinioDnr(uzsakymas.augintinis);
-    if (!pavyzdys || pavyzdys.tinkamumas !== TINKAMAS) {
-        const priezastis = !pavyzdys ? "augintinio DNR pavyzdžio nėra"
-            : pavyzdys.tinkamumas ? `DNR pavyzdys ${dnrKodas(pavyzdys)} netinkamas klonuoti`
-            : `DNR pavyzdžio ${dnrKodas(pavyzdys)} tinkamumas dar nenustatytas`;
-        return { klaida: `Užsakymo ${nr} patvirtinti negalima: ${priezastis}.` };
-    }
-    atnaujinti("uzsakymai", id, { busena: true, patvirtinimo_data: siandien() });
-    const augintinis = rasti("augintiniai", uzsakymas.augintinis);
-    const laiskas = laiskoSablonas(uzsakymas, augintinis, rasti("klientai", augintinis.klientas), pavyzdys);
-    const pranesimas = sukurti("pranesimai", { uzsakymas: uzsakymas.id, tekstas: laiskas.tekstas, siuntimo_data: dabar(), busena: siustiLaiska(laiskas) });
-    return { uzsakymas, pranesimas };
 }
 
 // ---------- DNR pavyzdžio tinkamumo nustatymas (2.20 pav.) ----------
