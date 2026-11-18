@@ -1,0 +1,74 @@
+@model UzsakymoForma
+@using GyvunuKlonavimoSistema.Services
+@{
+    ViewData["Title"] = "Užsakymo kūrimo langas";
+    ViewData["Posisteme"] = Posisteme.Uzsakymai;
+    ViewData["Aprasas"] = "Kaina priklauso nuo gyvūno tipo.";
+    ViewData["Kelias"] = new[] { new KelioDalis("Užsakymai", "/uzsakymai"), new KelioDalis("Naujas užsakymas") };
+    ViewData["Pagalba"] = "Rodomi augintiniai, kurie dar neturi užsakymo.";
+    const string tikrinti = "/istorijospatikrinimas?grizti=uzsakymas";
+}
+
+@if (Model.Kliutis == Kliutis.KlientasNetinkamas)
+{
+    <div class="kortele prieiga">
+        <h2>Užsakymo sukurti negalima</h2>
+        <p>Patikrinus teistumo istoriją per CourtListener API rasta įrašų, todėl klientas netinkamas.</p>
+        <div class="mygtukai">
+            <a class="mygtukas" href="@tikrinti">Tikrinti iš naujo</a>
+            <a class="mygtukas antrinis" href="/uzsakymai">Grįžti į užsakymų sąrašą</a>
+        </div>
+    </div>
+}
+else if (Model.Kliutis == Kliutis.IstorijaNepatikrinta)
+{
+    @* PA „Sukurti užsakymą“ «include» „Patikrinti kliento istoriją“ *@
+    <div class="kortele prieiga">
+        <h2>Reikia patikrinti kliento istoriją</h2>
+        <p>Prieš kuriant užsakymą sistema turi patikrinti jūsų teistumo istoriją per CourtListener API.</p>
+        <div class="mygtukai">
+            <a class="mygtukas" href="@tikrinti">Patikrinti istoriją</a>
+            <a class="mygtukas antrinis" href="/uzsakymai">Atšaukti</a>
+        </div>
+    </div>
+}
+else if (Model.Kliutis == Kliutis.NeraAugintiniu)
+{
+    <div class="kortele prieiga">
+        <h2>Nėra augintinių be užsakymo</h2>
+        <p>Kiekvienas augintinis gali turėti vieną užsakymą. Norėdami sukurti naują užsakymą, pirmiausia sukurkite augintinį.</p>
+        <div class="mygtukai">
+            <a class="mygtukas" href="/augintiniai/kurti">+ Sukurti gyvūną</a>
+            <a class="mygtukas antrinis" href="/uzsakymai">Grįžti</a>
+        </div>
+    </div>
+}
+else if (Model.Perziura is { } a)
+{
+    <form class="kortele" method="post" novalidate>
+        <input type="hidden" asp-for="AugintinisId">
+        <div class="korteles-virsus"><h2>Užpildytos formos peržiūra</h2>@Html.Zyma("Nepatvirtintas")</div>
+        <dl class="duomenys">
+            <dt>Augintinis</dt><dd>@a.Vardas</dd>
+            <dt>Tipas</dt><dd>@a.Tipas</dd>
+            <dt>Veislė</dt><dd>@a.Veisle</dd>
+            <dt>Kaina</dt><dd>@Formatai.Pinigai(KlonavimoNormos.Kainos[a.Tipas])</dd>
+            <dt>Sukūrimo data</dt><dd>@Formatai.Data(DateTime.Today)</dd>
+            <dt>Būsena</dt><dd>Nepatvirtintas</dd>
+        </dl>
+        <div class="mygtukai" style="margin-top: 16px">
+            <button type="submit" class="mygtukas" name="veiksmas" value="pateikti">Pateikti užsakymą</button>
+            <button type="submit" class="mygtukas antrinis" name="veiksmas" value="grizti">Grįžti redaguoti</button>
+        </div>
+    </form>
+}
+else
+{
+    <form class="kortele" method="post" novalidate>
+        <partial name="_AugintinioPasirinkimas" model="Model" />
+        <div class="mygtukai">
+            <button type="submit" class="mygtukas" name="veiksmas" value="perziureti">Peržiūrėti užsakymą</button>
+            <a class="mygtukas antrinis" href="/uzsakymai">Atšaukti</a>
+        </div>
+    </form>
+}
