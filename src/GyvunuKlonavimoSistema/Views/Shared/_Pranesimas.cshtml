@@ -1,0 +1,22 @@
+@using Microsoft.AspNetCore.Mvc.ModelBinding
+@{
+    // Pranešimas iš ankstesnio lango (TempData) arba neteisingai užpildytos formos klaidos
+    var tekstas = (TempData["Klaida"] ?? TempData["Sekme"] ?? TempData["Info"]) as string;
+    var tipas = TempData.ContainsKey("Klaida") ? "klaida" : TempData.ContainsKey("Sekme") ? "sekme" : "info";
+    if (!ViewData.ModelState.IsValid)
+    {
+        var bendros = ViewData.ModelState[""]?.Errors.Select(e => e.ErrorMessage).ToList() ?? [];
+        var laukai = ViewData.ModelState
+            .Where(x => x.Key != "" && x.Value?.ValidationState == ModelValidationState.Invalid)
+            .Select(x => ViewData.ModelMetadata.Properties.FirstOrDefault(p => p.PropertyName == x.Key)?.DisplayName ?? x.Key)
+            .Distinct().ToList();
+        tekstas = bendros.Count > 0 ? string.Join(" ", bendros) : $"Neteisingai užpildyti laukai: {string.Join(", ", laukai)}.";
+        tipas = "klaida";
+    }
+}
+<div id="pranesimas">
+    @if (tekstas is not null)
+    {
+        <div class="pranesimas @tipas" role="@(tipas == "klaida" ? "alert" : "status")">@tekstas</div>
+    }
+</div>

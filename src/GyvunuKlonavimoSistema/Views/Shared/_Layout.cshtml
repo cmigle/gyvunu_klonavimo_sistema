@@ -1,0 +1,100 @@
+@{
+    var role = User.Role();
+    var posisteme = ViewData["Posisteme"] as Posisteme? ?? Posisteme.Sistema;
+    var centruotas = ViewData["Centruotas"] as bool? == true;
+    var kelias = ViewData["Kelias"] as IEnumerable<KelioDalis> ?? [];
+    var valdiklis = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
+    var veiksmas = ViewContext.RouteData.Values["action"]?.ToString() ?? "";
+    var punktai = Meniu.Punktai(role);
+    var aktyvus = punktai.LastOrDefault(p => p.Aktyvus(valdiklis, veiksmas));
+}
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"] – Gyvūnų klonavimo sistema</title>
+    <link rel="stylesheet" href="~/css/stilius.css" asp-append-version="true">
+    <script src="~/js/sistema.js" asp-append-version="true" defer></script>
+</head>
+<body>
+    <nav class="meniu">
+        <div class="virsus">
+            <div class="vidus">
+                <a class="logotipas" href="/">Gyvūnų klonavimo sistema</a>
+                <div class="punktai">
+                    @foreach (var p in punktai)
+                    {
+                        <a class="punktas" href="@p.Nuoroda" aria-current="@(p == aktyvus ? "page" : null)">@p.Tekstas</a>
+                    }
+                </div>
+                <div class="naudotojas">
+                    @if (User.Prisijunges())
+                    {
+                        <span title="@Roles.Pavadinimas(role)">@User.Identity!.Name</span>
+                        <a class="punktas" href="/klientas/atsijungimas" aria-current="@(veiksmas == "Atsijungimas" ? "page" : null)">Atsijungti</a>
+                    }
+                    else
+                    {
+                        <a class="punktas" href="/prisijungimas" aria-current="@(valdiklis == "Prisijungimas" ? "page" : null)">Prisijungti</a>
+                        <a class="punktas" href="/klientas/registracija" aria-current="@(veiksmas == "Registracija" ? "page" : null)">Registruotis</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="@(centruotas ? "centruotas" : null)" style="--posistemes-spalva: @Posistemes.Spalva(posisteme)">
+        @if (!centruotas)
+        {
+            @if (kelias.Any())
+            {
+                <nav class="kelias" aria-label="Naršymo kelias">
+                    <a href="/">@(User.Prisijunges() ? "Pagrindinis" : "Pradžia")</a>
+                    @foreach (var dalis in kelias)
+                    {
+                        <span aria-hidden="true">/</span>
+                        if (dalis.Nuoroda is null)
+                        {
+                            <span aria-current="page">@dalis.Pavadinimas</span>
+                        }
+                        else
+                        {
+                            <a href="@dalis.Nuoroda">@dalis.Pavadinimas</a>
+                        }
+                    }
+                </nav>
+            }
+            <header class="antraste">
+                <div>
+                    <span class="posisteme">@Posistemes.Pavadinimas(posisteme)</span>
+                    <h1>@ViewData["Title"]</h1>
+                    @if (ViewData["Aprasas"] is string aprasas)
+                    {
+                        <p class="aprasas">@aprasas</p>
+                    }
+                </div>
+                @if (IsSectionDefined("Mygtukai"))
+                {
+                    <div class="mygtukai">@RenderSection("Mygtukai")</div>
+                }
+            </header>
+            <partial name="_Pranesimas" />
+        }
+        @RenderBody()
+    </main>
+
+    <footer>
+        <div class="vidus">
+            <span>© 2026 Gyvūnų klonavimo sistema. Komanda „Šešta koja“, KTU</span>
+            <div class="legenda" aria-label="Komandos spalvinė legenda">
+                <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
+                <span style="--c: var(--evelina)">Evelina Riukaitė</span>
+                <span style="--c: var(--pijus)">Pijus Buknys</span>
+                <span style="--c: var(--ugne)">Ugnė Čiauškaitė</span>
+                <span style="--c: var(--migle)">Miglė Cirtautaitė</span>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

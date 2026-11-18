@@ -1,0 +1,12 @@
+@{
+    ViewData["Aprasas"] = "Šis langas skirtas kitos rolės naudotojams.";
+}
+
+<div class="kortele prieiga">
+    <h2>Langas neprieinamas</h2>
+    <p>Prisijungęs naudotojas (@Roles.Pavadinimas(User.Role())) šio lango atidaryti negali.</p>
+    <div class="mygtukai">
+        <a class="mygtukas" href="/">Į pagrindinį langą</a>
+        <a class="mygtukas antrinis" href="/klientas/atsijungimas">Prisijungti kitu naudotoju</a>
+    </div>
+</div>

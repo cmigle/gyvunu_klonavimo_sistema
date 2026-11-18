@@ -1,0 +1,51 @@
+@model PrisijungimoForma
+@{
+    ViewData["Title"] = "Prisijungimo langas";
+    ViewData["Posisteme"] = Posisteme.KlientaiIrAugintiniai;
+    ViewData["Centruotas"] = true;
+    (string ElPastas, string Vardas, string Aprasas)[] demo =
+    [
+        ("jonas@pavyzdys.lt", "Jonas Petrauskas", "klientas, istorija patikrinta"),
+        ("ruta@pavyzdys.lt", "Rūta Kazlauskienė", "klientas, istorija nepatikrinta"),
+        ("laura@klonavimas.lt", "Laura Vaitkutė", "laboratorijos specialistas"),
+        ("asta@klonavimas.lt", "Asta Kairienė", "administratorius")
+    ];
+}
+
+<div class="prisijungimo-kortele">
+    <span class="posisteme">Kliento ir augintinio valdymas</span>
+    <h1>Prisijungimo langas</h1>
+    <p class="aprasas">Prisijunkite prie gyvūnų klonavimo sistemos.</p>
+    <partial name="_Pranesimas" />
+    <form method="post" asp-action="Index" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]" novalidate>
+        <div laukas-for="ElPastas">
+            <label asp-for="ElPastas"></label>
+            <input asp-for="ElPastas" type="email" autocomplete="username">
+        </div>
+        <div laukas-for="Slaptazodis">
+            <label asp-for="Slaptazodis"></label>
+            <input asp-for="Slaptazodis" autocomplete="current-password">
+        </div>
+        <button type="submit" class="mygtukas platus">Prisijungti</button>
+    </form>
+    <p class="apacioje">Neturite paskyros? <a asp-controller="Klientas" asp-action="Registracija">Registruokitės</a></p>
+</div>
+<div class="demo-paskyros">
+    <p>Demonstracinės paskyros, slaptažodis <code>demo1234</code>:</p>
+    <ul class="paskyros">
+        @foreach (var p in demo)
+        {
+            <li><button type="button" class="nuoroda" data-el="@p.ElPastas">@p.Vardas</button> <span>@p.Aprasas</span></li>
+        }
+    </ul>
+</div>
+
+<script>
+    // Paspaudus demonstracinę paskyrą užpildoma prisijungimo forma
+    document.querySelector(".paskyros").addEventListener("click", e => {
+        const mygtukas = e.target.closest("[data-el]");
+        if (!mygtukas) return;
+        document.getElementById("ElPastas").value = mygtukas.dataset.el;
+        document.getElementById("Slaptazodis").value = "demo1234";
+    });
+</script>

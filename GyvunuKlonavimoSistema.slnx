@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/GyvunuKlonavimoSistema/GyvunuKlonavimoSistema.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/GyvunuKlonavimoSistema.Tests/GyvunuKlonavimoSistema.Tests.csproj" />
+  </Folder>
+</Solution>
