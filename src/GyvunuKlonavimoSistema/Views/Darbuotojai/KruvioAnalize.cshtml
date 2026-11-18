@@ -1,0 +1,30 @@
+@model KruvioAnalizesModelis
+@{
+    ViewData["Title"] = "Darbo krūvio analizės langas";
+    ViewData["Posisteme"] = Posisteme.Darbuotojai;
+    ViewData["Kelias"] = new[] { new KelioDalis("Darbuotojai", "/darbuotojai"), new KelioDalis("Krūvio analizė") };
+}
+
+<partial name="_Rodikliai" model="Model.Rodikliai" />
+
+<div class="kortele">
+    <h2>Kaip skaičiuojamas darbo krūvis</h2>
+    <ol class="zingsniai">
+        <li>Gaunamas laboratorijos specialistų sąrašas.</li>
+        <li>Kiekvienam specialistui gaunami jam priskirti klonavimai ir atrenkami aktyvūs.</li>
+        <li>Apskaičiuojamas aktyvių klonavimų kiekis ir bendra trukmė dienomis.</li>
+        <li>Pagal formulę ir darbuotojo etatą apskaičiuojamas darbo krūvio rodiklis.</li>
+        <li>Pagal rodiklį priskiriamas užimtumo lygis ir suformuojama suvestinė.</li>
+    </ol>
+    <div class="formule">@KruvioAnalizesModelis.Formule</div>
+    <div class="mygtukai">
+        @Html.Zyma("< 70 %: mažas darbo krūvis", "info")
+        @Html.Zyma("70–100 %: normalus darbo krūvis", "sekme")
+        @Html.Zyma("> 100 %: didelis darbo krūvis", "klaida")
+    </div>
+</div>
+
+<form method="post" class="mygtukai">
+    <button type="submit" class="mygtukas">Atlikti analizę</button>
+    <a class="mygtukas antrinis" asp-action="Index">Grįžti į darbuotojų sąrašą</a>
+</form>
