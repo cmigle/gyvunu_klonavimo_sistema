@@ -1,0 +1,120 @@
+@model PriskyrimoRezultatoModelis
+@using GyvunuKlonavimoSistema.Services
+@{
+    ViewData["Title"] = "Inkubatoriaus priskyrimo rezultato langas";
+    ViewData["Posisteme"] = Posisteme.Inkubatoriai;
+    ViewData["Aprasas"] = $"Priskyrimas atliktas {Formatai.DataLaikas(Model.Irasas.Data)}.";
+    ViewData["Kelias"] = new[] { new KelioDalis("Inkubatoriai", "/inkubatoriai"), new KelioDalis("Priskyrimo rezultatas") };
+    var s = Model.Salygos;
+    var p = Model.Pavyzdys;
+    string PliusMinus(double verte, double nuokrypis, string vienetai) =>
+        $"{Formatai.Skaicius(verte, 1)} ± {Formatai.Skaicius(nuokrypis, 1)} {vienetai}";
+    var temperatura = PliusMinus(s.Temperatura, KlonavimoNormos.LeidziamasTemperaturosNuokrypis, "°C");
+    var co2 = PliusMinus(s.Co2, KlonavimoNormos.LeidziamasCo2Nuokrypis, "%");
+    var o2 = PliusMinus(s.O2, KlonavimoNormos.LeidziamasO2Nuokrypis, "%");
+    var ph = $"{Formatai.Skaicius(s.PhMin, 1)}–{Formatai.Skaicius(s.PhMax, 1)}";
+    var parinktas = Model.Parinktas;
+}
+
+@if (parinktas is not null)
+{
+    var k = Model.Klonavimas;
+    <div class="kortele rezultatas-sekme">
+        <div class="korteles-virsus"><h2>Inkubatorius priskirtas</h2>@Html.Zyma("Užimtas")</div>
+        <p>
+            Iš @Model.Irasas.Patikrinimai.Count(x => x.Tinka) tinkamų laisvų inkubatorių parinktas tinkamiausias:
+            <strong>@parinktas.Modelis</strong> (@parinktas.SerijinisNumeris).
+            Inkubatoriaus būsena pakeista į „Užimtas“@(k is null ? "" : $", pradėtas klonavimas {k.Numeris} ({Formatai.Data(k.PradziosData)} – {Formatai.Data(k.PabaigosData)})").
+        </p>
+        @if (Model.EsamiInkubatoriai.Contains(parinktas.Id))
+        {
+            <div class="mygtukai"><a class="mygtukas antrinis" asp-action="Parametrai" asp-route-id="@parinktas.Id">Inkubatoriaus parametrai</a></div>
+        }
+    </div>
+}
+else
+{
+    @* Klaidos pranešimas su reikiamais inkubatoriaus nustatymais *@
+    var artimiausias = Model.Artimiausias;
+    <div class="kortele rezultatas-klaida">
+        <div class="korteles-virsus"><h2>Tinkamų inkubatorių nėra</h2>@Html.Zyma("Netinka")</div>
+        <p>
+            Nė vienas laisvas inkubatorius neatitinka embriono vystymosi poreikių. Reikalingi inkubatoriaus nustatymai:
+            <strong>temperatūra @temperatura, CO₂ @co2, O₂ @o2, pH @ph</strong>.
+        </p>
+        <p class="pagalba">Paredaguokite laisvo inkubatoriaus parametrus ir pakartokite priskyrimą.</p>
+        <div class="mygtukai" style="margin-top: 12px">
+            @if (artimiausias is not null)
+            {
+                <a class="mygtukas" asp-action="Busena" asp-route-id="@artimiausias.Id">Redaguoti @artimiausias.Modelis</a>
+            }
+            <a class="mygtukas antrinis" asp-action="Index" asp-route-dnrPavyzdysId="@p.Id">Bandyti dar kartą</a>
+        </div>
+    </div>
+}
+
+<div class="du-stulpeliai">
+    <div class="kortele">
+        <h2>DNR pavyzdys</h2>
+        <dl class="duomenys">
+            <dt>Pavyzdžio ID</dt><dd>@p.Kodas</dd>
+            <dt>Augintinis</dt><dd>@p.Augintinis.Vardas</dd>
+            <dt>Gyvūno tipas</dt><dd>@p.Augintinis.Tipas</dd>
+            <dt>Užsakymas</dt><dd>@(p.Augintinis.Uzsakymas?.Numeris ?? Formatai.Bruksnys)</dd>
+        </dl>
+    </div>
+    <div class="kortele">
+        <h2>Reikalingi inkubatoriaus parametrai</h2>
+        <dl class="duomenys">
+            <dt>Temperatūra</dt><dd>@temperatura</dd>
+            <dt>CO₂</dt><dd>@co2</dd>
+            <dt>O₂</dt><dd>@o2</dd>
+            <dt>pH</dt><dd>@ph</dd>
+            <dt>Būsena</dt><dd>Laisvas</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="kortele lenteles-kortele">
+    <div class="korteles-virsus"><h2>Inkubatorių parametrų patikrinimas</h2></div>
+    <div class="slinktis">
+        <table>
+            <thead><tr><th>Inkubatorius</th><th>Būsena</th><th class="skaicius">Temp.</th><th class="skaicius">CO₂</th><th class="skaicius">O₂</th><th class="skaicius">pH</th><th>Rezultatas</th></tr></thead>
+            <tbody>
+                @foreach (var x in Model.Irasas.Patikrinimai)
+                {
+                    <tr class="@(x.Id == parinktas?.Id ? "parinktas" : null)">
+                        <td><strong>@x.Modelis</strong><small>@x.SerijinisNumeris</small></td>
+                        <td>@Html.Zyma(x.Busena ? "Užimtas" : "Laisvas")</td>
+                        <td class="skaicius"><span class="@(x.Priezastys.Contains("temperatūra") ? "blogai" : null)">@Formatai.SuVienetais(x.TikslineTemperatura, "°C", 1)</span></td>
+                        <td class="skaicius"><span class="@(x.Priezastys.Contains("CO₂") ? "blogai" : null)">@Formatai.SuVienetais(x.Co2Procentas, "%", 1)</span></td>
+                        <td class="skaicius"><span class="@(x.Priezastys.Contains("O₂") ? "blogai" : null)">@Formatai.SuVienetais(x.O2Procentas, "%", 1)</span></td>
+                        <td class="skaicius"><span class="@(x.Priezastys.Contains("pH") ? "blogai" : null)">@Formatai.Skaicius(x.PhLygis, 2)</span></td>
+                        <td>
+                            @if (x.Id == parinktas?.Id)
+                            {
+                                @Html.Zyma("Priskirtas", "sekme")
+                            }
+                            else if (x.Tinka)
+                            {
+                                @Html.Zyma("Tinka")
+                            }
+                            else
+                            {
+                                @Html.Zyma($"Netinka: {string.Join(", ", x.Priezastys)}", "klaida")
+                            }
+                        </td>
+                    </tr>
+                }
+                @if (Model.Irasas.Patikrinimai.Count == 0)
+                {
+                    <tr><td class="tuscia" colspan="7">Inkubatorių nėra.</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="mygtukai">
+    <a class="mygtukas antrinis" asp-action="Index">Grįžti į inkubatorių langą</a>
+</div>
