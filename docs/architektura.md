@@ -276,6 +276,7 @@ classDiagram
         +Busena(id, forma)
         +Istrinti(id)
         +Priskirti(dnrPavyzdysId)
+        +PriskyrimoRezultatas(dnrPavyzdysId)
     }
     class InkubatoriausPriskyrimas {
         <<control>>
@@ -319,6 +320,7 @@ classDiagram
         +Tyrimai(id)
         +Tyrimas(id)
         +KruvioAnalize()
+        +AtliktiKruvioAnalize()
         +KruvioSuvestine()
     }
     class DarboKruvioAnalize {
