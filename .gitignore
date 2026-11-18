@@ -1,0 +1,23 @@
+# Editors
+.vs/
+.vscode/
+.idea/
+*.code-workspace
+*.user
+*.suo
+
+# .NET build output
+bin/
+obj/
+TestResults/
+
+# Node
+node_modules/
+
+# Local configuration and uploaded files
+appsettings.*.local.json
+uploads/
+
+# OS
+Thumbs.db
+.DS_Store
