@@ -1,0 +1,52 @@
+@model IstorijosRezultatoModelis
+@{
+    ViewData["Title"] = "Patikrinimo rezultato langas";
+    ViewData["Posisteme"] = Posisteme.KlientaiIrAugintiniai;
+    var tikrinti = Model.Grizti is null ? "/istorijospatikrinimas" : $"/istorijospatikrinimas?grizti={Model.Grizti}";
+    ViewData["Kelias"] = new[]
+    {
+        new KelioDalis("Mano profilis", "/klientas/profilis"),
+        new KelioDalis("Istorijos patikrinimas", tikrinti),
+        new KelioDalis("Rezultatas")
+    };
+}
+
+<div class="kortele">
+    <div class="korteles-virsus"><h2>Teistumo istorijos patikrinimo rezultatas</h2>@Html.Zyma(Model.Klientas.IstorijosBusena)</div>
+    <dl class="duomenys">
+        <dt>Tikrintas asmuo</dt><dd>@Model.Asmuo</dd>
+        <dt>Patikrinimo data</dt><dd>@Formatai.DataLaikas(Model.Klientas.PatikrinimoData)</dd>
+        <dt>CourtListener API užklausa</dt><dd><code>@Model.Uzklausa</code></dd>
+        <dt>Rastų teistumo įrašų skaičius</dt><dd>@(Model.RastaIrasu?.ToString() ?? Formatai.Bruksnys)</dd>
+        <dt>Rezultatas</dt>
+        <dd>@(Model.Patikrintas ? "Teistumo įrašų nerasta, klientas pažymėtas kaip patikrintas." : "Rasta teistumo įrašų, todėl klientas netinkamas.")</dd>
+    </dl>
+</div>
+
+@if (Model.Irasai.Count > 0)
+{
+    <div class="kortele lenteles-kortele">
+        <div class="korteles-virsus"><h2>Rasti teistumo įrašai</h2></div>
+        <div class="slinktis">
+            <table>
+                <thead><tr><th>Bylos nr.</th><th>Byla</th><th>Teismas</th><th>Data</th></tr></thead>
+                <tbody>
+                    @foreach (var b in Model.Irasai)
+                    {
+                        <tr><td>@b.Numeris</td><td>@b.Byla</td><td>@b.Teismas</td><td>@b.Data</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+<div class="mygtukai">
+    @* Atėjus iš užsakymo kūrimo («include»), siūloma jį tęsti *@
+    @if (Model.Grizti == "uzsakymas" && Model.Patikrintas)
+    {
+        <a class="mygtukas" href="/uzsakymai/kurti">Tęsti užsakymo kūrimą</a>
+    }
+    <a class="mygtukas antrinis" href="/klientas/profilis">Grįžti į profilį</a>
+    <a class="mygtukas antrinis" href="@tikrinti">Tikrinti iš naujo</a>
+</div>
