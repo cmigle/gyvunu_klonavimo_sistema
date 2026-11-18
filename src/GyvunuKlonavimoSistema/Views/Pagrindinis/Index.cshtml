@@ -1,0 +1,135 @@
+@model PagrindinisModelis
+@{
+    var role = User.Role();
+    ViewData["Title"] = role is null ? "Pradžios langas" : "Pagrindinis langas";
+    if (Model.Vardas is not null) ViewData["Aprasas"] = $"Sveiki, {Model.Vardas}! Pasirinkite, ką norite daryti.";
+}
+
+@if (role is null)
+{
+    <section>
+        <div class="kortele">
+            <p>Sveiki atvykę į gyvūnų klonavimo sistemą. Čia klientai registruoja savo augintinius ir pateikia klonavimo užsakymus, o laboratorijos darbuotojai tvarko DNR pavyzdžius ir inkubatorius.</p>
+            <p>Norėdami tęsti, prisijunkite arba užsiregistruokite.</p>
+            <div class="mygtukai">
+                <a class="mygtukas" href="/prisijungimas">Prisijungti</a>
+                <a class="mygtukas antrinis" href="/klientas/registracija">Registruotis</a>
+            </div>
+        </div>
+        <h2>Sistemos posistemės</h2>
+        <ul>
+            <li>Kliento ir augintinio valdymas</li>
+            <li>Užsakymo valdymas</li>
+            <li>DNR pavyzdžio valdymas</li>
+            <li>Inkubatorių valdymas</li>
+            <li>Darbuotojų valdymas</li>
+        </ul>
+    </section>
+}
+else
+{
+    <partial name="_Rodikliai" model="Model.Rodikliai" />
+}
+
+@if (role == Roles.Klientas)
+{
+    <div class="plyteles">
+        <a class="plytele" style="--spalva: var(--migle)" href="/klientas/profilis"><strong>Mano profilis</strong><span>Asmens duomenys ir teistumo istorijos patikrinimas</span></a>
+        <a class="plytele" style="--spalva: var(--migle)" href="/augintiniai"><strong>Mano augintiniai</strong><span>Augintiniai ir jų dokumentai</span></a>
+        <a class="plytele" style="--spalva: var(--vytaute)" href="/uzsakymai"><strong>Užsakymai</strong><span>Klonavimo užsakymų kūrimas ir valdymas</span></a>
+    </div>
+    <h2>Mano užsakymai</h2>
+    <div class="kortele lenteles-kortele">
+        <div class="slinktis">
+            <table>
+                <thead><tr><th>Nr.</th><th>Augintinis</th><th class="skaicius">Kaina</th><th>Būsena</th><th></th></tr></thead>
+                <tbody>
+                    @foreach (var u in Model.Uzsakymai)
+                    {
+                        <tr>
+                            <td><a class="pagrindinis" href="/uzsakymai/perziura/@u.Id">@u.Numeris</a></td>
+                            <td>@u.Augintinis.Vardas<small>@u.Augintinis.Tipas</small></td>
+                            <td class="skaicius">@Formatai.Pinigai(u.Kaina)</td>
+                            <td>@Html.Zyma(u.BusenosPavadinimas)</td>
+                            <td class="veiksmai"><a href="/uzsakymai/perziura/@u.Id">Peržiūrėti</a></td>
+                        </tr>
+                    }
+                    @if (Model.Uzsakymai.Count == 0)
+                    {
+                        <tr><td class="tuscia" colspan="5">Užsakymų dar nėra.</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+@if (role == Roles.Specialistas)
+{
+    <div class="plyteles">
+        <a class="plytele" style="--spalva: var(--vytaute)" href="/uzsakymai"><strong>Užsakymai</strong><span>Užsakymų ir augintinių dokumentų peržiūra</span></a>
+        <a class="plytele" style="--spalva: var(--evelina)" href="/dnrpavyzdziai"><strong>DNR pavyzdžiai</strong><span>Pavyzdžiai, analizės rezultatai, tinkamumas</span></a>
+        <a class="plytele" style="--spalva: var(--pijus)" href="/inkubatoriai"><strong>Inkubatoriai</strong><span>Inkubatorių būsenos ir priskyrimas</span></a>
+    </div>
+    <h2>Naujausi DNR pavyzdžiai</h2>
+    <div class="kortele lenteles-kortele">
+        <div class="slinktis">
+            <table>
+                <thead><tr><th>ID</th><th>Augintinis</th><th>Paėmimo data</th><th>Tinkamumas</th><th></th></tr></thead>
+                <tbody>
+                    @foreach (var d in Model.NaujausiDnr)
+                    {
+                        <tr>
+                            <td><a class="pagrindinis" href="/dnrpavyzdziai/perziura/@d.Id">@d.Kodas</a></td>
+                            <td>@d.Augintinis.Pavadinimas</td>
+                            <td>@Formatai.Data(d.PaemimoData)</td>
+                            <td>@Html.Zyma(d.Tinkamumas ?? Tinkamumai.Neivertintas)</td>
+                            <td class="veiksmai"><a href="/dnrpavyzdziai/perziura/@d.Id">Peržiūrėti</a></td>
+                        </tr>
+                    }
+                    @if (Model.NaujausiDnr.Count == 0)
+                    {
+                        <tr><td class="tuscia" colspan="5">DNR pavyzdžių nėra.</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+@if (role == Roles.Administratorius)
+{
+    <div class="plyteles">
+        <a class="plytele" style="--spalva: var(--ugne)" href="/darbuotojai"><strong>Darbuotojai</strong><span>Darbuotojų profiliai ir jų tyrimai</span></a>
+        <a class="plytele" style="--spalva: var(--ugne)" href="/darbuotojai/kruvioanalize"><strong>Krūvio analizė</strong><span>Darbuotojų darbo krūvio suvestinė</span></a>
+    </div>
+    <h2>Darbuotojai</h2>
+    <div class="kortele lenteles-kortele">
+        <div class="slinktis">
+            <table>
+                <thead><tr><th>Darbuotojas</th><th>Rolė</th><th class="skaicius">Etatas</th><th>Darbo krūvis</th><th></th></tr></thead>
+                <tbody>
+                    @foreach (var (d, kruvis) in Model.Darbuotojai)
+                    {
+                        <tr>
+                            <td><a class="pagrindinis" href="/darbuotojai/perziura/@d.Id">@d.VardasPavarde</a></td>
+                            <td>@Html.Zyma(d is LaboratorijosSpecialistas ? "Laboratorijos specialistas" : "Administratorius")</td>
+                            <td class="skaicius">@Formatai.Skaicius(d.Etatas)</td>
+                            <td>
+                                @if (kruvis is null)
+                                {
+                                    @Formatai.Bruksnys
+                                }
+                                else
+                                {
+                                    @Html.Zyma(kruvis.Lygis) <small>@Formatai.Skaicius(kruvis.Kruvis, 1) %</small>
+                                }
+                            </td>
+                            <td class="veiksmai"><a href="/darbuotojai/perziura/@d.Id">Peržiūrėti</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
