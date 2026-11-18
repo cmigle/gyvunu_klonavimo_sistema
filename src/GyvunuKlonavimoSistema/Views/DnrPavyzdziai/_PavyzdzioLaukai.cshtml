@@ -1,0 +1,34 @@
+@model DnrPavyzdzioForma
+@* Augintinis, paėmimo data ir saugojimo temperatūra (kūrimo ir redagavimo formos) *@
+
+<div class="tinklelis">
+    <div laukas-for="AugintinisId">
+        <label asp-for="AugintinisId"></label>
+        @if (Model.AugintinisUzrakintas)
+        {
+            @* Klonavime panaudoto pavyzdžio augintinio keisti negalima *@
+            <input type="hidden" name="AugintinisId" value="@Model.AugintinisId">
+        }
+        <select asp-for="AugintinisId" disabled="@Model.AugintinisUzrakintas">
+            <option value="">Pasirinkite…</option>
+            @foreach (var a in Model.Augintiniai)
+            {
+                <option value="@a.Id">@a.Pavadinimas, @a.Klientas.VardasPavarde</option>
+            }
+        </select>
+        <p class="pagalba">
+            @(Model.AugintinisUzrakintas ? "Pavyzdys naudojamas klonavime, augintinio keisti negalima."
+                : Model.Augintiniai.Count == 0 ? "Visi augintiniai jau turi DNR pavyzdį."
+                : "Rodomi augintiniai, kurie dar neturi DNR pavyzdžio.")
+        </p>
+    </div>
+    <div laukas-for="PaemimoData">
+        <label asp-for="PaemimoData"></label>
+        <input asp-for="PaemimoData" type="date" max="@DateTime.Today.ToString("yyyy-MM-dd")">
+    </div>
+    <div laukas-for="SaugojimoTemperatura">
+        <label asp-for="SaugojimoTemperatura"></label>
+        <input asp-for="SaugojimoTemperatura" type="number" step="0.1" min="-200" max="10">
+        <p class="pagalba">Norma: ≤ −20 °C.</p>
+    </div>
+</div>

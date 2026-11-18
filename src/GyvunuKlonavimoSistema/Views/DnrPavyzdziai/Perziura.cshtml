@@ -1,0 +1,88 @@
+@model DnrPavyzdys
+@using GyvunuKlonavimoSistema.Services
+@{
+    ViewData["Title"] = "DNR pavyzdžio peržiūros langas";
+    ViewData["Posisteme"] = Posisteme.DnrPavyzdziai;
+    ViewData["Kelias"] = new[] { new KelioDalis("DNR pavyzdžiai", "/dnrpavyzdziai"), new KelioDalis("Pavyzdys") };
+    var a = Model.Augintinis;
+    var u = a.Uzsakymas;
+    var kl = Model.Klonavimas;
+    var normos = DnrTinkamumoAnalize.Normos;
+    // Tinkamas pavyzdys su patvirtintu užsakymu, kuriam dar nepradėtas klonavimas
+    var laukiaPriskyrimo = Model.Tinkamumas == Tinkamumai.Tinkamas && u?.Busena == true && kl is null;
+}
+
+<div class="du-stulpeliai">
+    <div class="kortele">
+        <div class="korteles-virsus"><h2>@Model.Kodas</h2>@Html.Zyma(Model.Tinkamumas ?? Tinkamumai.Neivertintas)</div>
+        <dl class="duomenys">
+            <dt>Pavyzdžio ID</dt><dd>@Model.Kodas</dd>
+            <dt>Augintinis</dt><dd>@a.Pavadinimas</dd>
+            <dt>Klientas</dt><dd>@a.Klientas.VardasPavarde</dd>
+            <dt>Paėmimo data</dt><dd>@Formatai.Data(Model.PaemimoData)</dd>
+            <dt>Saugojimo temperatūra</dt><dd>@Formatai.SuVienetais(Model.SaugojimoTemperatura, "°C")</dd>
+        </dl>
+    </div>
+    <div class="kortele">
+        <h2>Analizės rezultatai</h2>
+        <dl class="duomenys">
+            @foreach (var n in normos.Skip(1))
+            {
+                <dt>@n.Pavadinimas</dt><dd>@Formatai.SuVienetais(n.Reiksme(Model), n.Vienetai)</dd>
+            }
+            <dt>Tinkamumas</dt><dd>@(Model.Tinkamumas is null ? Tinkamumai.Neivertintas : $"{Model.Tinkamumas} ({Formatai.Data(Model.TinkamumoData)})")</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="kortele">
+    <h2>Panaudojimas</h2>
+    <dl class="duomenys">
+        <dt>Užsakymas</dt>
+        <dd>
+            @if (u is null)
+            {
+                <text>Užsakymo nėra</text>
+            }
+            else
+            {
+                <a href="/uzsakymai/perziura/@u.Id">@u.Numeris</a> @Html.Zyma(u.BusenosPavadinimas)
+            }
+        </dd>
+        <dt>Klonavimas</dt>
+        <dd>
+            @if (kl is null)
+            {
+                <text>Nepradėtas</text>
+            }
+            else
+            {
+                @kl.Numeris @Html.Zyma(kl.BusenosPavadinimas)
+            }
+        </dd>
+        <dt>Inkubatorius</dt>
+        <dd>
+            @if (kl?.Inkubatorius is { } inkubatorius)
+            {
+                <a href="/inkubatoriai/parametrai/@inkubatorius.Id">@inkubatorius.Modelis</a>
+            }
+            else
+            {
+                @(laukiaPriskyrimo ? "Laukia priskyrimo" : Formatai.Bruksnys)
+            }
+        </dd>
+    </dl>
+</div>
+
+<div class="mygtukai">
+    <a class="mygtukas" href="/dnrpavyzdziai/redaguoti/@Model.Id">Redaguoti</a>
+    @if (Model.Tinkamumas is not null)
+    {
+        <a class="mygtukas" href="/dnrpavyzdziai/ataskaita/@Model.Id">Tinkamumo ataskaita</a>
+    }
+    <form method="post" asp-action="Istrinti" asp-route-id="@Model.Id"
+          data-patvirtinimas="Ar tikrai norite ištrinti DNR pavyzdį @Model.Kodas? Šio veiksmo atšaukti negalima.">
+        <button type="submit" class="mygtukas pavojingas">Ištrinti</button>
+    </form>
+    <a class="mygtukas antrinis" href="/dnrpavyzdziai">Grįžti į sąrašą</a>
+</div>
