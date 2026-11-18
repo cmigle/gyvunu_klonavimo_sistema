@@ -4,7 +4,9 @@ Gyvūnų klonavimo sistemos naudotojo sąsajos prototipas (HTML, CSS, JS, be ser
 
 ## Paleidimas
 
-Paprasčiausia – atidarykite `index.html` naršyklėje.
+Prototipas paskelbtas GitHub Pages: <https://cmigle.github.io/gyvunu_klonavimo_sistema/>
+
+Vietoje paprasčiausia – atidarykite `index.html` naršyklėje.
 
 ### VS Code
 
