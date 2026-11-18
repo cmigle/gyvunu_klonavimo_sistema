@@ -1,0 +1,82 @@
+@model DnrSarasas
+@{
+    ViewData["Title"] = "DNR pavyzdžių puslapis";
+    ViewData["Posisteme"] = Posisteme.DnrPavyzdziai;
+    ViewData["Kelias"] = new[] { new KelioDalis("DNR pavyzdžiai") };
+    var p = Model.Pavyzdziai;
+}
+@section Mygtukai {
+    <a class="mygtukas" href="/dnrpavyzdziai/kurti">+ Sukurti DNR pavyzdį</a>
+}
+
+@if (Model.Etikete is { } e)
+{
+    @* 2.16 pav.: pasirinkus – sugeneruota pavyzdžio etiketė *@
+    <div class="kortele" id="etikete">
+        <div class="korteles-virsus"><h2>Sugeneruota pavyzdžio etiketė</h2></div>
+        <div class="etikete">
+            <span class="kodas">@e.Kodas</span>
+            <span aria-hidden="true">@Html.Raw(DnrEtikete.Barkodas(e.Kodas))</span>
+            <small>@e.Augintinis.Pavadinimas · paimta @Formatai.Data(e.PaemimoData) · laikyti @Formatai.SuVienetais(e.SaugojimoTemperatura, "°C")</small>
+        </div>
+        <div class="mygtukai" style="margin-top: 14px">
+            <button type="button" class="mygtukas" data-spausdinti="#etikete">Spausdinti etiketę</button>
+            <a class="mygtukas antrinis" href="/dnrpavyzdziai">Uždaryti</a>
+        </div>
+    </div>
+}
+
+<partial name="_Rodikliai" model="@(new Rodiklis[] {
+    new("DNR pavyzdžiai", p.Count),
+    new("Tinkami klonuoti", p.Count(x => x.Tinkamumas == Tinkamumai.Tinkamas)),
+    new("Netinkami", p.Count(x => x.Tinkamumas == Tinkamumai.Netinkamas)),
+    new("Neįvertinti", p.Count(x => x.Tinkamumas == null))
+})" />
+
+<div class="kortele lenteles-kortele">
+    <div class="slinktis">
+        <table>
+            <thead><tr><th>ID</th><th>Augintinis</th><th>Paėmimo data</th><th>Rezultatai</th><th>Tinkamumas</th><th></th></tr></thead>
+            <tbody>
+                @foreach (var x in p)
+                {
+                    <tr>
+                        <td><a class="pagrindinis" href="/dnrpavyzdziai/perziura/@x.Id">@x.Kodas</a></td>
+                        <td>@x.Augintinis.Vardas<small>@x.Augintinis.Tipas · @x.Augintinis.Klientas.VardasPavarde</small></td>
+                        <td>@Formatai.Data(x.PaemimoData)<small>Laikoma @Formatai.SuVienetais(x.SaugojimoTemperatura, "°C")</small></td>
+                        <td>@(x.RezultataiIvesti ? Html.Zyma("Įvesti", "sekme") : Html.Zyma("Neįvesti", "ispejimas"))</td>
+                        <td>
+                            @if (x.Tinkamumas is null)
+                            {
+                                @Html.Zyma(Tinkamumai.Neivertintas)
+                            }
+                            else
+                            {
+                                <a href="/dnrpavyzdziai/ataskaita/@x.Id">@Html.Zyma(x.Tinkamumas)</a>
+                            }
+                        </td>
+                        <td class="veiksmai">
+                            <a href="/dnrpavyzdziai/perziura/@x.Id">Peržiūrėti</a> |
+                            <a href="/dnrpavyzdziai/redaguoti/@x.Id">Redaguoti</a> |
+                            @if (x.RezultataiIvesti)
+                            {
+                                <form method="post" asp-action="NustatytiTinkamuma" asp-route-id="@x.Id" style="display: inline">
+                                    <button type="submit" class="nuoroda">Nustatyti tinkamumą</button>
+                                </form>
+                                <text>|</text>
+                            }
+                            <form method="post" asp-action="Istrinti" asp-route-id="@x.Id" style="display: inline"
+                                  data-patvirtinimas="Ar tikrai norite ištrinti DNR pavyzdį @x.Kodas? Šio veiksmo atšaukti negalima.">
+                                <button type="submit" class="nuoroda pavojinga">Ištrinti</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                @if (p.Count == 0)
+                {
+                    <tr><td class="tuscia" colspan="6">DNR pavyzdžių dar nėra.</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

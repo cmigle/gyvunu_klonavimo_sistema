@@ -1,0 +1,78 @@
+@model DnrAtaskaita
+@{
+    ViewData["Title"] = "DNR pavyzdžio ataskaitos langas";
+    ViewData["Posisteme"] = Posisteme.DnrPavyzdziai;
+    ViewData["Kelias"] = new[] { new KelioDalis("DNR pavyzdžiai", "/dnrpavyzdziai"), new KelioDalis("Ataskaita") };
+    var x = Model.Pavyzdys;
+    var analize = Model.Analize;
+    var nustatytas = x.Tinkamumas is not null && analize.GalimaNustatyti;
+    var tinka = x.Tinkamumas == Tinkamumai.Tinkamas;
+}
+
+<div class="kortele">
+    <div class="korteles-virsus"><h2>Pavyzdys @x.Kodas</h2>@Html.Zyma(x.Tinkamumas ?? Tinkamumai.Neivertintas)</div>
+    <dl class="duomenys">
+        <dt>Augintinis</dt><dd>@x.Augintinis.Pavadinimas</dd>
+        <dt>Paėmimo data</dt><dd>@Formatai.Data(x.PaemimoData)</dd>
+        <dt>Analizės data</dt><dd>@Formatai.Data(x.TinkamumoData)</dd>
+        <dt>Neatitikimų skaičius</dt><dd>@(nustatytas ? analize.Neatitikimai.Count.ToString() : Formatai.Bruksnys)</dd>
+        <dt>Priskirtas statusas</dt><dd>@(x.Tinkamumas ?? Tinkamumai.Neivertintas)</dd>
+    </dl>
+</div>
+
+@if (nustatytas)
+{
+    <div class="kortele lenteles-kortele">
+        <div class="korteles-virsus"><h2>Biologinių parametrų patikrinimas</h2></div>
+        <div class="slinktis">
+            <table>
+                <thead><tr><th>Parametras</th><th class="skaicius">Vertė</th><th>Norma</th><th>Atitikimas</th></tr></thead>
+                <tbody>
+                    @foreach (var p in analize.Patikrinimai)
+                    {
+                        <tr>
+                            <td>@p.Norma.Pavadinimas</td>
+                            <td class="skaicius">@Formatai.SuVienetais(p.Verte, p.Norma.Vienetai)</td>
+                            <td>@Formatai.Norma(p.Norma)</td>
+                            <td>@Html.Zyma(p.Atitinka ? "Atitinka" : "Neatitinka")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="kortele">
+        @if (tinka)
+        {
+            <div class="sertifikatas">
+                <p class="antrinis-tekstas">Sėkmingos analizės sertifikatas Nr. SERT-@x.Id.ToString("D4")</p>
+                <h3>DNR pavyzdys tinkamas klonuoti</h3>
+                <p>Pavyzdžio <strong>@x.Kodas</strong> (@x.Augintinis.Pavadinimas) visi @analize.Patikrinimai.Count biologiniai parametrai atitinka nustatytas normas.</p>
+                <p>Analizės data: @Formatai.Data(x.TinkamumoData)</p>
+                <div class="parasas"><span>Laboratorijos specialistas<br>@User.Identity!.Name</span><span>Parašas</span></div>
+            </div>
+        }
+        else
+        {
+            <h2>Detali atmetimo ataskaita</h2>
+            <p>Pavyzdžiui priskirtas statusas „@Tinkamumai.Netinkamas“, nes @analize.Neatitikimai.Count iš @analize.Patikrinimai.Count parametrų neatitinka normų.</p>
+            <h3 style="font-size: 15px; margin: 16px 0 0">Atmetimo priežasčių suvestinė</h3>
+            <ul class="priezastys">
+                @foreach (var p in analize.Neatitikimai)
+                {
+                    <li><strong>@p.Norma.Pavadinimas</strong>: @Formatai.SuVienetais(p.Verte, p.Norma.Vienetai) (norma @Formatai.Norma(p.Norma))</li>
+                }
+            </ul>
+            <p class="pagalba">Rekomendacija: paimti naują DNR pavyzdį ir pakartoti analizę.</p>
+        }
+    </div>
+}
+
+<div class="mygtukai">
+    @if (nustatytas)
+    {
+        <button type="button" class="mygtukas" data-spausdinti="">@(tinka ? "Spausdinti sertifikatą" : "Spausdinti atmetimo ataskaitą")</button>
+    }
+    <a class="mygtukas antrinis" href="/dnrpavyzdziai">Grįžti į sąrašą</a>
+</div>

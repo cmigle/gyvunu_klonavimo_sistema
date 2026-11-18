@@ -1,0 +1,48 @@
+@model DnrPavyzdzioForma
+@using GyvunuKlonavimoSistema.Services
+@{
+    ViewData["Title"] = "DNR pavyzdžio redagavimo forma";
+    ViewData["Posisteme"] = Posisteme.DnrPavyzdziai;
+    ViewData["Aprasas"] = $"Redaguojamas pavyzdys {Model.Pavyzdys!.Kodas}. Čia įvedami ir analizės rezultatai; juos ar saugojimo temperatūrą pakeitus, tinkamumą reikės nustatyti iš naujo.";
+    ViewData["Kelias"] = new[] { new KelioDalis("DNR pavyzdžiai", "/dnrpavyzdziai"), new KelioDalis("Redagavimas") };
+    // Normos tos pačios tvarkos kaip rezultatų laukai: koncentracija, tūris, tarša, DIN, gyvybingumas
+    string Norma(int i) => "Norma: " + Formatai.Norma(DnrTinkamumoAnalize.Normos[i]);
+}
+
+<form class="kortele" method="post" novalidate>
+    <partial name="_PavyzdzioLaukai" model="Model" />
+    <fieldset>
+        <legend>Analizės rezultatai</legend>
+        <div class="tinklelis">
+            <div laukas-for="DnrKoncentracija">
+                <label asp-for="DnrKoncentracija"></label>
+                <input asp-for="DnrKoncentracija" type="number" step="0.01" min="0">
+                <p class="pagalba">@Norma(1)</p>
+            </div>
+            <div laukas-for="TirpaloTuris">
+                <label asp-for="TirpaloTuris"></label>
+                <input asp-for="TirpaloTuris" type="number" step="0.01" min="0">
+                <p class="pagalba">@Norma(2)</p>
+            </div>
+            <div laukas-for="BaltymuTarsa">
+                <label asp-for="BaltymuTarsa"></label>
+                <input asp-for="BaltymuTarsa" type="number" step="0.01" min="0">
+                <p class="pagalba">@Norma(3)</p>
+            </div>
+            <div laukas-for="DinVerte">
+                <label asp-for="DinVerte"></label>
+                <input asp-for="DinVerte" type="number" step="0.01" min="0">
+                <p class="pagalba">@Norma(4)</p>
+            </div>
+            <div laukas-for="LasteliuGyvybingumas">
+                <label asp-for="LasteliuGyvybingumas"></label>
+                <input asp-for="LasteliuGyvybingumas" type="number" step="0.01" min="0" max="100">
+                <p class="pagalba">@Norma(5)</p>
+            </div>
+        </div>
+    </fieldset>
+    <div class="mygtukai">
+        <button type="submit" class="mygtukas">Išsaugoti</button>
+        <a class="mygtukas antrinis" href="/dnrpavyzdziai">Atšaukti</a>
+    </div>
+</form>

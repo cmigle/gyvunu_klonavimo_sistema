@@ -1,0 +1,18 @@
+@model DnrPavyzdzioForma
+@{
+    ViewData["Title"] = "Naujo DNR pavyzdžio įvedimo langas";
+    ViewData["Posisteme"] = Posisteme.DnrPavyzdziai;
+    ViewData["Aprasas"] = "Analizės rezultatus galėsite įvesti vėliau.";
+    ViewData["Kelias"] = new[] { new KelioDalis("DNR pavyzdžiai", "/dnrpavyzdziai"), new KelioDalis("Naujas pavyzdys") };
+}
+
+<form class="kortele" method="post" novalidate>
+    <partial name="_PavyzdzioLaukai" model="Model" />
+    <div class="laukas zymimasis">
+        <label><input asp-for="SpausdintiEtikete"> Sugeneruoti ir spausdinti pavyzdžio etiketę</label>
+    </div>
+    <div class="mygtukai">
+        <button type="submit" class="mygtukas">Sukurti</button>
+        <a class="mygtukas antrinis" href="/dnrpavyzdziai">Atšaukti</a>
+    </div>
+</form>
