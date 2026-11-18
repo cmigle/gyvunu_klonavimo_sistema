@@ -54,7 +54,7 @@
                             {
                                 <a href="/uzsakymai/redaguoti/@u.Id">Redaguoti</a> <text>|</text>
                                 @* Patvirtintam užsakymui patvirtinimo langas nerodomas – sistema iš karto praneša, kad ištrinti negalima *@
-                                <form method="post" action="/uzsakymai/istrinti/@u.Id" style="display: inline"
+                                <form method="post" asp-action="Istrinti" asp-route-id="@u.Id" style="display: inline"
                                       data-patvirtinimas="@(u.Busena ? null : $"Ar tikrai norite ištrinti užsakymą {u.Numeris}? Šio veiksmo atšaukti negalima.")">
                                     <button type="submit" class="nuoroda pavojinga">Ištrinti</button>
                                 </form>
