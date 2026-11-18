@@ -17,6 +17,7 @@ node_modules/
 # Local configuration and uploaded files
 appsettings.*.local.json
 uploads/
+laiskai/
 
 # OS
 Thumbs.db
