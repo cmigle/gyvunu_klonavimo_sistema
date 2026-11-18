@@ -11,7 +11,7 @@ namespace GyvunuKlonavimoSistema.Controllers;
 
 // «control» DNR pavyzdžių valdiklis: nuskaito, kuria, keičia ir šalina esybę „DNR pavyzdys“
 [Authorize(Roles = Roles.Specialistas)]
-public class DnrPavyzdziaiController(KlonavimoDbContext db, TimeProvider laikas) : ValdiklisBase
+public class DnrPavyzdziaiController(KlonavimoDbContext db, UzsakymoPatvirtinimas patvirtinimas, TimeProvider laikas) : ValdiklisBase
 {
     private DateOnly Siandien => DateOnly.FromDateTime(laikas.GetLocalNow().DateTime);
 
@@ -138,6 +138,51 @@ public class DnrPavyzdziaiController(KlonavimoDbContext db, TimeProvider laikas)
         await db.SaveChangesAsync();
         Sekme($"DNR pavyzdys {pavyzdys.Kodas} ištrintas.");
         return RedirectToAction(nameof(Index));
+    }
+
+    // 2.20 pav. PA „Nustatyti DNR pavyzdžio tinkamumą“ (inicijuojama iš DNR pavyzdžių puslapio, 3.1.3 pav.)
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> NustatytiTinkamuma(int id)
+    {
+        var pavyzdys = await db.DnrPavyzdziai.FindAsync(id);
+        if (pavyzdys is null) return NeraPavyzdzio();
+        var analize = DnrTinkamumoAnalize.Analizuoti(pavyzdys);
+        if (!analize.GalimaNustatyti)
+        {
+            Klaida($"Pavyzdžio {pavyzdys.Kodas} tinkamumo nustatyti negalima, nes neįvesti analizės rezultatai: {string.Join(", ", analize.Truksta)}.");
+            return RedirectToAction(nameof(Index));
+        }
+
+        pavyzdys.Tinkamumas = analize.Statusas;
+        pavyzdys.TinkamumoData = Siandien;
+        await db.SaveChangesAsync();
+
+        if (analize.Statusas == Tinkamumai.Tinkamas)
+        {
+            // Tinkamas pavyzdys – augintinio užsakymas patvirtinamas ir klientui siunčiamas laiškas (3.1.17 pav.)
+            var uzsakymas = await patvirtinimas.PatvirtintiJeiTinkaAsync(pavyzdys.AugintinisId);
+            var apieUzsakyma = uzsakymas is null ? ""
+                : uzsakymas.Pranesimas?.Busena == true
+                    ? $" Užsakymas {uzsakymas.Numeris} automatiškai patvirtintas, klientui išsiųstas patvirtinimo laiškas."
+                    : $" Užsakymas {uzsakymas.Numeris} automatiškai patvirtintas, bet patvirtinimo laiško išsiųsti nepavyko.";
+            Sekme($"Analizė atlikta: pavyzdys {pavyzdys.Kodas} tinkamas klonuoti. Sugeneruotas sėkmingos analizės sertifikatas.{apieUzsakyma}");
+        }
+        else
+        {
+            Klaida($"Analizė atlikta: pavyzdys {pavyzdys.Kodas} netinkamas, neatitikimų: {analize.Neatitikimai.Count}.");
+        }
+        return RedirectToAction(nameof(Ataskaita), new { id });
+    }
+
+    // DNR pavyzdžio ataskaitos langas: sertifikatas arba atmetimo priežasčių suvestinė su detalia ataskaita
+    public async Task<IActionResult> Ataskaita(int id)
+    {
+        var pavyzdys = await db.DnrPavyzdziai.Include(d => d.Augintinis).FirstOrDefaultAsync(d => d.Id == id);
+        if (pavyzdys is null) return NeraPavyzdzio();
+        var ataskaita = new DnrAtaskaita(pavyzdys, DnrTinkamumoAnalize.Analizuoti(pavyzdys));
+        if (pavyzdys.Tinkamumas is null || !ataskaita.Analize.GalimaNustatyti)
+            Info($"Pavyzdžio {pavyzdys.Kodas} tinkamumas dar nenustatytas. Analizę inicijuokite DNR pavyzdžių puslapyje.");
+        return View(ataskaita);
     }
 
     private IActionResult NeraPavyzdzio() => Nera("DNR pavyzdys nerastas.", "/dnrpavyzdziai", "Grįžti į sąrašą");

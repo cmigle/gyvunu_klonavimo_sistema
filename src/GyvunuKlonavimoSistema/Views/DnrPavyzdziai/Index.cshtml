@@ -58,6 +58,13 @@
                         <td class="veiksmai">
                             <a href="/dnrpavyzdziai/perziura/@x.Id">Peržiūrėti</a> |
                             <a href="/dnrpavyzdziai/redaguoti/@x.Id">Redaguoti</a> |
+                            @if (x.RezultataiIvesti)
+                            {
+                                <form method="post" asp-action="NustatytiTinkamuma" asp-route-id="@x.Id" style="display: inline">
+                                    <button type="submit" class="nuoroda">Nustatyti tinkamumą</button>
+                                </form>
+                                <text>|</text>
+                            }
                             <form method="post" asp-action="Istrinti" asp-route-id="@x.Id" style="display: inline"
                                   data-patvirtinimas="Ar tikrai norite ištrinti DNR pavyzdį @x.Kodas? Šio veiksmo atšaukti negalima.">
                                 <button type="submit" class="nuoroda pavojinga">Ištrinti</button>
