@@ -1,0 +1,10 @@
+@model DarbuotojoForma
+@{
+    ViewData["Title"] = "Darbuotojo sukūrimo langas";
+    ViewData["Posisteme"] = Posisteme.Darbuotojai;
+    ViewData["Aprasas"] = "Naujam darbuotojui nustatykite pradinį slaptažodį, kuriuo jis prisijungs prie sistemos.";
+    ViewData["Kelias"] = new[] { new KelioDalis("Darbuotojai", "/darbuotojai"), new KelioDalis("Naujas darbuotojas") };
+    ViewData["Kuriama"] = true;
+}
+
+<partial name="_Forma" model="Model" />
