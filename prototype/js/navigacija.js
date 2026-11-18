@@ -252,7 +252,7 @@ function pieštiLegenda() {
     const footer = document.querySelector("footer");
     if (!footer) return;
     footer.innerHTML = `<div class="vidus">
-        <span>© 2026 Gyvūnų klonavimo sistema. Komanda „Šešta koja“, KTU</span>
+        <span>© 2026 Gyvūnų klonavimo sistema. Komanda „Šešta koja“</span>
         <div class="legenda" aria-label="Komandos spalvinė legenda">
             <span style="--c: var(--vytaute)">Vytautė Pratkevičiūtė</span>
             <span style="--c: var(--evelina)">Evelina Riukaitė</span>

@@ -1,6 +1,6 @@
 # Dokumentacija
 
-Gyvūnų klonavimo sistemos modeliai ir projektas, parengti P170B114 „Informacinių sistemų pagrindai“ laboratoriniams darbams. Skyrių numeracija atitinka ataskaitos šabloną.
+Gyvūnų klonavimo sistemos modeliai ir projektas: nuo reikalavimų ir analizės modelių iki architektūros, duomenų bazės ir realizacijos.
 
 | Skyrius | Turinys |
 |---|---|

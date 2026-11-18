@@ -1,6 +1,6 @@
 # GUI prototipas
 
-Gyvūnų klonavimo sistemos naudotojo sąsajos prototipas (HTML, CSS, JS, be serverio dalies), parengtas 3-iam laboratoriniam darbui. Langų pavadinimai sutampa su reikalavimų analizės diagramų «boundary» klasėmis.
+Gyvūnų klonavimo sistemos naudotojo sąsajos prototipas (HTML, CSS, JS, be serverio dalies). Langų pavadinimai sutampa su reikalavimų analizės diagramų «boundary» klasėmis.
 
 ## Paleidimas
 
