@@ -1,0 +1,23 @@
+@model InkubatoriausBusenosForma
+@{
+    ViewData["Title"] = "Inkubatoriaus būsenos redagavimo langas";
+    ViewData["Posisteme"] = Posisteme.Inkubatoriai;
+    ViewData["Kelias"] = new[] { new KelioDalis("Inkubatoriai", "/inkubatoriai"), new KelioDalis("Būsenos redagavimas") };
+}
+
+<form class="kortele" method="post" novalidate>
+    <div class="tinklelis">
+        <div laukas-for="Busena">
+            <label asp-for="Busena"></label>
+            <select asp-for="Busena">
+                <option value="false">Laisvas</option>
+                <option value="true">Užimtas</option>
+            </select>
+        </div>
+    </div>
+    <partial name="_Parametrai" model="Model" />
+    <div class="mygtukai">
+        <button type="submit" class="mygtukas">Išsaugoti</button>
+        <a class="mygtukas antrinis" asp-action="Index">Atšaukti</a>
+    </div>
+</form>

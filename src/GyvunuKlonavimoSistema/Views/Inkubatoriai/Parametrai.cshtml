@@ -1,0 +1,76 @@
+@model InkubatoriausParametruModelis
+@{
+    ViewData["Title"] = "Inkubatoriaus parametrų langas";
+    ViewData["Posisteme"] = Posisteme.Inkubatoriai;
+    ViewData["Kelias"] = new[] { new KelioDalis("Inkubatoriai", "/inkubatoriai"), new KelioDalis("Parametrai") };
+    var i = Model.Inkubatorius;
+    var k = Model.Klonavimas;
+}
+
+<div class="du-stulpeliai">
+    <div class="kortele">
+        <div class="korteles-virsus"><h2>@i.Modelis</h2>@Html.Zyma(i.BusenosPavadinimas)</div>
+        <dl class="duomenys">
+            <dt>Modelis</dt><dd>@i.Modelis</dd>
+            <dt>Serijinis numeris</dt><dd>@i.SerijinisNumeris</dd>
+            <dt>Tikslinė temperatūra</dt><dd>@Formatai.SuVienetais(i.TikslineTemperatura, "°C", 1)</dd>
+            <dt>Talpa</dt><dd>@Formatai.SuVienetais(i.Talpa, "l")</dd>
+            <dt>CO₂</dt><dd>@Formatai.SuVienetais(i.Co2Procentas, "%", 1)</dd>
+            <dt>O₂</dt><dd>@Formatai.SuVienetais(i.O2Procentas, "%", 1)</dd>
+            <dt>pH lygis</dt><dd>@Formatai.Skaicius(i.PhLygis, 2)</dd>
+            <dt>Būsena</dt><dd>@i.BusenosPavadinimas</dd>
+        </dl>
+    </div>
+    <div class="kortele">
+        <h2>Vykdomas klonavimas</h2>
+        <dl class="duomenys">
+            <dt>Klonavimas</dt><dd>@(k?.Numeris ?? "Inkubatoriuje klonavimas nevykdomas")</dd>
+            <dt>Augintinis</dt><dd>@(k?.Uzsakymas.Augintinis.Pavadinimas ?? Formatai.Bruksnys)</dd>
+            <dt>DNR pavyzdys</dt>
+            <dd>
+                @if (k is null)
+                {
+                    @Formatai.Bruksnys
+                }
+                else
+                {
+                    <a href="/dnrpavyzdziai/perziura/@k.DnrPavyzdysId">@k.DnrPavyzdys.Kodas</a>
+                }
+            </dd>
+            <dt>Specialistas</dt><dd>@(k?.LaboratorijosSpecialistas?.VardasPavarde ?? Formatai.Bruksnys)</dd>
+            <dt>Laikotarpis</dt><dd>@(k is null ? Formatai.Bruksnys : $"{Formatai.Data(k.PradziosData)} – {Formatai.Data(k.PabaigosData)}")</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="kortele lenteles-kortele">
+    <div class="korteles-virsus"><h2>Inkubatoriaus matavimai</h2></div>
+    <div class="slinktis">
+        <table>
+            <thead><tr><th>Matavimo data</th><th class="skaicius">Temperatūra</th><th class="skaicius">Nuokrypis nuo tikslinės</th><th class="skaicius">Drėgmė</th></tr></thead>
+            <tbody>
+                @foreach (var m in Model.Matavimai)
+                {
+                    var nuokrypis = Math.Round((m.Temperatura - i.TikslineTemperatura) * 10) / 10;
+                    var zenklas = nuokrypis > 0 ? "+" : nuokrypis < 0 ? "−" : "±";
+                    var tinka = Math.Abs(nuokrypis) <= GyvunuKlonavimoSistema.Services.KlonavimoNormos.LeidziamasTemperaturosNuokrypis;
+                    <tr>
+                        <td>@Formatai.DataLaikas(m.MatavimoData)</td>
+                        <td class="skaicius">@Formatai.SuVienetais(m.Temperatura, "°C", 1)</td>
+                        <td class="skaicius">@Html.Zyma($"{zenklas}{Formatai.Skaicius(Math.Abs(nuokrypis), 1)} °C", tinka ? "sekme" : "klaida")</td>
+                        <td class="skaicius">@Formatai.SuVienetais(m.Dregme, "%", 1)</td>
+                    </tr>
+                }
+                @if (Model.Matavimai.Count == 0)
+                {
+                    <tr><td class="tuscia" colspan="4">Matavimų dar nėra.</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="mygtukai">
+    <a class="mygtukas" asp-action="Busena" asp-route-id="@i.Id">Redaguoti būseną</a>
+    <a class="mygtukas antrinis" asp-action="Index">Grįžti į sąrašą</a>
+</div>
