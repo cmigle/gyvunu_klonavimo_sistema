@@ -1,0 +1,58 @@
+@model DarbuotojoTyrimuModelis
+@{
+    var d = Model.Darbuotojas;
+    var specialistas = d is LaboratorijosSpecialistas;
+    ViewData["Title"] = "Darbuotojo tyrimų sąrašo langas";
+    ViewData["Posisteme"] = Posisteme.Darbuotojai;
+    ViewData["Aprasas"] = $"{d.VardasPavarde}, {DarbuotojuRoles.Pavadinimas(d).ToLower()}.";
+    ViewData["Kelias"] = new[] { new KelioDalis("Darbuotojai", "/darbuotojai"), new KelioDalis("Tyrimai") };
+    var pasirinkimai = specialistas ? Model.Specialistai.Cast<Darbuotojas>() : Model.Specialistai.Prepend(d);
+}
+@section Mygtukai {
+    <label class="pasirinkimas">Specialistas
+        <select onchange="location.href = '/darbuotojai/tyrimai/' + this.value">
+            @foreach (var x in pasirinkimai)
+            {
+                if (x.Id == d.Id)
+                {
+                    <option value="@x.Id" selected>@x.VardasPavarde</option>
+                }
+                else
+                {
+                    <option value="@x.Id">@x.VardasPavarde</option>
+                }
+            }
+        </select>
+    </label>
+}
+
+<div class="kortele lenteles-kortele">
+    <div class="slinktis">
+        <table>
+            <thead><tr><th>Nr.</th><th>Augintinis</th><th>Užsakymas</th><th>Pradžios data</th><th>Pabaigos data</th><th>Rezultatas</th><th>Būsena</th><th></th></tr></thead>
+            <tbody>
+                @foreach (var k in Model.Tyrimai)
+                {
+                    <tr>
+                        <td><a class="pagrindinis" asp-action="Tyrimas" asp-route-id="@k.Id">@k.Numeris</a></td>
+                        <td>@k.Uzsakymas.Augintinis.Vardas<small>@k.Uzsakymas.Augintinis.Tipas</small></td>
+                        <td>@k.Uzsakymas.Numeris</td>
+                        <td>@Formatai.Data(k.PradziosData)</td>
+                        <td>@Formatai.Data(k.PabaigosData)</td>
+                        <td>@(k.Rezultatas ?? Formatai.Bruksnys)</td>
+                        <td>@Html.Zyma(k.BusenosPavadinimas)</td>
+                        <td class="veiksmai"><a asp-action="Tyrimas" asp-route-id="@k.Id">Peržiūrėti</a></td>
+                    </tr>
+                }
+                @if (Model.Tyrimai.Count == 0)
+                {
+                    <tr><td class="tuscia" colspan="8">@(specialistas ? "Šis darbuotojas tyrimų neturi." : "Administratorius tyrimų neatlieka.")</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="mygtukai">
+    <a class="mygtukas antrinis" asp-action="Index">Grįžti į darbuotojų sąrašą</a>
+</div>
