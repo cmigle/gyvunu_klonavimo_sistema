@@ -1,0 +1,50 @@
+@model RegistracijosForma
+@{
+    ViewData["Title"] = "Registracijos langas";
+    ViewData["Posisteme"] = Posisteme.KlientaiIrAugintiniai;
+    ViewData["Centruotas"] = true;
+}
+
+<div class="prisijungimo-kortele platesne">
+    <span class="posisteme">Kliento ir augintinio valdymas</span>
+    <h1>Registracijos langas</h1>
+    <p class="aprasas">Sukurkite kliento paskyrą.</p>
+    <partial name="_Pranesimas" />
+    <form method="post" novalidate>
+        <div class="du-laukai">
+            <div laukas-for="Vardas">
+                <label asp-for="Vardas"></label>
+                <input asp-for="Vardas" autocomplete="given-name">
+            </div>
+            <div laukas-for="Pavarde">
+                <label asp-for="Pavarde"></label>
+                <input asp-for="Pavarde" autocomplete="family-name">
+            </div>
+        </div>
+        <div laukas-for="ElPastas">
+            <label asp-for="ElPastas"></label>
+            <input asp-for="ElPastas" type="email" autocomplete="email">
+        </div>
+        <div class="du-laukai">
+            <div laukas-for="TelefonoNumeris">
+                <label asp-for="TelefonoNumeris"></label>
+                <input asp-for="TelefonoNumeris" type="tel" placeholder="+370 6xx xxxxx" autocomplete="tel">
+            </div>
+            <div laukas-for="AsmensKodas">
+                <label asp-for="AsmensKodas"></label>
+                <input asp-for="AsmensKodas" inputmode="numeric" title="11 skaitmenų">
+            </div>
+        </div>
+        <div laukas-for="Slaptazodis">
+            <label asp-for="Slaptazodis"></label>
+            <input asp-for="Slaptazodis" autocomplete="new-password">
+            <p class="pagalba">Ne mažiau kaip 8 simboliai.</p>
+        </div>
+        <div laukas-for="Slaptazodis2">
+            <label asp-for="Slaptazodis2"></label>
+            <input asp-for="Slaptazodis2" autocomplete="new-password">
+        </div>
+        <button type="submit" class="mygtukas platus">Registruotis</button>
+    </form>
+    <p class="apacioje">Jau turite paskyrą? <a asp-controller="Prisijungimas" asp-action="Index">Prisijunkite</a></p>
+</div>

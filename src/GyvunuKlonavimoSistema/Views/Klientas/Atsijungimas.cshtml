@@ -1,0 +1,13 @@
+@{
+    ViewData["Title"] = "Atsijungimo langas";
+    ViewData["Posisteme"] = Posisteme.KlientaiIrAugintiniai;
+    ViewData["Kelias"] = new[] { new KelioDalis("Atsijungimas") };
+}
+
+<div class="kortele">
+    <p>Prisijungęs: @User.Identity!.Name (@Roles.Pavadinimas(User.Role())). Ar norite atsijungti nuo sistemos?</p>
+    <form method="post" class="mygtukai">
+        <button type="submit" class="mygtukas">Atsijungti</button>
+        <a class="mygtukas antrinis" href="/">Grįžti</a>
+    </form>
+</div>
