@@ -1,0 +1,125 @@
+@model Uzsakymas
+@{
+    var klientas = User.Role() == Roles.Klientas;
+    var a = Model.Augintinis;
+    var pavyzdys = a.DnrPavyzdys;
+    var kl = Model.Klonavimas;
+    ViewData["Title"] = "Užsakymo peržiūros langas";
+    ViewData["Posisteme"] = Posisteme.Uzsakymai;
+    ViewData["Kelias"] = new[] { new KelioDalis("Užsakymai", "/uzsakymai"), new KelioDalis("Užsakymas") };
+}
+
+<div class="kortele">
+    <div class="korteles-virsus"><h2>Užsakymas @Model.Numeris</h2>@Html.Zyma(Model.BusenosPavadinimas)</div>
+    <dl class="duomenys">
+        <dt>Užsakymo numeris</dt><dd>@Model.Numeris</dd>
+        <dt>Klientas</dt><dd>@a.Klientas.VardasPavarde</dd>
+        <dt>Augintinis</dt>
+        <dd>
+            @if (klientas)
+            {
+                <a href="/augintiniai/perziura/@a.Id">@a.Pavadinimas</a>
+            }
+            else
+            {
+                @a.Pavadinimas
+            }
+        </dd>
+        <dt>Kaina</dt><dd>@Formatai.Pinigai(Model.Kaina)</dd>
+        <dt>Sukūrimo data</dt><dd>@Formatai.Data(Model.SukurimoData)</dd>
+        <dt>Būsena</dt><dd>@Model.BusenosPavadinimas</dd>
+        <dt>Patvirtinimo data</dt><dd>@Formatai.Data(Model.PatvirtinimoData)</dd>
+    </dl>
+</div>
+
+<div class="du-stulpeliai">
+    <div class="kortele">
+        <h2>DNR pavyzdys</h2>
+        <dl class="duomenys">
+            <dt>Pavyzdžio ID</dt>
+            <dd>
+                @if (pavyzdys is null)
+                {
+                    <text>Pavyzdys dar nepaimtas</text>
+                }
+                else if (klientas)
+                {
+                    @pavyzdys.Kodas
+                }
+                else
+                {
+                    <a href="/dnrpavyzdziai/perziura/@pavyzdys.Id">@pavyzdys.Kodas</a>
+                }
+            </dd>
+            <dt>Paėmimo data</dt><dd>@Formatai.Data(pavyzdys?.PaemimoData)</dd>
+            <dt>Tinkamumas</dt>
+            <dd>
+                @if (pavyzdys is null)
+                {
+                    @Formatai.Bruksnys
+                }
+                else
+                {
+                    @Html.Zyma(pavyzdys.Tinkamumas ?? Tinkamumai.Neivertintas)
+                }
+            </dd>
+        </dl>
+    </div>
+    <div class="kortele">
+        <h2>Klonavimas</h2>
+        <dl class="duomenys">
+            <dt>Būsena</dt>
+            <dd>
+                @if (kl is null)
+                {
+                    <text>Nepradėtas</text>
+                }
+                else
+                {
+                    @kl.Numeris @Html.Zyma(kl.BusenosPavadinimas)
+                }
+            </dd>
+            <dt>Laikotarpis</dt><dd>@(kl is null ? Formatai.Bruksnys : $"{Formatai.Data(kl.PradziosData)} – {Formatai.Data(kl.PabaigosData)}")</dd>
+            <dt>Inkubatorius</dt>
+            <dd>
+                @if (kl?.Inkubatorius is null)
+                {
+                    @Formatai.Bruksnys
+                }
+                else if (klientas)
+                {
+                    @kl.Inkubatorius.Modelis
+                }
+                else
+                {
+                    <a href="/inkubatoriai/parametrai/@kl.Inkubatorius.Id">@kl.Inkubatorius.Modelis</a>
+                }
+            </dd>
+            <dt>Rezultatas</dt><dd>@(kl?.Rezultatas ?? Formatai.Bruksnys)</dd>
+        </dl>
+    </div>
+</div>
+
+@if (Model.Pranesimas is { } pranesimas)
+{
+    @* 3.1.17 pav.: pranešimas, išsiųstas per laiško šabloną *@
+    <div class="kortele">
+        <div class="korteles-virsus"><h2>Pranešimas apie užsakymo patvirtinimą</h2>@Html.Zyma(pranesimas.BusenosPavadinimas)</div>
+        <div class="laiskas">
+            <div class="laisko-antraste">
+                <span><b>Kam:</b> @a.Klientas.ElPastas</span>
+                <span><b>Išsiųsta:</b> @Formatai.DataLaikas(pranesimas.SiuntimoData)</span>
+            </div>
+            <pre>@pranesimas.Tekstas</pre>
+        </div>
+    </div>
+}
+
+<div class="mygtukai">
+    @if (klientas && !Model.Busena)
+    {
+        <a class="mygtukas" href="/uzsakymai/redaguoti/@Model.Id">Redaguoti</a>
+    }
+    <a class="mygtukas" href="/dokumentai?augintinisId=@a.Id">Augintinio dokumentai</a>
+    <a class="mygtukas antrinis" href="/uzsakymai">Grįžti į sąrašą</a>
+</div>
