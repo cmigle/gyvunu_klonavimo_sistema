@@ -642,7 +642,6 @@ PUSLAPIAI["uzsakymas-redaguoti.html"] = () => {
     const u = pagalParametra("uzsakymas", klientoUzsakymai(k.id));
     if (!u) return nera("Užsakymas nerastas.", "uzsakymai.html", "Grįžti į sąrašą");
     const forma = $("#uzsakymo-forma");
-    const perziura = $("#pakeitimu-perziura");
     $("#aprasas").textContent = `Redaguojamas užsakymas ${uzsakymoNr(u)}.`;
     if (u.busena) {
         forma.hidden = true;
@@ -655,32 +654,10 @@ PUSLAPIAI["uzsakymas-redaguoti.html"] = () => {
     augintinis.addEventListener("change", () => rodytiKaina(augintinis));
     rodytiKaina(augintinis);
 
-    // Pateikiama pakeistų duomenų peržiūra
     kaiPateikta(forma, d => {
-        const buvo = rasti("augintiniai", u.augintinis);
-        const bus = rasti("augintiniai", d.augintinis);
-        const sarasas = [
-            ["Augintinis", augintinioPavadinimas(buvo), augintinioPavadinimas(bus)],
-            ["Kaina", pinigai(u.kaina), pinigai(kainaPagalTipa(bus.tipas))]
-        ];
-        $("tbody", perziura).innerHTML = sarasas.map(([laukas, x, y]) =>
-            `<tr${x !== y ? ' class="parinktas"' : ""}><td>${laukas}</td><td>${esc(x)}</td><td><strong>${esc(y)}</strong></td></tr>`).join("");
-        $("#pranesimas").innerHTML = "";
-        forma.hidden = true;
-        perziura.hidden = false;
-    });
-    $("#grizti-redaguoti").addEventListener("click", () => {
-        perziura.hidden = true;
-        forma.hidden = false;
-    });
-    $("#issaugoti").addEventListener("click", () => {
         // Patikrinami pakeisti duomenys; klaidingi laukai nurodomi redagavimo formoje
-        const a = rasti("augintiniai", augintinis.value);
-        if (!a || a.klientas !== k.id || (a.id !== u.augintinis && augintinioUzsakymas(a.id))) {
-            perziura.hidden = true;
-            forma.hidden = false;
-            return pazymetiLaukus([augintinis]);
-        }
+        const a = rasti("augintiniai", d.augintinis);
+        if (!a || a.klientas !== k.id || (a.id !== u.augintinis && augintinioUzsakymas(a.id))) return pazymetiLaukus([augintinis]);
         atnaujinti("uzsakymai", u.id, { augintinis: a.id, kaina: kainaPagalTipa(a.tipas) });
         eiti("uzsakymai.html", `Užsakymas ${uzsakymoNr(u)} sėkmingai atnaujintas.`);
     });
