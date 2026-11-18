@@ -2,9 +2,9 @@
 
 [![CI](https://github.com/cmigle/gyvunu_klonavimo_sistema/actions/workflows/ci.yml/badge.svg)](https://github.com/cmigle/gyvunu_klonavimo_sistema/actions/workflows/ci.yml)
 
-An information system for a pet cloning laboratory: clients register their pets and order cloning, lab specialists analyse DNA samples and run incubators, administrators manage staff and their workload. A team project for the *Information Systems Fundamentals* course (P170B114) at Kaunas University of Technology that goes from UML requirements and analysis models through a clickable prototype to a working ASP.NET Core MVC application.
+An information system for a pet cloning laboratory: clients register their pets and order cloning, lab specialists analyse DNA samples and run incubators, administrators manage staff and their workload. A five-person team project that goes from UML requirements and analysis models through a clickable prototype to a working ASP.NET Core MVC application.
 
-The user interface and the domain model are in Lithuanian, as the course required; class, controller and table names follow the UML vocabulary one-to-one.
+The user interface and the domain model are in Lithuanian; class, controller and table names follow the UML vocabulary one-to-one.
 
 **Try the clickable prototype:** <https://cmigle.github.io/gyvunu_klonavimo_sistema/> – runs entirely in the browser with demo data; pick a demo account in the top bar.
 

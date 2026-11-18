@@ -1,6 +1,6 @@
 // Gyvūnų klonavimo sistema – langų turinys iš demonstracinių duomenų
 // Kiekvienam langui – funkcija, kuri užpildo jį duomenimis ir aprašo veiksmus
-// pagal panaudojimo atvejų sekų diagramas (ataskaitos 2.2 skyrius).
+// pagal panaudojimo atvejų sekų diagramas (dokumentacijos 2.2 skyrius).
 
 const PUSLAPIAI = {};
 const $ = (selektorius, kur = document) => kur.querySelector(selektorius);
