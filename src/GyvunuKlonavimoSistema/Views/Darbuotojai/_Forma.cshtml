@@ -1,0 +1,83 @@
+@model DarbuotojoForma
+@{
+    var kuriama = ViewData["Kuriama"] as bool? == true;
+}
+
+<form class="kortele" method="post" novalidate>
+    <div class="tinklelis">
+        <div laukas-for="Vardas">
+            <label asp-for="Vardas"></label>
+            <input asp-for="Vardas">
+        </div>
+        <div laukas-for="Pavarde">
+            <label asp-for="Pavarde"></label>
+            <input asp-for="Pavarde">
+        </div>
+        <div laukas-for="TelefonoNumeris">
+            <label asp-for="TelefonoNumeris"></label>
+            <input asp-for="TelefonoNumeris" type="tel" placeholder="+370 6xx xxxxx">
+        </div>
+        <div laukas-for="ElPastas">
+            <label asp-for="ElPastas"></label>
+            <input asp-for="ElPastas" type="email">
+        </div>
+        <div laukas-for="Etatas">
+            <label asp-for="Etatas"></label>
+            <input asp-for="Etatas" type="number" step="0.25" min="0.25" max="1">
+            <p class="pagalba">Nuo 0,25 iki 1 (žingsnis 0,25).</p>
+        </div>
+        <div laukas-for="Role">
+            <label asp-for="Role"></label>
+            @if (kuriama)
+            {
+                <select asp-for="Role">
+                    <option value="">Pasirinkite…</option>
+                    <option value="@Roles.Specialistas">Laboratorijos specialistas</option>
+                    <option value="@Roles.Administratorius">Administratorius</option>
+                </select>
+            }
+            else
+            {
+                @* Rolė nekeičiama: kitai rolei reikėtų kito tipo esybės *@
+                <input id="Role" value="@Roles.Pavadinimas(Model.Role)" disabled>
+                <p class="pagalba">Sukurto darbuotojo rolės pakeisti negalima.</p>
+            }
+        </div>
+        <div laukas-for="Slaptazodis">
+            <label asp-for="Slaptazodis">@(kuriama ? "Pradinis slaptažodis" : "Naujas slaptažodis")</label>
+            <input asp-for="Slaptazodis" autocomplete="new-password">
+            <p class="pagalba">@(kuriama ? "Ne mažiau kaip 8 simboliai; juo darbuotojas prisijungs prie sistemos." : "Palikite tuščią, jei slaptažodžio keisti nereikia.")</p>
+        </div>
+    </div>
+    <fieldset id="specialisto-laukai" hidden="@(!Model.Specialistas)">
+        <legend>Laboratorijos specialisto duomenys</legend>
+        <div class="tinklelis">
+            <div laukas-for="LicencijosNumeris">
+                <label asp-for="LicencijosNumeris"></label>
+                <input asp-for="LicencijosNumeris">
+            </div>
+            <div laukas-for="Busena">
+                <label asp-for="Busena"></label>
+                <select asp-for="Busena">
+                    <option value="true">Aktyvus</option>
+                    <option value="false">Neaktyvus</option>
+                </select>
+            </div>
+        </div>
+    </fieldset>
+    <div class="mygtukai">
+        <button type="submit" class="mygtukas">@(kuriama ? "Sukurti" : "Išsaugoti")</button>
+        <a class="mygtukas antrinis" asp-action="Index">Atšaukti</a>
+    </div>
+</form>
+
+@if (kuriama)
+{
+    <script>
+        // Licencija ir būsena – tik laboratorijos specialistui
+        const role = document.getElementById("Role");
+        role.addEventListener("change", () => {
+            document.getElementById("specialisto-laukai").hidden = role.value !== "@Roles.Specialistas";
+        });
+    </script>
+}

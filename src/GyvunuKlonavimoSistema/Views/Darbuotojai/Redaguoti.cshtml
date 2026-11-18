@@ -1,0 +1,8 @@
+@model DarbuotojoForma
+@{
+    ViewData["Title"] = "Darbuotojo redagavimo langas";
+    ViewData["Posisteme"] = Posisteme.Darbuotojai;
+    ViewData["Kelias"] = new[] { new KelioDalis("Darbuotojai", "/darbuotojai"), new KelioDalis("Redagavimas") };
+}
+
+<partial name="_Forma" model="Model" />

@@ -1,0 +1,40 @@
+@model Klonavimas
+@{
+    var k = Model;
+    var u = k.Uzsakymas;
+    var specialistoId = k.LaboratorijosSpecialistasId;
+    var tyrimai = specialistoId is null ? "/darbuotojai" : $"/darbuotojai/tyrimai/{specialistoId}";
+    ViewData["Title"] = "Tyrimo peržiūros langas";
+    ViewData["Posisteme"] = Posisteme.Darbuotojai;
+    ViewData["Kelias"] = new[] { new KelioDalis("Darbuotojai", "/darbuotojai"), new KelioDalis("Tyrimai", tyrimai), new KelioDalis("Tyrimas") };
+}
+
+<div class="du-stulpeliai">
+    <div class="kortele">
+        <div class="korteles-virsus"><h2>Tyrimas @k.Numeris</h2>@Html.Zyma(k.BusenosPavadinimas)</div>
+        <dl class="duomenys">
+            <dt>Tyrimo (klonavimo) nr.</dt><dd>@k.Numeris</dd>
+            <dt>Specialistas</dt><dd>@(k.LaboratorijosSpecialistas?.VardasPavarde ?? Formatai.Bruksnys)</dd>
+            <dt>Pradžios data</dt><dd>@Formatai.Data(k.PradziosData)</dd>
+            <dt>Pabaigos data</dt><dd>@Formatai.Data(k.PabaigosData)</dd>
+            <dt>Trukmė</dt><dd>@k.TrukmeDienomis d.</dd>
+            <dt>Rezultatas</dt><dd>@(k.Rezultatas ?? Formatai.Bruksnys)</dd>
+            <dt>Specialisto patvirtinimas</dt><dd>@Html.Zyma(k.SpecialistoPatvirtinimas ? "Taip" : "Ne")</dd>
+            <dt>Būsena</dt><dd>@k.BusenosPavadinimas</dd>
+        </dl>
+    </div>
+    <div class="kortele">
+        <h2>Susiję duomenys</h2>
+        <dl class="duomenys">
+            <dt>Užsakymas</dt><dd>@u.Numeris (@u.BusenosPavadinimas.ToLower())</dd>
+            <dt>Klientas</dt><dd>@u.Augintinis.Klientas.VardasPavarde</dd>
+            <dt>Augintinis</dt><dd>@u.Augintinis.Pavadinimas</dd>
+            <dt>DNR pavyzdys</dt><dd>@k.DnrPavyzdys.Kodas @Html.Zyma(k.DnrPavyzdys.Tinkamumas ?? Tinkamumai.Neivertintas)</dd>
+            <dt>Inkubatorius</dt><dd>@(k.Inkubatorius is null ? "Nepriskirtas" : $"{k.Inkubatorius.Modelis} ({k.Inkubatorius.SerijinisNumeris})")</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="mygtukai">
+    <a class="mygtukas antrinis" href="@tyrimai">Grįžti į tyrimų sąrašą</a>
+</div>

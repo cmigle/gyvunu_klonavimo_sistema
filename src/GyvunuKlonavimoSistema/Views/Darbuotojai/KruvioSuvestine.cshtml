@@ -1,0 +1,48 @@
+@model KruvioSuvestinesModelis
+@using GyvunuKlonavimoSistema.Services
+@{
+    ViewData["Title"] = "Darbo krūvio suvestinės langas";
+    ViewData["Posisteme"] = Posisteme.Darbuotojai;
+    ViewData["Aprasas"] = $"Suformuota {Formatai.DataLaikas(Model.Suformuota)}. Laboratorijos specialistų: {Model.Kruviai.Count}.";
+    ViewData["Kelias"] = new[]
+    {
+        new KelioDalis("Darbuotojai", "/darbuotojai"), new KelioDalis("Krūvio analizė", "/darbuotojai/kruvioanalize"), new KelioDalis("Suvestinė")
+    };
+}
+
+<partial name="_Rodikliai" model="Model.Rodikliai" />
+
+<div class="kortele lenteles-kortele">
+    <div class="korteles-virsus"><h2>Darbuotojų darbo krūvio suvestinė</h2></div>
+    <div class="slinktis">
+        <table>
+            <thead><tr><th>Darbuotojas</th><th class="skaicius">Etatas</th><th class="skaicius">Aktyvūs klonavimai</th><th class="skaicius">Bendra trukmė</th><th>Darbo krūvis</th><th>Užimtumo lygis</th></tr></thead>
+            <tbody>
+                @foreach (var r in Model.Kruviai)
+                {
+                    var juosta = r.Kruvis > 100 ? "klaida" : r.Kruvis < 70 ? "info" : null;
+                    var plotis = Math.Min(r.Kruvis, 100).ToString("0.#", System.Globalization.CultureInfo.InvariantCulture);
+                    <tr>
+                        <td><a class="pagrindinis" asp-action="Perziura" asp-route-id="@r.Specialistas.Id">@r.Specialistas.VardasPavarde</a><small>@r.Specialistas.BusenosPavadinimas</small></td>
+                        <td class="skaicius">@Formatai.Skaicius(r.Specialistas.Etatas)</td>
+                        <td class="skaicius">@r.AktyviuKiekis</td>
+                        <td class="skaicius">@r.Trukme d.</td>
+                        <td><div class="kruvis"><div class="juosta @juosta"><span style="width: @plotis%"></span></div><b>@Formatai.Skaicius(r.Kruvis, 1) %</b></div></td>
+                        <td>@Html.Zyma(r.Lygis)</td>
+                    </tr>
+                }
+                @if (Model.Kruviai.Count == 0)
+                {
+                    <tr><td class="tuscia" colspan="6">Laboratorijos specialistų nėra.</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <p class="pagalba" style="padding: 12px 20px 16px">@KruvioAnalizesModelis.Formule. Užimtumo lygis: mažas &lt; 70 %, normalus 70–100 %, didelis &gt; 100 %.</p>
+</div>
+
+<div class="mygtukai">
+    <button type="button" class="mygtukas" data-spausdinti>Spausdinti suvestinę</button>
+    <a class="mygtukas antrinis" asp-action="KruvioAnalize">Atlikti analizę iš naujo</a>
+    <a class="mygtukas antrinis" asp-action="Index">Darbuotojų sąrašas</a>
+</div>

@@ -1,0 +1,68 @@
+@model DarbuotojuSarasoModelis
+@{
+    ViewData["Title"] = "Darbuotojų sąrašo langas";
+    ViewData["Posisteme"] = Posisteme.Darbuotojai;
+    ViewData["Kelias"] = new[] { new KelioDalis("Darbuotojai") };
+}
+@section Mygtukai {
+    <a class="mygtukas antrinis" asp-action="KruvioAnalize">Krūvio analizė</a>
+    <a class="mygtukas" asp-action="Kurti">+ Sukurti darbuotoją</a>
+}
+
+<partial name="_Rodikliai" model="Model.Rodikliai" />
+
+<div class="kortele lenteles-kortele">
+    <div class="slinktis">
+        <table>
+            <thead><tr><th>Darbuotojas</th><th>El. paštas</th><th>Telefono nr.</th><th class="skaicius">Etatas</th><th>Rolė</th><th>Būsena</th><th></th></tr></thead>
+            <tbody>
+                @foreach (var d in Model.Darbuotojai)
+                {
+                    var specialistas = d as LaboratorijosSpecialistas;
+                    var savo = d.Id == User.Id();
+                    <tr>
+                        <td>
+                            <a class="pagrindinis" asp-action="Perziura" asp-route-id="@d.Id">@d.VardasPavarde</a>
+                            @if (specialistas is not null)
+                            {
+                                <small>Licencija @specialistas.LicencijosNumeris</small>
+                            }
+                        </td>
+                        <td>@d.ElPastas</td>
+                        <td>@d.TelefonoNumeris</td>
+                        <td class="skaicius">@Formatai.Skaicius(d.Etatas)</td>
+                        <td>@Html.Zyma(DarbuotojuRoles.Pavadinimas(d))</td>
+                        <td>
+                            @if (specialistas is null)
+                            {
+                                @Formatai.Bruksnys
+                            }
+                            else
+                            {
+                                @Html.Zyma(specialistas.BusenosPavadinimas)
+                            }
+                        </td>
+                        <td class="veiksmai">
+                            <a asp-action="Perziura" asp-route-id="@d.Id">Peržiūrėti</a> |
+                            <a asp-action="Redaguoti" asp-route-id="@d.Id">Redaguoti</a> |
+                            @if (specialistas is not null)
+                            {
+                                <a asp-action="Tyrimai" asp-route-id="@d.Id">Tyrimai</a> <text>|</text>
+                            }
+                            @* 2.24 pav.: atšaukus ištrynimą pranešama, kad darbuotojas nebuvo ištrintas; savo paskyros ištrinti negalima *@
+                            <form method="post" asp-action="Istrinti" asp-route-id="@d.Id" style="display: inline"
+                                  data-patvirtinimas="@(savo ? null : $"Ar tikrai norite ištrinti darbuotoją {d.VardasPavarde}? Šio veiksmo atšaukti negalima.")"
+                                  data-atsaukta="@(savo ? null : $"Ištrynimas atšauktas. Darbuotojas {d.VardasPavarde} nebuvo ištrintas.")">
+                                <button type="submit" class="nuoroda pavojinga">Ištrinti</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                @if (Model.Darbuotojai.Count == 0)
+                {
+                    <tr><td class="tuscia" colspan="7">Darbuotojų nėra.</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

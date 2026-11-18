@@ -1,0 +1,44 @@
+@model DarbuotojoPerziurosModelis
+@{
+    ViewData["Title"] = "Darbuotojo peržiūros langas";
+    ViewData["Posisteme"] = Posisteme.Darbuotojai;
+    ViewData["Kelias"] = new[] { new KelioDalis("Darbuotojai", "/darbuotojai"), new KelioDalis("Darbuotojas") };
+    var d = Model.Darbuotojas;
+    var specialistas = d as LaboratorijosSpecialistas;
+    var kruvis = Model.Kruvis;
+}
+
+<div class="du-stulpeliai">
+    <div class="kortele">
+        <div class="korteles-virsus"><h2>@d.VardasPavarde</h2>@Html.Zyma(DarbuotojuRoles.Pavadinimas(d))</div>
+        <dl class="duomenys">
+            <dt>Vardas</dt><dd>@d.Vardas</dd>
+            <dt>Pavardė</dt><dd>@d.Pavarde</dd>
+            <dt>Telefono numeris</dt><dd>@d.TelefonoNumeris</dd>
+            <dt>El. paštas</dt><dd>@d.ElPastas</dd>
+            <dt>Etatas</dt><dd>@Formatai.Skaicius(d.Etatas)</dd>
+            <dt>Rolė</dt><dd>@DarbuotojuRoles.Pavadinimas(d)</dd>
+        </dl>
+    </div>
+    @if (specialistas is not null && kruvis is not null)
+    {
+        <div class="kortele">
+            <h2>Laboratorijos specialisto duomenys</h2>
+            <dl class="duomenys">
+                <dt>Licencijos numeris</dt><dd>@specialistas.LicencijosNumeris</dd>
+                <dt>Būsena</dt><dd>@Html.Zyma(specialistas.BusenosPavadinimas)</dd>
+                <dt>Užduočių kiekis</dt><dd>@kruvis.AktyviuKiekis</dd>
+                <dt>Darbo krūvis</dt><dd>@Html.Zyma(kruvis.Lygis) @Formatai.Skaicius(kruvis.Kruvis, 1) %</dd>
+            </dl>
+        </div>
+    }
+</div>
+
+<div class="mygtukai">
+    <a class="mygtukas" asp-action="Redaguoti" asp-route-id="@d.Id">Redaguoti</a>
+    @if (specialistas is not null)
+    {
+        <a class="mygtukas" asp-action="Tyrimai" asp-route-id="@d.Id">Darbuotojo tyrimai</a>
+    }
+    <a class="mygtukas antrinis" asp-action="Index">Grįžti į sąrašą</a>
+</div>
